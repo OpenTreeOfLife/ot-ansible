@@ -2,12 +2,19 @@
 - name: Create a non-privileged user (e.g. the "opentree" user)
   user:
     name: "{{normaluser}}"
+    shell: /bin/bash
+  become: true
+  become_method: sudo
 
 - name: Create non-privileged user's .ssh dir
   file:
     state: directory
     mode: 0700
     path: "/home/{{normaluser}}/.ssh"
+    owner: "{{normaluser}}"
+    group: "{{normaluser}}"
+  become: true
+  become_method: sudo
 
 - name: Move the authorized key over from the admin account
   copy:
@@ -17,3 +24,5 @@
     group: "{{normaluser}}"
     mode: 0644
     remote_src: yes
+  become: true
+  become_method: sudo

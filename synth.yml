@@ -10,12 +10,21 @@
     # python2 might not be installed on server (e.g. Ubuntu16)
     - name: Install basic python packages, build tools and git
       become: true
+      become_method: sudo
       apt: name={{ item }} state=present
       with_items:
         - virtualenv
         - git-core
         - build-essential
         - python-dev
+        - python-apt
+
+#    - name: Install some system-wide python packages
+#      pip:
+#        name="{{ item }}"
+#        with_items:
+#          -
 
   roles:
-    - { role: users, become: yes, become_method: sudo}
+    - { role: users}
+    - { role: cplusplusdev}
