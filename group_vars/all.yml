@@ -1,0 +1,4 @@
+---
+normaluser: opentree
+adminuser: admin
+synth_dir: /home/{{normaluser}}/synth

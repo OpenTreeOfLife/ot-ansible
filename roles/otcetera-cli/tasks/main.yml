@@ -1,0 +1,7 @@
+---
+- name: Clone otcetera repo
+  git:
+    repo: https://github.com/mtholder/otcetera
+    dest: "{{ synth_dir }}/src/otcetera"
+    version: "{{ otcetera_synth_branch }}"
+
