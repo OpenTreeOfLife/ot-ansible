@@ -6,11 +6,13 @@
   become: true
   become_method: sudo
 
-- name: Install gcc-7 and g++-7
+- name: Install gcc-7 and g++-7 and autotools
   apt: name={{ item }} state=present
   with_items:
     - gcc-7
     - g++-7
+    - autoconf
+    - automake
   become: true
   become_method: sudo
 

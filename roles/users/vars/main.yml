@@ -1,4 +1,2 @@
 ---
 remote_user: "{{adminuser}}"
-become: yes
-become_method: sudo
