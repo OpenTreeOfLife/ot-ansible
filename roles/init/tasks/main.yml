@@ -1,0 +1,12 @@
+---
+# python2 might not be installed on server (e.g. Ubuntu16)
+- name: Install basic python packages, build tools and git
+  apt: name={{ item }} state=present
+  with_items:
+    - virtualenv
+    - git-core
+    - build-essential
+    - python-dev
+    - python-apt
+  become: true
+  become_method: sudo

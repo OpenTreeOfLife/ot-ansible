@@ -1,7 +1,17 @@
 ---
+
+- name: Create non-privileged user's .ssh dir
+  file:
+    state: directory
+    path: "{{ synth_dir }}/src"
+    owner: "{{normaluser}}"
+    group: "{{normaluser}}"
+  remote_user: "{{normaluser}}"
+
 - name: Clone otcetera repo
   git:
-    repo: https://github.com/mtholder/otcetera
+    repo: "{{ otcetera_git_remote }}"
     dest: "{{ synth_dir }}/src/otcetera"
     version: "{{ otcetera_synth_branch }}"
+  remote_user: "{{ normaluser }}"
 

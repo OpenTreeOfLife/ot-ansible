@@ -9,17 +9,7 @@
         that: '(ansible_version.major, ansible_version.minor, ansible_version.revision) >= (2, 5, 1)'
         msg: 'Please install the recommended version 2.5.1+. You have Ansible {{ ansible_version.string }}.'
       run_once: yes
-    # python2 might not be installed on server (e.g. Ubuntu16)
-    - name: Install basic python packages, build tools and git
-      become: true
-      become_method: sudo
-      apt: name={{ item }} state=present
-      with_items:
-        - virtualenv
-        - git-core
-        - build-essential
-        - python-dev
-        - python-apt
+
 
 #    - name: Install some system-wide python packages
 #      pip:
@@ -28,5 +18,7 @@
 #          -
 
   roles:
-    - { role: users}
-    - { role: cplusplusdev}
+    - init
+    - users
+    - cplusplusdev
+    - otcetera-cli
