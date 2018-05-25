@@ -2,7 +2,6 @@
 - hosts: nexttree
   gather_facts: False
 
-
   pre_tasks:
     - name: Check Ansible version
       assert:
@@ -10,15 +9,8 @@
         msg: 'Please install the recommended version 2.5.1+. You have Ansible {{ ansible_version.string }}.'
       run_once: yes
 
-
-#    - name: Install some system-wide python packages
-#      pip:
-#        name="{{ item }}"
-#        with_items:
-#          -
-
   roles:
     - init
     - users
     - cplusplusdev
-    - otcetera-cli
+    - fetch-otcetera-cli
