@@ -1,0 +1,20 @@
+---
+
+- name: Create a source dir in the synth dir
+  file:
+    state: directory
+    path: "{{ synth_dir }}/src"
+    owner: "{{normaluser}}"
+    group: "{{normaluser}}"
+
+- name: Clone otcetera repo
+  git:
+    repo: "{{ otcetera_git_remote }}"
+    dest: "{{ synth_dir }}/src/otcetera"
+    version: "{{ otcetera_synth_branch }}"
+
+- name: create the configure script for otcetera
+  command: bash bootstrap.sh
+  args:
+    chdir: "{{synth_dir}}/src/otcetera"
+    creates: "{{synth_dir}}/src/otcetera/configure"

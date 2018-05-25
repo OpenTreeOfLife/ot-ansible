@@ -1,0 +1,13 @@
+---
+- hosts: nexttree
+  gather_facts: False
+
+  pre_tasks:
+    - name: Check Ansible version
+      assert:
+        that: '(ansible_version.major, ansible_version.minor, ansible_version.revision) >= (2, 5, 1)'
+        msg: 'Please install the recommended version 2.5.1+. You have Ansible {{ ansible_version.string }}.'
+      run_once: yes
+
+  roles:
+    - build-otcetera-cli

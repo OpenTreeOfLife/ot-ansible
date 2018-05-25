@@ -1,0 +1,32 @@
+---
+
+- name: Pull otcetera repo
+  git:
+    repo: "{{ otcetera_git_remote }}"
+    dest: "{{ synth_dir }}/src/otcetera"
+    version: "{{ otcetera_synth_branch }}"
+
+- name: Create a build dir in the synth dir
+  file:
+    state: directory
+    path: "{{ synth_dir }}/buildotc"
+    owner: "{{normaluser}}"
+    group: "{{normaluser}}"
+
+- name: Create a installed prefix dir in the synth dir
+  file:
+    state: directory
+    path: "{{ synth_dir }}/installed"
+    owner: "{{normaluser}}"
+    group: "{{normaluser}}"
+
+- name: write reconf.sh script
+  template:
+    src: templates/reconf_sh.j2
+    dest: "{{ synth_dir }}/buildotc/reconf.sh"
+
+- name: Create the Makefiles by running our invocation of configure (via reconf.sh)
+  command: bash reconf.sh
+  args:
+    chdir: "{{synth_dir}}/buildotc"
+    creates: "{{synth_dir}}/buildotc/Makefile"

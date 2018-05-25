@@ -1,0 +1,4 @@
+---
+otcetera_synth_branch: master
+otcetera_git_remote: https://github.com/mtholder/otcetera
+ansible_user: opentree
