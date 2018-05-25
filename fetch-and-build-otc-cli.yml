@@ -10,4 +10,5 @@
       run_once: yes
 
   roles:
+    - fetch-otcetera-cli
     - build-otcetera-cli
