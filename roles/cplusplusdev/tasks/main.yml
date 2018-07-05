@@ -1,11 +1,5 @@
 ---
 # Install a nice, modern (in 2018) g++
-- name: Add the PPA for software that is considered "testing" on Ubuntu 16.04 (as of May, 2018)
-  apt_repository:
-    repo: ppa:ubuntu-toolchain-r/test
-  become: true
-  become_method: sudo
-
 - name: Install gcc-7 and g++-7 and autotools
   apt: name={{ item }} state=present
   with_items:
