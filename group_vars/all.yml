@@ -2,3 +2,6 @@
 normaluser: opentree
 adminuser: admin
 synth_dir: /home/{{normaluser}}/synth
+synth_venv: /home/{{normaluser}}/venv_synth
+otcetera_synth_branch: nexttree
+otcetera_git_remote: https://github.com/mtholder/otcetera

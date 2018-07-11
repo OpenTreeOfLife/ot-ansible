@@ -5,7 +5,7 @@
     chdir: "{{synth_dir}}/buildotc"
     target: all
     params:
-      NUM_THREADS: 2
+      NUM_THREADS: 6
 
 - name: Runs tests on the new otcetera build
   make:

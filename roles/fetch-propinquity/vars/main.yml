@@ -1,0 +1,4 @@
+---
+propinquity_branch: nexttree
+propinquity_git_remote: https://github.com/mtholder/propinquity
+ansible_user: opentree

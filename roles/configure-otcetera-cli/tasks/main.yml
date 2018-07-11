@@ -3,7 +3,7 @@
 - name: Pull otcetera repo
   git:
     repo: "{{ otcetera_git_remote }}"
-    dest: "{{ synth_dir }}/src/otcetera"
+    dest: "{{ synth_dir }}/otcetera"
     version: "{{ otcetera_synth_branch }}"
 
 - name: Create a build dir in the synth dir

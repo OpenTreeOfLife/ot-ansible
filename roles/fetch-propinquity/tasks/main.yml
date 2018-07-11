@@ -7,11 +7,11 @@
     owner: "{{normaluser}}"
     group: "{{normaluser}}"
 
-- name: Clone otcetera repo
+- name: Clone propinquity repo
   git:
-    repo: "{{ otcetera_git_remote }}"
-    dest: "{{ synth_dir }}/otcetera"
-    version: "{{ otcetera_synth_branch }}"
+    repo: "{{ propinquity_git_remote }}"
+    dest: "{{ synth_dir }}/propinquity"
+    version: "{{ propinquity_branch }}"
 
 - name: create the configure script for otcetera
   command: bash bootstrap.sh
