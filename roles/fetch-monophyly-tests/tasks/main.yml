@@ -1,0 +1,8 @@
+---
+
+- name: Clone germinator repo to get our monophyly tests
+  git:
+    repo: "{{ germinator_git_remote }}"
+    dest: "{{ synth_dir }}/germinator"
+    version: "{{ germinator_monophyly_branch }}"
+
