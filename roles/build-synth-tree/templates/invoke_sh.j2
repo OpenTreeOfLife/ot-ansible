@@ -1,0 +1,5 @@
+#!/bin/bash
+source "{{ synth_venv }}/bin/activate" || exit
+export PATH="${PATH}:{{ synth_dir }}/installed/bin"
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:{{ synth_dir }}/installed/lib/otcetera"
+./bin/build_at_dir.sh next.config "{{ synth_dir }}/tree_builds/opentree{{ next_synth_version }}"

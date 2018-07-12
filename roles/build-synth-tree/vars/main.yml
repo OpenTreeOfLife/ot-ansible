@@ -1,2 +1,4 @@
 ---
 ansible_user: opentree
+# next_synth_version should not be hard-coded
+next_synth_version: 10.4

@@ -3,4 +3,48 @@
   template:
     src: templates/dot_opentree.j2
     dest: "/home/{{ ansible_user }}/.opentree"
-"
+
+- name: copy propinquity config.opentree.synth to next.config
+  copy:
+    src: "{{ synth_dir }}/propinquity/config.opentree.synth"
+    dest: "{{ synth_dir }}/propinquity/next.config"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    remote_src: yes
+
+- name: replace version number
+  replace:
+    path: "{{ synth_dir }}/propinquity/next.config"
+    regexp: '^synth_id+ =+ opentree[-0-9.]+ *$'
+    replace: "synth_id = opentree{{ next_synth_version }}"
+
+- name: Create the tree_builds dir
+  file:
+    state: directory
+    path: "{{ synth_dir }}/tree_builds"
+    owner: "{{normaluser}}"
+    group: "{{normaluser}}"
+
+- name: "See if a build dir for {{ next_synth_version }} exists"
+  stat:
+    path: '{{ synth_dir }}/tree_builds/opentree{{ next_synth_version }}'
+  register: tb_dir
+
+# delete directory if condition is true
+- name: "delete {{ synth_dir }}/tree_builds/opentree{{ next_synth_version }}"
+  file:
+    state: absent
+    path: "{{ synth_dir }}/tree_builds/opentree{{ next_synth_version }}"
+  when: tb_dir.stat.exists and tb_dir.stat.isdir
+
+- name: "write invoke_opentree{{ next_synth_version }}."
+  template:
+    src: templates/invoke_sh.j2
+    dest: "{{ synth_dir }}/propinquity/invoke_opentree{{ next_synth_version }}.sh"
+
+
+- name: "build the synthetic tree at {{ synth_dir }}/tree_builds/opentree{{ next_synth_version }}"
+  command: "bash invoke_opentree{{ next_synth_version }}.sh"
+  args:
+    chdir: "{{synth_dir}}/propinquity"
+    creates: "{{ synth_dir }}/tree_builds/opentree{{ next_synth_version }}"
