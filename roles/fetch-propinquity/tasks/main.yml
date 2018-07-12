@@ -1,20 +1,7 @@
 ---
 
-- name: Create a source dir in the synth dir
-  file:
-    state: directory
-    path: "{{ synth_dir }}"
-    owner: "{{normaluser}}"
-    group: "{{normaluser}}"
-
 - name: Clone propinquity repo
   git:
     repo: "{{ propinquity_git_remote }}"
     dest: "{{ synth_dir }}/propinquity"
     version: "{{ propinquity_branch }}"
-
-- name: create the configure script for otcetera
-  command: bash bootstrap.sh
-  args:
-    chdir: "{{synth_dir}}/otcetera"
-    creates: "{{synth_dir}}/otcetera/configure"

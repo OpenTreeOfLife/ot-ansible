@@ -1,0 +1,31 @@
+---
+- name: Create a source dir in the synth dir
+  file:
+    state: directory
+    path: "{{ synth_dir }}"
+    owner: "{{normaluser}}"
+    group: "{{normaluser}}"
+
+- name: Clone phylesystem top dir that holds shards dir
+  # We check out the parent phyleystem dir for the structure, but we don't
+  #   currently use the scripts in it
+  git:
+    repo: "{{ phylesystem_grandpar_git_remote }}"
+    dest: "{{ synth_dir }}/phylesystem"
+    version: "master"
+
+- name: Clone phylesystem-1 repo of study data
+  # We check out the parent phyleystem dir for the structure, but we don't
+  #   currently use the scripts in it
+  git:
+    repo: "{{ phylesystem_1_git_remote }}"
+    dest: "{{ synth_dir }}/phylesystem/shards/phylesystem-1"
+    version: "{{ phylesystem_1_branch }}"
+
+- name: Clone collections-1 repo of sets of trees to use
+  # We check out the parent phyleystem dir for the structure, but we don't
+  #   currently use the scripts in it
+  git:
+    repo: "{{ collections_1_git_remote }}"
+    dest: "{{ synth_dir }}/phylesystem/shards/collections-1"
+    version: "{{ collections_1_branch }}"

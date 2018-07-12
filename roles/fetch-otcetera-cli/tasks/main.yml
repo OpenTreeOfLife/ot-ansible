@@ -1,6 +1,6 @@
 ---
 
-- name: Create a source dir in the synth dir
+- name: Create the synth dir
   file:
     state: directory
     path: "{{ synth_dir }}"
