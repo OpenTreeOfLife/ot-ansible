@@ -29,3 +29,28 @@
     repo: "{{ collections_1_git_remote }}"
     dest: "{{ synth_dir }}/phylesystem/shards/collections-1"
     version: "{{ collections_1_branch }}"
+
+- name: Create the parent ott dir that will hold ott versions used for synthesis
+  file:
+    state: directory
+    path: "{{ synth_dir }}/ott"
+    owner: "{{normaluser}}"
+    group: "{{normaluser}}"
+
+- name: Download copy of the OTT that will be the synthesis input taxonomy
+  get_url:
+    url: http://files.opentreeoflife.org/ott/ott3.0/ott3.0draft6.tgz
+    dest: "{{ synth_dir }}/ott/"
+
+- name: Create parent for OTT version
+  file:
+    state: directory
+    dest: "{{ synth_dir }}/ott/{{ ott_synth_full_version }}"
+    owner: "{{normaluser}}"
+    group: "{{normaluser}}"
+
+- name: Uncompress OTT
+  unarchive:
+    src: "{{ synth_dir }}/ott/{{ ott_synth_full_version }}.tgz"
+    dest: "{{ synth_dir }}/ott/{{ ott_synth_full_version }}"
+    remote_src: yes
