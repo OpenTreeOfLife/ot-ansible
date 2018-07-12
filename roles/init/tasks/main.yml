@@ -8,5 +8,6 @@
     - build-essential
     - python-dev
     - python-apt
+    - rsync
   become: true
   become_method: sudo

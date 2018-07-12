@@ -21,30 +21,66 @@
 - name: Create the tree_builds dir
   file:
     state: directory
-    path: "{{ synth_dir }}/tree_builds"
+    path: "{{ synth_dir }}/{{ item }}"
     owner: "{{normaluser}}"
     group: "{{normaluser}}"
+  with_items:
+    - tree_builds
+    - in_progress_tree_builds
 
-- name: "See if a build dir for {{ next_synth_version }} exists"
+- name: "See if a completed build dir for {{ next_synth_version }} exists"
   stat:
     path: '{{ synth_dir }}/tree_builds/opentree{{ next_synth_version }}'
   register: tb_dir
 
-# delete directory if condition is true
-- name: "delete {{ synth_dir }}/tree_builds/opentree{{ next_synth_version }}"
+- name: "See if an inprogress build dir for {{ next_synth_version }} exists"
+  stat:
+    path: '{{ synth_dir }}/in_progress_tree_builds/opentree{{ next_synth_version }}'
+  register: iptb_dir
+  when: not tb_dir.stat.exists
+
+- name: "Create an empty directory (locally)"
+  local_action:
+    module: file
+    state: directory
+    path: "/tmp/empty_dir_for_ansible_hack"
+
+- name: "empty {{ synth_dir }}/in_progress_tree_builds/opentree{{ next_synth_version }}"
+  synchronize:
+    src: /tmp/empty_dir_for_ansible_hack
+    dest: "{{ synth_dir }}/in_progress_tree_builds/opentree{{ next_synth_version }}"
+    delete: yes
+    recursive: yes
+  when: (not tb_dir.stat.exists) and iptb_dir.stat.exists and iptb_dir.stat.isdir
+
+- name: "delete {{ synth_dir }}/in_progress_tree_builds/opentree{{ next_synth_version }}"
   file:
+    path: "{{ synth_dir }}/in_progress_tree_builds/opentree{{ next_synth_version }}"
     state: absent
-    path: "{{ synth_dir }}/tree_builds/opentree{{ next_synth_version }}"
-  when: tb_dir.stat.exists and tb_dir.stat.isdir
+  when: (not tb_dir.stat.exists) and iptb_dir.stat.exists and iptb_dir.stat.isdir
 
 - name: "write invoke_opentree{{ next_synth_version }}."
   template:
     src: templates/invoke_sh.j2
     dest: "{{ synth_dir }}/propinquity/invoke_opentree{{ next_synth_version }}.sh"
+  when: not tb_dir.stat.exists
 
-
-- name: "build the synthetic tree at {{ synth_dir }}/tree_builds/opentree{{ next_synth_version }}"
+- name: "build the synthetic tree at {{ synth_dir }}/in_progress_tree_builds/opentree{{ next_synth_version }}"
   command: "bash invoke_opentree{{ next_synth_version }}.sh"
   args:
     chdir: "{{synth_dir}}/propinquity"
+    creates: "{{ synth_dir }}/in_progress_tree_builds/opentree{{ next_synth_version }}"
+  when: not tb_dir.stat.exists
+
+- name: Moves synth tree from in_progress_tree_builds dir to tree_builds dir
+  command: "mv '{{ synth_dir }}/in_progress_tree_builds/opentree{{ next_synth_version }}' '{{ synth_dir }}/tree_builds/opentree{{ next_synth_version }}'"
+  args:
     creates: "{{ synth_dir }}/tree_builds/opentree{{ next_synth_version }}"
+  when: not tb_dir.stat.exists
+
+
+- name: "Notify if build is old"
+  debug:
+    msg: "The tree {{ synth_dir }}/tree_builds/opentree{{ next_synth_version }} already existed, so it was not rebuilt."
+  when: tb_dir.stat.exists
+
