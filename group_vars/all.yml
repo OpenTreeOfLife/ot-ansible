@@ -1,8 +1,9 @@
 ---
 normaluser: opentree
 adminuser: admin
-synth_dir: /home/{{normaluser}}/synth
 synth_venv: /home/{{normaluser}}/venv_synth
+ws_dir: /home/{{normaluser}}/ws
 otcetera_synth_branch: nexttree
+otcetera_ws_branch: master
 otcetera_git_remote: https://github.com/mtholder/otcetera
 ott_synth_full_version: ott3.0draft6

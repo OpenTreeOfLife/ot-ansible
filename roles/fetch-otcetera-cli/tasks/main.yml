@@ -1,12 +1,4 @@
 ---
-
-- name: Create the synth dir
-  file:
-    state: directory
-    path: "{{ synth_dir }}"
-    owner: "{{normaluser}}"
-    group: "{{normaluser}}"
-
 - name: Clone otcetera repo
   git:
     repo: "{{ otcetera_git_remote }}"

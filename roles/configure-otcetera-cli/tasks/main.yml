@@ -6,20 +6,6 @@
     dest: "{{ synth_dir }}/otcetera"
     version: "{{ otcetera_synth_branch }}"
 
-- name: Create a build dir in the synth dir
-  file:
-    state: directory
-    path: "{{ synth_dir }}/buildotc"
-    owner: "{{normaluser}}"
-    group: "{{normaluser}}"
-
-- name: Create a installed prefix dir in the synth dir
-  file:
-    state: directory
-    path: "{{ synth_dir }}/installed"
-    owner: "{{normaluser}}"
-    group: "{{normaluser}}"
-
 - name: write reconf.sh script
   template:
     src: templates/dot_opentree.j2

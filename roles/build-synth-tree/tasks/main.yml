@@ -18,16 +18,6 @@
     regexp: '^synth_id+ =+ opentree[-0-9.]+ *$'
     replace: "synth_id = opentree{{ next_synth_version }}"
 
-- name: Create the tree_builds dir
-  file:
-    state: directory
-    path: "{{ synth_dir }}/{{ item }}"
-    owner: "{{normaluser}}"
-    group: "{{normaluser}}"
-  with_items:
-    - tree_builds
-    - in_progress_tree_builds
-
 - name: "See if a completed build dir for {{ next_synth_version }} exists"
   stat:
     path: '{{ synth_dir }}/tree_builds/opentree{{ next_synth_version }}'
