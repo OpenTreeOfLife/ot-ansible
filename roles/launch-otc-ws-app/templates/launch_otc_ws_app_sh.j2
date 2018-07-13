@@ -1,5 +1,5 @@
 #!/bin/bash
-if ! pgrep otc-tol-ws >/dev/null ; then
+if pgrep otc-tol-ws >/dev/null ; then
     killall -q otc-tol-ws || exit
 fi
 if test -f "{{ otc_ws_data }}/wspidfile.txt" ; then
