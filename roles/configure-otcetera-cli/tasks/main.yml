@@ -8,7 +8,7 @@
 
 - name: write reconf.sh script
   template:
-    src: templates/dot_opentree.j2
+    src: templates/reconf_sh.j2
     dest: "{{ synth_dir }}/buildotc/reconf.sh"
 
 - name: Create the Makefiles by running our invocation of configure (via reconf.sh)

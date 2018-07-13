@@ -20,6 +20,6 @@
 - name: Uncompress synth tree
   unarchive:
     src: "{{ synth_dir }}/tree_builds/opentree{{ next_synth_version }}.tgz"
-    dest: "{{ otc_ws_data }}/synth_trees/opentree{{ next_synth_version }}"
+    dest: "{{ otc_ws_data }}/synth_trees"
     remote_src: yes
     creates: "{{ otc_ws_data }}/synth_trees/opentree{{ next_synth_version }}"

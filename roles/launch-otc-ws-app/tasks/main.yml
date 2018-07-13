@@ -1,0 +1,6 @@
+---
+
+- name: write launch_otc_ws_app.sh script
+  template:
+    src: templates/launch_otc_ws_app_sh.j2
+    dest: "{{ ws_dir }}/installed/bin/launch_otc_ws_app.sh"

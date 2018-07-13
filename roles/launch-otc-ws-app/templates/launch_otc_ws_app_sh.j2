@@ -1,0 +1,30 @@
+#!/bin/bash
+if ! pgrep otc-tol-ws >/dev/null ; then
+    killall -q otc-tol-ws || exit
+fi
+if test -f "{{ otc_ws_data }}/wspidfile.txt" ; then
+    rm "{{ otc_ws_data }}/wspidfile.txt" || exit
+fi
+
+echo -n "Starting otcetera web services (otc-tol-ws)... "
+export LD_LIBRARY_PATH="{{ ws_dir }}/installed/library:${LD_LIBRARY_PATH}"
+/usr/sbin/daemonize \
+    -c "{{ otc_ws_data }}" \
+    "{{ ws_dir }}/installed/bin/otc-tol-ws" \
+    "{{ otc_ws_data }}/ott" \
+    "-D{{ otc_ws_data }}/synth_trees" \
+    "-p{{ otc_ws_data }}/wspidfile.txt" \
+    -P1984 \
+    --num-threads=4 \
+    --prefix=v3
+
+while true ; do
+    sleep 1
+    if test -f "{{ otc_ws_data }}/wspidfile.txt" ; then
+        echo "otc-tol-ws launched as daemon with pid" $(cat "{{ otc_ws_data }}/wspidfile.txt")
+        exit 0
+    fi
+    if ! pgrep otc-tol-ws >/dev/null ; then
+        echo "otc-tol-ws could not be launched"
+    fi
+done

@@ -4,6 +4,11 @@
     src: templates/dot_opentree.j2
     dest: "/home/{{ ansible_user }}/.opentree"
 
+- name: write ~/.opentree config file used by propinquity
+  template:
+    src: templates/synth_peyotl_conf_ini.j2
+    dest: "{{ synth_dir }}/propinquity/synth_peyotl_conf_{{ next_synth_version }}.ini"
+
 - name: copy propinquity config.opentree.synth to next.config
   copy:
     src: "{{ synth_dir }}/propinquity/config.opentree.synth"
@@ -62,15 +67,26 @@
     creates: "{{ synth_dir }}/in_progress_tree_builds/opentree{{ next_synth_version }}"
   when: not tb_dir.stat.exists
 
+- name: "See if synthesis html docs were completed"
+  stat:
+    path: "{{ synth_dir }}/in_progress_tree_builds/opentree{{ next_synth_version }}/logs/index.html"
+  register: log_index_html
+  when: not tb_dir.stat.exists
+
 - name: Moves synth tree from in_progress_tree_builds dir to tree_builds dir
   command: "mv '{{ synth_dir }}/in_progress_tree_builds/opentree{{ next_synth_version }}' '{{ synth_dir }}/tree_builds/opentree{{ next_synth_version }}'"
   args:
     creates: "{{ synth_dir }}/tree_builds/opentree{{ next_synth_version }}"
-  when: not tb_dir.stat.exists
+  when: log_index_html.stat.exists and not tb_dir.stat.exists
 
 
-- name: "Notify if build is old"
+- name: Notify if build is old
   debug:
     msg: "The tree {{ synth_dir }}/tree_builds/opentree{{ next_synth_version }} already existed, so it was not rebuilt."
   when: tb_dir.stat.exists
+
+- name: Notify if build failed
+  debug:
+    msg: "synthetic tree html generation failed. Check {{ synth_dir }}/in_progress_tree_builds/opentree{{ next_synth_version }}/logs/log-of-html-err.txt "
+  when: (not tb_dir.stat.exists) and (not log_index_html.stat.exists)
 

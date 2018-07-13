@@ -3,12 +3,14 @@
 - name: Install basic python packages, build tools and git
   apt: name={{ item }} state=present
   with_items:
-    - virtualenv
-    - git-core
     - build-essential
-    - python-dev
+    - daemonize  # for otc_tol_ws
+    - git-core
+    - psmisc  # killall does not come with debian, used by launch_otc_ws_...
     - python-apt
+    - python-dev
     - rsync
+    - virtualenv
   become: true
   become_method: sudo
 

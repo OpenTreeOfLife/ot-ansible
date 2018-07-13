@@ -23,3 +23,8 @@
     name: "{{ synth_dir }}/peyotl"
     extra_args: '-e'
     virtualenv: "{{ synth_venv }}"
+
+- name: install Chameleon into {{synth_venv}}
+  pip:
+    virtualenv: "{{ synth_venv }}"
+    name: Chameleon
