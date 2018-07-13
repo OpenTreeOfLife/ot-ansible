@@ -2,6 +2,7 @@
 normaluser: opentree
 adminuser: admin
 synth_venv: /home/{{normaluser}}/venv_synth
+synth_dir: /home/{{normaluser}}/synth
 ws_dir: /home/{{normaluser}}/ws
 otcetera_synth_branch: nexttree
 otcetera_ws_branch: master
