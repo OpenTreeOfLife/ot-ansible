@@ -16,15 +16,18 @@
   file:
     state: directory
     path: "{{ item }}"
-    owner: "{{ normaluser }}"
-    group: "{{ normaluser }}"
+    owner: "{{normaluser}}"
+    group: "{{normaluser}}"
   with_items:
     - "{{ synth_dir }}"
     - "{{ ws_dir }}"
     - "{{ synth_dir }}/buildotc"
-    - "{{ synth_dir }}/in_progress_tree_builds"
     - "{{ synth_dir }}/installed"
     - "{{ synth_dir }}/ott"
     - "{{ synth_dir }}/ott/{{ ott_synth_full_version }}"
+    - "{{ synth_dir }}/in_progress_tree_builds"
     - "{{ synth_dir }}/tree_builds"
+    - "{{ ws_dir }}/buildotc"
     - "{{ ws_dir }}/installed"
+  become: true
+  become_user: "{{ normaluser }}"

@@ -1,5 +1,7 @@
 #!/bin/bash
-CPPFLAGS="$CPPFLAGS -DMINIMAL_NODE_NAVIGATION_PTRS" \
-    CXX=$(which g++) CC=$(which gcc) \
-    CXXFLAGS="-fPIC -Waddress -Warray-bounds -Wc++11-compat -Wchar-subscripts -Wcomment -Wformat -Wmain -Wmaybe-uninitialized -Wmissing-braces -Wnonnull -Wopenmp-simd -Wparentheses -Wreorder -Wreturn-type -Wsequence-point -Wsign-compare -Wstrict-aliasing -Wstrict-overflow -Wswitch -Wtrigraphs -Wuninitialized -Wno-unknown-pragmas -Wunused-function -Wunused-label -Wunused-value -Wunused-variable -Wvolatile-register-var -Wno-pragmas -pedantic -O3 -std=c++14" \
-    {{ ws_dir }}/otcetera/configure --prefix={{ ws_dir }}/installed --with-webservices=yes
+export CPPFLAGS="$CPPFLAGS -I{{ ws_dir }}/installed/include -DMINIMAL_NODE_NAVIGATION_PTRS "
+export LDFLAGS="$LDFLAGS -L{{ ws_dir }}/installed/library -L/usr/lib/x86_64-linux-gnu/ "
+export CXX=$(which g++)
+export CC=$(which gcc)
+export CXXFLAGS="-fPIC -Waddress -Warray-bounds -Wc++11-compat -Wchar-subscripts -Wcomment -Wformat -Wmain -Wmaybe-uninitialized -Wmissing-braces -Wnonnull -Wopenmp-simd -Wparentheses -Wreorder -Wreturn-type -Wsequence-point -Wsign-compare -Wstrict-aliasing -Wstrict-overflow -Wswitch -Wtrigraphs -Wuninitialized -Wno-unknown-pragmas -Wunused-function -Wunused-label -Wunused-value -Wunused-variable -Wvolatile-register-var -Wno-pragmas -pedantic -O3 -std=c++14"
+{{ ws_dir }}/otcetera/configure  --prefix={{ ws_dir }}/installed  --with-webservices=yes

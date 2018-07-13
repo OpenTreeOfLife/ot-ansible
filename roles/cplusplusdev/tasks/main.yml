@@ -11,6 +11,7 @@
     - libtool
     - libboost-all-dev
     - libcurl4-openssl-dev
+    - libssl-dev
   become: true
   become_method: sudo
 

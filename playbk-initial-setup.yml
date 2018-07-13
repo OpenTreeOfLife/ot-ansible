@@ -10,10 +10,6 @@
       run_once: yes
 
   roles:
-    - fetch-otcetera-cli
-    - configure-otcetera-cli
-    - build-otcetera-cli
-    - fetch-peyotl-synth
-    - fetch-monophyly-tests
-    - fetch-propinquity
-    - fetch-synth-inputs
+    - init
+    - users
+    - cplusplusdev

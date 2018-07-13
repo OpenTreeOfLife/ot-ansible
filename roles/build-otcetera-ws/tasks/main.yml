@@ -8,9 +8,9 @@
       NUM_THREADS: 6
 
 - name: Runs tests on the new otcetera build
-  make:
+  command: "bash -c 'source {{ tolws_venv }}/bin/activate && make check'"
+  args:
     chdir: "{{ ws_dir }}/buildotc"
-    target: check
 
 - name: Install the new otcetera build
   make:

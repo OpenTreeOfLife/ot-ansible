@@ -11,3 +11,8 @@
   args:
     chdir: "{{ws_dir}}/otcetera"
     creates: "{{ws_dir}}/otcetera/configure"
+
+- name: install requests into {{tolws_venv}} for testing
+  pip:
+    virtualenv: "{{ tolws_venv }}"
+    name: "requests"

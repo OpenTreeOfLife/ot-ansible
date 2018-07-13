@@ -10,9 +10,6 @@
       run_once: yes
 
   roles:
-    - init
-    - users
-    - cplusplusdev
     - fetch-and-install-restbed
     - fetch-otcetera-ws
     - configure-otcetera-ws

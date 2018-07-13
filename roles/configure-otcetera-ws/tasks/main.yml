@@ -10,9 +10,15 @@
   template:
     src: templates/reconf_ws_sh.j2
     dest: "{{ ws_dir }}/buildotc/reconf.sh"
+  register: result
+
+- name: Check if the otcetera Makefile exists
+  stat:
+    path: "{{ ws_dir }}/buildotc/Makefile"
+  register: otcmakefile
 
 - name: Create the Makefiles by running our invocation of configure (via reconf.sh)
   command: bash reconf.sh
   args:
     chdir: "{{ ws_dir }}/buildotc"
-    creates: "{{ ws_dir }}/buildotc/Makefile"
+  when: result.changed or not otcmakefile.stat.exists
