@@ -1,0 +1,25 @@
+---
+- name: Uncompress OTT
+  unarchive:
+    src: "{{ synth_dir }}/ott/{{ ott_synth_full_version }}.tgz"
+    dest: "{{ otc_ws_data }}"
+    remote_src: yes
+    creates: "{{ otc_ws_data }}/ott"
+
+- name: Check it archive of next synth has been created
+  stat:
+    path: "{{ synth_dir }}/tree_builds/opentree{{ next_synth_version }}.tgz"
+  register: synth_archive
+
+- name: compress synth tree if required
+  archive:
+    path: "{{ synth_dir }}/tree_builds/opentree{{ next_synth_version }}"
+    dest: "{{ synth_dir }}/tree_builds/opentree{{ next_synth_version }}.tgz"
+  when: not synth_archive.stat.exists
+
+- name: Uncompress synth tree
+  unarchive:
+    src: "{{ synth_dir }}/tree_builds/opentree{{ next_synth_version }}.tgz"
+    dest: "{{ otc_ws_data }}/synth_trees/opentree{{ next_synth_version }}"
+    remote_src: yes
+    creates: "{{ otc_ws_data }}/synth_trees/opentree{{ next_synth_version }}"

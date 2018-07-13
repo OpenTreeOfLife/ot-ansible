@@ -29,5 +29,7 @@
     - "{{ synth_dir }}/tree_builds"
     - "{{ ws_dir }}/buildotc"
     - "{{ ws_dir }}/installed"
+    - "{{ otc_ws_data }}"
+    - "{{ otc_ws_data }}/synth_trees"
   become: true
   become_user: "{{ normaluser }}"
