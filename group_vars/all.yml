@@ -1,8 +1,8 @@
 ---
 normaluser: opentree
 adminuser: admin
-synth_venv: /home/{{normaluser}}/venv_synth
-tolws_venv: /home/{{normaluser}}/tolws_venv
+venv_synth: /home/{{normaluser}}/venv_synth
+venv_otcws: /home/{{normaluser}}/venv_otcws
 synth_dir: /home/{{normaluser}}/synth
 ws_dir: /home/{{normaluser}}/ws
 # next_synth_version should not be hard-coded

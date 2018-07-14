@@ -1,5 +1,5 @@
 #!/bin/bash
-source "{{ synth_venv }}/bin/activate" || exit
+source "{{ venv_synth }}/bin/activate" || exit
 export PATH="${PATH}:{{ synth_dir }}/installed/bin"
 export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:{{ synth_dir }}/installed/lib/otcetera"
 export PEYOTL_CONFIG_FILE="{{ synth_dir }}/propinquity/synth_peyotl_conf_{{ next_synth_version }}.ini"

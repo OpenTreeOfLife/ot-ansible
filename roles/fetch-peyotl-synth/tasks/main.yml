@@ -13,18 +13,18 @@
     dest: "{{ synth_dir }}/peyotl"
     version: "{{ peyotl_synth_branch }}"
 
-- name: install peyotl prerequisites into {{synth_venv}}
+- name: install peyotl prerequisites into {{venv_synth}}
   pip:
-    virtualenv: "{{ synth_venv }}"
+    virtualenv: "{{ venv_synth }}"
     requirements: "{{ synth_dir }}/peyotl/requirements.txt"
 
-- name: install peyotl into {{synth_venv}} as a link
+- name: install peyotl into {{venv_synth}} as a link
   pip:
     name: "{{ synth_dir }}/peyotl"
     extra_args: '-e'
-    virtualenv: "{{ synth_venv }}"
+    virtualenv: "{{ venv_synth }}"
 
-- name: install Chameleon into {{synth_venv}}
+- name: install Chameleon into {{venv_synth}}
   pip:
-    virtualenv: "{{ synth_venv }}"
+    virtualenv: "{{ venv_synth }}"
     name: Chameleon
