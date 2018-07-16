@@ -1,0 +1,49 @@
+# This file is for apache 2.4+.
+# Adapting SSL settings (second VirtualHost) from /etc/apache2/sites-available/default-ssl
+#   in apache2 as installed in ubuntu 12.04.
+# See notes in /etc/apache2/sites-available/opentree-ssl.conf as well
+ 
+<IfModule mod_ssl.c>
+<VirtualHost *:443>
+    ServerName {{ ansible_host }}
+    ErrorLog ${APACHE_LOG_DIR}/ssl_error.log
+    LogLevel warn
+    SSLEngine on
+
+    # Certificates copied by hand or using ot-private directory
+    SSLCertificateFile    /etc/ssl/certs/opentree/STAR_opentreeoflife_org.pem
+    SSLCertificateKeyFile /etc/ssl/private/opentreeoflife.org.key
+
+    #   SSL Engine Options:
+    <FilesMatch "\.(cgi|shtml|phtml|php)$">
+        SSLOptions +StdEnvVars
+    </FilesMatch>
+    <Directory /usr/lib/cgi-bin>
+        SSLOptions +StdEnvVars
+    </Directory>
+
+    # Moving all WSGI configuration here, so we only run one instance of web2py on HTTPS.
+    # This should prevent our broken session problem as documented here:
+    #   https://github.com/OpenTreeOfLife/opentree/issues/804
+    WSGIDaemonProcess web2py user=opentree group=opentree display-name=%{GROUP}
+    WSGIProcessGroup web2py
+    WSGIScriptAlias / /home/opentree/web2py/wsgihandler.py
+
+    <Directory /home/opentree/web2py>
+      AllowOverride None
+      Require all denied
+      <Files wsgihandler.py>
+        Require all granted
+      </Files>
+    </Directory>
+
+    AliasMatch ^/([^/]+)/static/(.*)            /home/opentree/web2py/applications/$1/static/$2
+    <Directory /home/opentree/web2py/applications/*/static/>
+      Require all granted
+    </Directory>
+
+    # OPENTREE SHARED CONFIGURATION
+    Include /etc/apache2/opentree-shared.conf
+
+</VirtualHost>
+</IfModule>

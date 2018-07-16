@@ -1,0 +1,9 @@
+---
+- name: write maintenance version of /etc/apache2/opentree-shared.conf
+  template:
+    src: templates/opentree_shared_conf.j2
+    dest: "/etc/apache2/opentree-shared.conf"
+  become: true
+  become_method: sudo
+  notify:
+    - restart apache2
