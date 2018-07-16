@@ -1,16 +1,29 @@
 ---
-# python2 might not be installed on server (e.g. Ubuntu16)
-- name: Install basic python packages, build tools and git
+- name: Install basic libraries and tools using apt
   apt: name={{ item }} state=present
   with_items:
+    - apache2
     - build-essential
     - daemonize  # for otc_tol_ws
     - git-core
+    - libapache2-mod-wsgi
     - psmisc  # killall does not come with debian, used by launch_otc_ws_...
     - python-apt
     - python-dev
     - rsync
     - virtualenv
+  become: true
+  become_method: sudo
+
+- name: install apache2 modules that we rely on.
+  apache2_module:
+    state: present
+    name: "{{ item }}"
+  with_items:
+    - proxy
+    - proxy_http
+    - rewrite
+    - ssl
   become: true
   become_method: sudo
 
