@@ -1,6 +1,6 @@
 #!/bin/bash
 if pgrep otc-tol-ws >/dev/null ; then
-    killall -q otc-tol-ws || exit
+    pkill -F "{{ otc_ws_data }}/wspidfile.txt" --signal=9 otc-tol-ws || exit
 fi
 if test -f "{{ otc_ws_data }}/wspidfile.txt" ; then
     rm "{{ otc_ws_data }}/wspidfile.txt" || exit

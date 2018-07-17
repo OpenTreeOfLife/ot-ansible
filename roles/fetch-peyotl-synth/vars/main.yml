@@ -1,4 +1,3 @@
 ---
 peyotl_synth_branch: nexttree
-peyotl_git_remote: https://github.com/mtholder/peyotl
 ansible_user: opentree

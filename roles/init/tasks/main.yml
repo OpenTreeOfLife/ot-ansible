@@ -34,6 +34,7 @@
     owner: "{{normaluser}}"
     group: "{{normaluser}}"
   with_items:
+    - "{{ repo_dir }}"
     - "{{ synth_dir }}"
     - "{{ ws_dir }}"
     - "{{ synth_dir }}/buildotc"
