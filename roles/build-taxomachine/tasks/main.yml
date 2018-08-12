@@ -8,14 +8,42 @@
   notify:
     - install jade
 
-#- name: Clone ot-base repo
-#  git:
-#    repo: "https://github.com/OpenTreeOfLife/ot-base"
-#    dest: "{{ repo_dir }}/ot-base"
-#    version: "master"
-#
-#- name: create the configure script for otcetera
-#  command: bash bootstrap.sh
-#  args:
-#    chdir: "{{synth_dir}}/otcetera"
-#    creates: "{{synth_dir}}/otcetera/configure"
+- name: Clone ot-base repo
+  git:
+    repo: "https://github.com/OpenTreeOfLife/ot-base"
+    dest: "{{ repo_dir }}/ot-base"
+    version: "master"
+  notify:
+    - install ot-base
+
+- name: Clone taxomachine repo
+  git:
+    repo: "{{ taxomachine_git_remote }}"
+    dest: "{{ repo_dir }}/taxomachine"
+    version: "{{ taxomachine_branch }}"
+  notify:
+    - "build taxomachine plugin"
+
+- name: Create parent of unpacked taxomachin
+  file:
+    path: "{{ unpacked_dir }}/taxo"
+    state: directory
+
+- name: Unpack neo4j for taxomachine
+  unarchive:
+    src: "{{ downloads_dir }}/neo4j.tgz"
+    dest: "{{ unpacked_dir }}/taxo"
+    remote_src: yes
+    creates: "{{ unpacked_dir }}/taxo/neo4j-community-1.9.5"
+
+- name: Create link for taxomachine neo4j
+  file:
+    src: "{{ unpacked_dir }}/taxo/neo4j-community-1.9.5"
+    dest: "{{ taxomachine_neo4j_dir }}"
+    state: link
+
+- name: copy taxomachine jar
+  copy:
+    src: "{{ repo_dir }}/taxomachine/target/taxomachine-neo4j-plugins-0.0.1-SNAPSHOT.jar"
+    dest: "{{ taxomachine_neo4j_dir }}/plugins/taxomachine-neo4j-plugins-0.0.1-SNAPSHOT.jar"
+    remote_src: yes

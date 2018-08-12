@@ -3,3 +3,13 @@
   command: bash mvn_install.sh
   args:
     chdir: "{{ repo_dir }}/jade"
+
+- name: install ot-base
+  command: bash mvn_install.sh
+  args:
+    chdir: "{{ repo_dir }}/ot-base"
+
+- name: "build taxomachine plugin"
+  command: bash compile_server_plugins.sh
+  args:
+    chdir: "{{ repo_dir }}/taxomachine"
