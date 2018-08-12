@@ -1,0 +1,21 @@
+---
+
+- name: Clone jade repo
+  git:
+    repo: "https://github.com/FePhyFoFum/jade"
+    dest: "{{ repo_dir }}/jade"
+    version: "master"
+  notify:
+    - install jade
+
+#- name: Clone ot-base repo
+#  git:
+#    repo: "https://github.com/OpenTreeOfLife/ot-base"
+#    dest: "{{ repo_dir }}/ot-base"
+#    version: "master"
+#
+#- name: create the configure script for otcetera
+#  command: bash bootstrap.sh
+#  args:
+#    chdir: "{{synth_dir}}/otcetera"
+#    creates: "{{synth_dir}}/otcetera/configure"

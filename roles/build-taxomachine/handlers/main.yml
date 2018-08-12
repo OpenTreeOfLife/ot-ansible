@@ -1,0 +1,5 @@
+---
+- name: install jade
+  command: bash mvn_install.sh
+  args:
+    chdir: "{{ repo_dir }}/jade"

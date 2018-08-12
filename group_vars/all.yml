@@ -16,6 +16,9 @@ otcetera_git_remote: https://github.com/mtholder/otcetera
 otcetera_synth_branch: nexttree
 otcetera_ws_branch: master
 
+taxomachine_git_remote: https://github.com/OpenTreeOfLife/taxomachine
+taxomachine_branch: master
+
 ws_wrapper_git_remote: https://github.com/OpenTreeOfLife/ws_wrapper
 ws_wrapper_branch: master
 
