@@ -1,0 +1,22 @@
+---
+- name: Create parent of unpacked
+  file:
+    path: "{{ unpacked_dir }}"
+    state: directory
+
+- name: Unpack neo4j for taxomachine
+  unarchive:
+    src: "{{ downloads_dir }}/neo4j.tgz"
+    dest: "{{ unpacked_dir }}"
+    remote_src: yes
+    creates: "{{ unpacked_dir }}/neo4j-community-1.9.5"
+
+- name: "See taxomachine_neo4j_dir"
+  stat:
+    path: "{{ taxomachine_neo4j_dir }}"
+  register: taxo_neo_dir
+
+- name: Create scaffold for neo4j apps
+  command: cp -r "{{ unpacked_dir }}/neo4j-community-1.9.5" "{{ taxomachine_neo4j_dir }}"
+  creates: "{{ item }}"
+  when: (not taxo_neo_dir.stat.exists)

@@ -7,6 +7,8 @@ repo_dir: /home/{{normaluser}}/repo
 synth_dir: /home/{{normaluser}}/synth
 ws_dir: /home/{{normaluser}}/ws
 taxomachine_neo4j_dir: /home/{{normaluser}}/neo4j-taxomachine
+# treemachine_neo4j_dir: /home/{{normaluser}}/neo4j-treemachine
+# oti_neo4j_dir: /home/{{normaluser}}/neo4j-oti
 downloads_dir: /home/{{normaluser}}/downloads
 unpacked_dir: /home/{{normaluser}}/unpacked
 

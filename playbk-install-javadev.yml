@@ -11,3 +11,4 @@
 
   roles:
     - javadev
+    - unpack-neo4j-scaffolds
