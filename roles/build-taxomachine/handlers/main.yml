@@ -15,5 +15,5 @@
     chdir: "{{ repo_dir }}/taxomachine"
 
 - name: "restart neo4j"
-  command: "{{ taxomachine_neo4j_dir }}/b"
+  command: bash "{{ users_bin_dir }}/restart_neo4j.sh"
   listen: "restart taxomachine neo4j"

@@ -21,15 +21,20 @@
   creates: "{{ taxomachine_neo4j_dir }}"
   when: (not taxo_neo_dir.stat.exists)
 
+- name: Create parent of unpacked
+  file:
+    path: "{{ taxomachine_neo4j_dir }}/data/graph.db"
+    state: directory
+
 - name: "See taxomachine graph db is in the data dir"
   stat:
-    path: "{{ taxomachine_neo4j_dir }}/data/index.db"
+    path: "{{ taxomachine_neo4j_dir }}/data/graph.db/index.db"
   register: index_db
 
 - name: Unpack a snapshot of the taxomachine db
   command: tar xfvz ~/downloads/taxomachine-20170414.db.tgz .
   args:
-    chdir: "{{ taxomachine_neo4j_dir }}/data"
+    chdir: "{{ taxomachine_neo4j_dir }}/data/graph.db"
   when: (not index_db.stat.exists)
 
 - name: Create parent of unpacked
@@ -41,3 +46,9 @@
   template:
     src: templates/restart_neo4j_sh.j2
     dest: "{{ users_bin_dir }}/restart_neo4j.sh"
+
+
+- name: Write neo4j-server.properties
+  template:
+    src: templates/neo4j-server.properties.j2
+    dest: "{{ taxomachine_neo4j_dir }}/conf/neo4j-server.properties"
