@@ -6,6 +6,7 @@ venv_otcws: /home/{{normaluser}}/venv_otcws
 repo_dir: /home/{{normaluser}}/repo
 synth_dir: /home/{{normaluser}}/synth
 ws_dir: /home/{{normaluser}}/ws
+users_bin_dir: /home/{{normaluser}}/bin
 taxomachine_neo4j_dir: /home/{{normaluser}}/neo4j-taxomachine
 # treemachine_neo4j_dir: /home/{{normaluser}}/neo4j-treemachine
 # oti_neo4j_dir: /home/{{normaluser}}/neo4j-oti

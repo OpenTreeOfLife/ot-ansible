@@ -31,3 +31,13 @@
   args:
     chdir: "{{ taxomachine_neo4j_dir }}/data"
   when: (not index_db.stat.exists)
+
+- name: Create parent of unpacked
+  file:
+    path: "{{ users_bin_dir }}"
+    state: directory
+
+- name: Write neo4j launch script
+  template:
+    src: templates/restart_neo4j_sh.j2
+    dest: "{{ users_bin_dir }}/restart_neo4j.sh"

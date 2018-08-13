@@ -1,0 +1,7 @@
+#!/bin/bash
+cd "{{ taxomachine_neo4j_dir }}/bin"
+if ./neo4j status; then
+    ./neo4j stop || exit
+fi
+
+./neo4j start || exit

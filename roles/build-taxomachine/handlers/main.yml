@@ -13,3 +13,7 @@
   command: bash compile_server_plugins.sh
   args:
     chdir: "{{ repo_dir }}/taxomachine"
+
+- name: "restart neo4j"
+  command: "{{ taxomachine_neo4j_dir }}/b"
+  listen: "restart taxomachine neo4j"
