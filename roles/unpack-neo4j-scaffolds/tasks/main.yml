@@ -18,5 +18,16 @@
 
 - name: Create scaffold for neo4j apps
   command: cp -r "{{ unpacked_dir }}/neo4j-community-1.9.5" "{{ taxomachine_neo4j_dir }}"
-  creates: "{{ item }}"
+  creates: "{{ taxomachine_neo4j_dir }}"
   when: (not taxo_neo_dir.stat.exists)
+
+- name: "See taxomachine graph db is in the data dir"
+  stat:
+    path: "{{ taxomachine_neo4j_dir }}/data/index.db"
+  register: index_db
+
+- name: Unpack a snapshot of the taxomachine db
+  command: tar xfvz ~/downloads/taxomachine-20170414.db.tgz .
+  args:
+    chdir: "{{ taxomachine_neo4j_dir }}/data"
+  when: (not index_db.stat.exists)

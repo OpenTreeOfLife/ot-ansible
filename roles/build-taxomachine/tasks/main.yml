@@ -24,8 +24,21 @@
   notify:
     - "build taxomachine plugin"
 
+- name: "Check timestamp of installed taxomachine plugin"
+  stat:
+    path: "{{ taxomachine_neo4j_dir }}/plugins/taxomachine-neo4j-plugins-0.0.1-SNAPSHOT.jar"
+  register: dest_plugin_location
+
+- name: "Check timestamp of installed taxomachine plugin"
+  stat:
+    path: "{{ repo_dir }}/taxomachine/target/taxomachine-neo4j-plugins-0.0.1-SNAPSHOT.jar"
+  register: src_plugin_location
+
 - name: copy taxomachine jar
   copy:
     src: "{{ repo_dir }}/taxomachine/target/taxomachine-neo4j-plugins-0.0.1-SNAPSHOT.jar"
     dest: "{{ taxomachine_neo4j_dir }}/plugins/taxomachine-neo4j-plugins-0.0.1-SNAPSHOT.jar"
     remote_src: yes
+  when: (not dest_plugin_location.stat.exists) or (dest_plugin_location.stat.mtime < src_plugin_location.stat.mtime)
+  notify:
+    - "restart taxomachine neo4j"
