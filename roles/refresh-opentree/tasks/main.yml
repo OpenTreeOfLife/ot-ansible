@@ -54,3 +54,9 @@
   template:
     src: templates/{{ host }}_config.j2
     dest: "{{ repo_dir }}/opentree/webapp/private/config"
+
+
+- name: configure opentree webapp
+  template:
+    src: templates/routes_py.j2
+    dest: "{{ web2py_dir }}/routes.py"
