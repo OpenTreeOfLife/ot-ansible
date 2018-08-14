@@ -3,6 +3,7 @@ normaluser: opentree
 adminuser: admin
 venv_synth: /home/{{normaluser}}/venv_synth
 venv_otcws: /home/{{normaluser}}/venv_otcws
+venv_web2py: /home/{{normaluser}}/venv_web2py
 repo_dir: /home/{{normaluser}}/repo
 synth_dir: /home/{{normaluser}}/synth
 ws_dir: /home/{{normaluser}}/ws
@@ -15,6 +16,7 @@ downloads_dir: /home/{{normaluser}}/downloads
 unpacked_dir: /home/{{normaluser}}/unpacked
 
 peyotl_git_remote: https://github.com/mtholder/peyotl
+peyotl_webapp_branch: master
 
 # next_synth_version should not be hard-coded
 next_synth_version: 10.4
@@ -33,3 +35,5 @@ ott_synth_full_version: ott3.0draft6
 ott_version: ott3.0
 
 otc_ws_data: /home/{{normaluser}}/ws/otc_ws_data
+
+opentree_branch: nexttree

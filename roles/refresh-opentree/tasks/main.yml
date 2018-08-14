@@ -1,0 +1,51 @@
+---
+- name: Clone opentree repo
+  git:
+    repo: "https://github.com/OpenTreeOfLife/opentree"
+    dest: "{{ repo_dir }}/opentree"
+    version: "{{ opentree_branch }}"
+  notify:
+    - "restart apache"
+
+- name: Check if link to webapp has been added to web2py applications
+  stat:
+    path: "{{ web2py_dir }}/applications/opentree"
+  register: webapp_link
+  become: true
+  become_user: opentree
+  become_method: sudo
+
+- name: create link in web2py applications dir
+  file:
+    src: "{{ repo_dir }}/opentree/webapp"
+    dest: "{{ web2py_dir }}/applications/opentree"
+    state: link
+  notify:
+    - "restart apache"
+  when: not webapp_link.stat.exists
+
+- name: Clone peyotl repo
+  git:
+    repo: "{{ peyotl_git_remote }}"
+    dest: "{{ repo_dir }}/peyotl"
+    version: "{{ peyotl_webapp_branch }}"
+  notify:
+    - "restart apache"
+
+- name: install peyotl prerequisites into {{venv_web2py}}
+  pip:
+    virtualenv: "{{ venv_web2py }}"
+    requirements: "{{ repo_dir }}/peyotl/requirements.txt"
+  notify:
+    - "restart apache"
+
+- name: install peyotl into {{venv_web2py}} as a link
+  pip:
+    name: "{{ repo_dir }}/peyotl"
+    extra_args: '-e'
+    virtualenv: "{{ venv_web2py }}"
+
+- name: configure opentree webapp
+  template:
+    src: templates/{{ host }}_config.j2
+    dest: "{{ repo_dir }}/opentree/webapp/private/config"
