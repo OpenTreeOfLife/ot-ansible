@@ -1,5 +1,9 @@
 ---
-- hosts: nexttree
+- hosts:
+    - nexttree
+    - ot38
+    - ot39
+    - ot40
   gather_facts: False
 
   pre_tasks:
