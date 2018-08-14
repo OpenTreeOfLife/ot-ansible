@@ -8,6 +8,7 @@ synth_dir: /home/{{normaluser}}/synth
 ws_dir: /home/{{normaluser}}/ws
 users_bin_dir: /home/{{normaluser}}/bin
 taxomachine_neo4j_dir: /home/{{normaluser}}/neo4j-taxomachine
+web2py_dir: /home/{{normaluser}}/web2py
 # treemachine_neo4j_dir: /home/{{normaluser}}/neo4j-treemachine
 # oti_neo4j_dir: /home/{{normaluser}}/neo4j-oti
 downloads_dir: /home/{{normaluser}}/downloads

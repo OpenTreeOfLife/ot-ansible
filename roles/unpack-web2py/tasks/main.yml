@@ -1,0 +1,54 @@
+#---
+- name: Create parent of unpacked
+  file:
+    path: "{{ unpacked_dir }}"
+    state: directory
+
+- name: Unpack web2py zip archive
+  unarchive:
+    src: "{{ downloads_dir }}/web2py_2.8.2_src.zip"
+    dest: "{{ unpacked_dir }}"
+    remote_src: yes
+    creates: "{{ unpacked_dir }}/web2py-R-2.8.2"
+
+- name: "See if web2py dir exists"
+  stat:
+    path: "{{ web2py_dir }}"
+  register: web2pyd
+
+- name: Copy web2py dir if needed
+  command: cp -r "{{ unpacked_dir }}/web2py-R-2.8.2" "{{ web2py_dir }}"
+  creates: "{{ web2py_dir }}"
+  when: (not web2pyd.stat.exists)
+
+#- name: Create parent of unpacked
+#  file:
+#    path: "{{ taxomachine_neo4j_dir }}/data/graph.db"
+#    state: directory
+#
+#- name: "See taxomachine graph db is in the data dir"
+#  stat:
+#    path: "{{ taxomachine_neo4j_dir }}/data/graph.db/index.db"
+#  register: index_db
+#
+#- name: Unpack a snapshot of the taxomachine db
+#  command: tar xfvz ~/downloads/taxomachine-20170414.db.tgz .
+#  args:
+#    chdir: "{{ taxomachine_neo4j_dir }}/data/graph.db"
+#  when: (not index_db.stat.exists)
+#
+#- name: Create parent of unpacked
+#  file:
+#    path: "{{ users_bin_dir }}"
+#    state: directory
+#
+#- name: Write neo4j launch script
+#  template:
+#    src: templates/restart_neo4j_sh.j2
+#    dest: "{{ users_bin_dir }}/restart_neo4j.sh"
+#
+#
+#- name: Write neo4j-server.properties
+#  template:
+#    src: templates/neo4j-server.properties.j2
+#    dest: "{{ taxomachine_neo4j_dir }}/conf/neo4j-server.properties"

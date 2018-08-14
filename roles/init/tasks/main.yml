@@ -11,6 +11,7 @@
     - python-apt
     - python-dev
     - rsync
+    - unzip
     - virtualenv
   become: true
   become_method: sudo
