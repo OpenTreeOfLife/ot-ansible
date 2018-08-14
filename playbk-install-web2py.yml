@@ -1,9 +1,6 @@
 ---
 - hosts:
-    - nexttree
-    - ot38
-    - ot39
-    - ot40
+    - fullstack
   gather_facts: False
 
   pre_tasks:
