@@ -1,12 +1,20 @@
 [security]
 secure_sessions_with_HTTPS = true
 
+[apis]
+# These values can be obtained by registering your instance as an
+# application with GitHub, at https://github.com/settings/applications/new
+github_client_id = YOUR_CLIENT_ID_HERE
+github_redirect_uri = YOUR_REDIRECT_URI_HERE
+# DON'T INCLUDE 'github_client_secret' value here. For better security, this is
+# loaded from a separate file and added to config data on-the-fly.
+
+
 # List public-facing base URL for treemachine and taxomachine services
 # (NOTE that these are used by both server- and client-side code)
 [domains]
 treemachine = {{ tree_of_life_endpoint }}
 taxomachine = {{ taxonomy_endpoint }}
-curator_url = {{ curator_endpoint }}
 
 # Building on the URLs above, complete the public-facing URL for all methods
 # (again, these should work from both server- and client-side code)
@@ -26,3 +34,4 @@ singlePropertySearchForStudies_url = {{ study_index_endpoint }}/v3/studies/find_
 getTaxonInfo_url = {{ taxonomy_endpoint }}/v3/taxonomy/taxon_info
 # Include one phylesystem-api method to download NexSON from Bibliographic References page
 API_load_study_GET_url = {{ study_api_endpoint }}/v3/study/{STUDY_ID}
+curator_url = {{ curator_endpoint }}

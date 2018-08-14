@@ -45,6 +45,11 @@
     extra_args: '-e'
     virtualenv: "{{ venv_web2py }}"
 
+- name: install opentree prerequisites into {{venv_web2py}}
+  pip:
+    virtualenv: "{{ venv_web2py }}"
+    requirements: "{{ repo_dir }}/opentree/requirements.txt"
+
 - name: configure opentree webapp
   template:
     src: templates/{{ host }}_config.j2
