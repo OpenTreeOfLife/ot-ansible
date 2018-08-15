@@ -1,10 +1,10 @@
 ---
-- name: install jade
+- name: "install jade"
   command: bash mvn_install.sh
   args:
     chdir: "{{ repo_dir }}/jade"
 
-- name: install ot-base
+- name: "install ot-base"
   command: bash mvn_install.sh
   args:
     chdir: "{{ repo_dir }}/ot-base"
@@ -13,6 +13,14 @@
   command: bash compile_server_plugins.sh
   args:
     chdir: "{{ repo_dir }}/taxomachine"
+
+- name: "copy taxomachine jar"
+  copy:
+    src: "{{ repo_dir }}/taxomachine/target/taxomachine-neo4j-plugins-0.0.1-SNAPSHOT.jar"
+    dest: "{{ taxomachine_neo4j_dir }}/plugins/taxomachine-neo4j-plugins-0.0.1-SNAPSHOT.jar"
+    remote_src: yes
+  listen: "restart taxomachine neo4j"
+  notify: "restart neo4j"
 
 - name: "restart neo4j"
   command: bash "{{ users_bin_dir }}/restart_neo4j.sh"

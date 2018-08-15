@@ -5,8 +5,20 @@
     repo: "https://github.com/FePhyFoFum/jade"
     dest: "{{ repo_dir }}/jade"
     version: "master"
-  notify:
-    - install jade
+  notify: "install jade"
+
+- name: "Check timestamp of jade maven install"
+  stat:
+    path: "{{ opentree_maven_dir }}/jade/maven-metadata-local.xml"
+  register: jade_mvn_build
+
+- name: see if we need to rebuild jade
+  debug:
+    msg: "jade needs to be built"
+  when: not jade_mvn_build.stat.exists
+  changed_when: true
+  notify: "install jade"
+
 
 - name: Clone ot-base repo
   git:
@@ -16,6 +28,18 @@
   notify:
     - install ot-base
 
+- name: "Check timestamp of jade maven install"
+  stat:
+    path: "{{ opentree_maven_dir }}/ot-base/maven-metadata-local.xml"
+  register: ot_base_mvn_build
+
+- name: see if we need to rebuild ot-base
+  debug:
+    msg: "ot-base needs to be built"
+  when: not ot_base_mvn_build.stat.exists
+  changed_when: true
+  notify: "install ot-base"
+
 - name: Clone taxomachine repo
   git:
     repo: "{{ taxomachine_git_remote }}"
@@ -24,7 +48,7 @@
   notify:
     - "build taxomachine plugin"
 
-- name: "Check timestamp of installed taxomachine plugin"
+- name: "Check timestamp of built taxomachine plugin"
   stat:
     path: "{{ taxomachine_neo4j_dir }}/plugins/taxomachine-neo4j-plugins-0.0.1-SNAPSHOT.jar"
   register: dest_plugin_location
@@ -34,11 +58,16 @@
     path: "{{ repo_dir }}/taxomachine/target/taxomachine-neo4j-plugins-0.0.1-SNAPSHOT.jar"
   register: src_plugin_location
 
-- name: copy taxomachine jar
-  copy:
-    src: "{{ repo_dir }}/taxomachine/target/taxomachine-neo4j-plugins-0.0.1-SNAPSHOT.jar"
-    dest: "{{ taxomachine_neo4j_dir }}/plugins/taxomachine-neo4j-plugins-0.0.1-SNAPSHOT.jar"
-    remote_src: yes
+- name: see if we need to rebuild taxomachine
+  debug:
+    msg: "jar needs to be built"
+  when: not src_plugin_location.stat.exists
+  changed_when: true
+  notify: "build taxomachine plugin"
+
+- name: see if we need to trigger restart
+  debug:
+    msg: "jar needs to be copied and taxomachine needs to be resetarted"
   when: (not dest_plugin_location.stat.exists) or (dest_plugin_location.stat.mtime < src_plugin_location.stat.mtime)
-  notify:
-    - "restart taxomachine neo4j"
+  changed_when: true
+  notify: "copy taxomachine jar"

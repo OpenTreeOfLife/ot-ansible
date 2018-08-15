@@ -1,6 +1,7 @@
 ---
 normaluser: opentree
 adminuser: admin
+opentree_maven_dir: /home/{{normaluser}}/.m2/repository/org/opentree
 venv_synth: /home/{{normaluser}}/venv_synth
 venv_otcws: /home/{{normaluser}}/venv_otcws
 venv_web2py: /home/{{normaluser}}/venv_web2py
