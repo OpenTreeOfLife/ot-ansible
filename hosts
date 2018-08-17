@@ -32,7 +32,7 @@ all:
         ot40:
           host: ot40
           deploy_type: curatorless
-          ansible_ssh_private_key_file: ~/.ssh/opentree/production.pem
+          ansible_ssh_private_key_file: ~/.ssh/opentree/opentree.pem
           ansible_host: ot40.opentreeoflife.org
           curator_endpoint: https://tree.opentreeoflife.org/curator
           taxonomy_endpoint:  https://ot40.opentreeoflife.org
