@@ -6,6 +6,12 @@
     dest: "{{ ws_dir }}/otcetera"
     version: "{{ otcetera_ws_branch }}"
 
+- name: create the configure script for otcetera for webservices
+  command: bash bootstrap.sh
+  args:
+    chdir: "{{ws_dir}}/otcetera"
+    creates: "{{ws_dir}}/otcetera/configure"
+
 - name: write reconf.sh script
   template:
     src: templates/reconf_ws_sh.j2
