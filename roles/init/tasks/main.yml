@@ -10,6 +10,8 @@
     - psmisc  # killall does not come with debian, used by launch_otc_ws_...
     - python-apt
     - python-dev
+    - python-pip
+    - python-setuptools
     - rsync
     - unzip
     - virtualenv
@@ -86,4 +88,3 @@
   when: (not venvweb2pypython.stat.exists)
   become: true
   become_user: "{{ normaluser }}"
-
