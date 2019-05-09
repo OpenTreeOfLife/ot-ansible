@@ -23,7 +23,7 @@ peyotl_webapp_branch: master
 next_synth_version: 10.4
 
 otcetera_git_remote: https://github.com/mtholder/otcetera
-otcetera_synth_branch: nexttree
+otcetera_synth_branch: bump_fossil_higher
 otcetera_ws_branch: master
 
 taxomachine_git_remote: https://github.com/OpenTreeOfLife/taxomachine

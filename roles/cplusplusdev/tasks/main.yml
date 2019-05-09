@@ -1,25 +1,23 @@
 ---
 # Install a nice, modern (in 2018) g++
-- name: Install gcc-7 and g++-7 and autotools
+- name: Install gcc-8 and g++-8 and autotools
   apt: name={{ item }} state=present
   with_items:
-    - gcc-7
-    - g++-7
-    - autoconf
-    - automake
+    - gcc-8
+    - g++-8
     - cmake
-    - libtool
-    - libboost-all-dev
+    - meson
+    - ninja-build
     - libcurl4-openssl-dev
     - libssl-dev
   become: true
   become_method: sudo
 
-- name: Make g++-7 and gcc-7 the defaults
+- name: Make g++-8 and gcc-8 the defaults
   alternatives:
     name: "{{item}}"
     link: "/usr/bin/{{item}}"
-    path: "/usr/bin/{{item}}-7"
+    path: "/usr/bin/{{item}}-8"
   with_items:
     - gcc
     - g++

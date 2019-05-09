@@ -2,7 +2,7 @@
 - name: write ~/.opentree config file used by propinquity
   template:
     src: templates/dot_opentree.j2
-    dest: "/home/{{ ansible_user }}/.opentree"
+    dest: "/home/{{ ansible_user }}/.synth_flag_opentree"
 
 - name: write ~/.opentree config file used by propinquity
   template:

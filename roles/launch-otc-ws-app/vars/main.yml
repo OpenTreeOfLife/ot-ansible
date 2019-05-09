@@ -1,3 +1,3 @@
 ---
 ansible_user: opentree
-peyotl_otc_ws_branch: nexttree
+peyotl_otc_ws_branch: bump_fossil_higher
