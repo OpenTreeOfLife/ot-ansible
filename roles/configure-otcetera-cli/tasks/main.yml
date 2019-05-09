@@ -6,13 +6,18 @@
     dest: "{{ synth_dir }}/otcetera"
     version: "{{ otcetera_synth_branch }}"
 
+- name: Create parent of buildotc
+  file:
+    path: "{{ synth_dir }}/buildotc"
+    state: directory
+
 - name: write reconf.sh script
   template:
     src: templates/reconf_sh.j2
     dest: "{{ synth_dir }}/buildotc/reconf.sh"
 
-- name: Create the Makefiles by running our invocation of configure (via reconf.sh)
+- name: Create the build subdir by running meson (via reconf.sh)
   command: bash reconf.sh
   args:
     chdir: "{{synth_dir}}/buildotc"
-    creates: "{{synth_dir}}/buildotc/Makefile"
+    creates: "{{synth_dir}}/buildotc/build"

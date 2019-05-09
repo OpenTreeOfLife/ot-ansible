@@ -1,18 +1,12 @@
 ---
 
-- name: Runs "make" on the otcetera-cli dir
-  make:
+- name: Runs ninja to build and install otc
+  command: ninja -C build install
+  args:
     chdir: "{{synth_dir}}/buildotc"
-    target: all
-    params:
-      NUM_THREADS: 6
 
-- name: Runs tests on the new otcetera build
-  make:
-    chdir: "{{synth_dir}}/buildotc"
-    target: check
 
-- name: Install the new otcetera build
-  make:
+- name: Performs the otc tests
+  command: ninja -C build test
+  args:
     chdir: "{{synth_dir}}/buildotc"
-    target: install
