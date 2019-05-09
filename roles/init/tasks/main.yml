@@ -50,3 +50,40 @@
     - "{{ otc_ws_data }}/synth_trees"
   become: true
   become_user: "{{ normaluser }}"
+
+- name: "See if venv_synth virtualenv dir exists"
+  stat:
+    path: "{{ venv_synth }}/bin/python"
+  register: venvsynthpython
+
+- name: "See if venv_otcws virtualenv dir exists"
+  stat:
+    path: "{{ venv_otcws }}/bin/python"
+  register: venvotcwspython
+
+- name: "See if venv_web2py virtualenv dir exists"
+  stat:
+    path: "{{ venv_web2py }}/bin/python"
+  register: venvweb2pypython
+
+- name: "Create python 3 virtualenvs for synthesis."
+  command:
+    virtualenv -p python3.6 "{{ venv_synth }}"
+  when: (not venvsynthpython.stat.exists)
+  become: true
+  become_user: "{{ normaluser }}"
+
+- name: "Create python 3 virtualenvs for otc-web-services."
+  command:
+    virtualenv -p python3.6 "{{ venv_otcws }}"
+  when: (not venvotcwspython.stat.exists)
+  become: true
+  become_user: "{{ normaluser }}"
+
+- name: "Create python 2.7 virtualenv for web2py-based web services."
+  command:
+    virtualenv -p python2.7 "{{ venv_web2py }}"
+  when: (not venvweb2pypython.stat.exists)
+  become: true
+  become_user: "{{ normaluser }}"
+
