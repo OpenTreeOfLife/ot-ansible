@@ -4,7 +4,7 @@
     src: templates/dot_opentree.j2
     dest: "/home/{{ ansible_user }}/.synth_flag_opentree"
 
-- name: write ~/.opentree config file used by propinquity
+- name: write peyotl config file used by propinquity
   template:
     src: templates/synth_peyotl_conf_ini.j2
     dest: "{{ synth_dir }}/propinquity/synth_peyotl_conf_{{ next_synth_version }}.ini"
@@ -22,6 +22,11 @@
     path: "{{ synth_dir }}/propinquity/next.config"
     regexp: '^synth_id+ =+ opentree[-0-9.]+ *$'
     replace: "synth_id = opentree{{ next_synth_version }}"
+
+- name: "write invoke_opentree{{ next_synth_version }}."
+  template:
+    src: templates/invoke_generic_sh.j2
+    dest: "{{ synth_dir }}/propinquity/invoke_generic.sh"
 
 - name: "See if a completed build dir for {{ next_synth_version }} exists"
   stat:

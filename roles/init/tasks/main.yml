@@ -11,6 +11,8 @@
     - python-apt
     - python-dev
     - python-pip
+    - python3-pip
+    - python3-venv
     - python-setuptools
     - rsync
     - unzip
@@ -70,21 +72,27 @@
 
 - name: "Create python 3 virtualenvs for synthesis."
   command:
-    virtualenv -p python3.6 "{{ venv_synth }}"
+    python3 -m venv "{{ venv_synth }}"
   when: (not venvsynthpython.stat.exists)
   become: true
   become_user: "{{ normaluser }}"
 
 - name: "Create python 3 virtualenvs for otc-web-services."
   command:
-    virtualenv -p python3.6 "{{ venv_otcws }}"
+    python3  -m venv "{{ venv_otcws }}"
   when: (not venvotcwspython.stat.exists)
+  become: true
+  become_user: "{{ normaluser }}"
+
+- name: "Make sure that python2.7 can use virtualenv"
+  command:
+    python2.7  -m pip install virtualenv
   become: true
   become_user: "{{ normaluser }}"
 
 - name: "Create python 2.7 virtualenv for web2py-based web services."
   command:
-    virtualenv -p python2.7 "{{ venv_web2py }}"
+    python2.7  -m virtualenv "{{ venv_web2py }}"
   when: (not venvweb2pypython.stat.exists)
   become: true
   become_user: "{{ normaluser }}"

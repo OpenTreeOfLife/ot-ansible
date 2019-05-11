@@ -1,0 +1,58 @@
+#!/bin/bash
+cfg="${1}"
+wd="${2}"
+tag="${3}"
+otttag="${4}"
+if test -z ${wd}
+then
+    echo output dir must be specified as the second argument
+    exit 1
+fi
+set -x
+if test -d "${wd}"
+then
+    rm -r "${wd}" || exit
+fi
+export OTC_CONFIG="/home/{{ ansible_user }}/.synth_flag_opentree"
+
+eftaxonomy="{{ synth_dir }}/ott/ott${otttag}-extinct-flagged"
+if ! test -f "${eftaxonomy}/taxonomy.tsv"
+then
+    mkdir -p "${eftaxonomy}"
+    rawott="{{ synth_dir }}/ott/{{ ott_synth_full_version }}/ott"
+    if ! otc-taxonomy-parser "${rawott}" -E --write-taxonomy="${eftaxonomy}/taxonomy.tsv" 2>err-extinct-flag.log
+    then
+        echo flagging of extinct taxa failed
+        cat err-extinct-flag.log
+        exit 1
+    else
+        mv err-extinct-flag.log "${eftaxonomy}/"
+    fi
+fi
+
+if ! ./bin/build_at_dir.sh "${cfg}" "${wd}"
+then
+    jsonfp="${wd}/cleaned_ott/move_extinct_higher_log.json"
+    if ./bin/verify_taxon_edits_not_needed.py "${jsonfp}"
+    then
+       echo 'build failed for reason other than need of taxon bump'
+       exit 1
+    fi
+    btfn=ott${otttag}-bumped-tree-${tag}
+    btfp="{{ synth_dir }}/ott/${btfn}"
+    if test -d "${btfp}"
+    then
+        rm -r "${btfp}" || exit
+    fi
+    ./bin/patch_taxonomy_by_bumping.py "${eftaxonomy}" "${jsonfp}" "${btfp}" || exit
+    cat "${OTC_CONFIG}"  | sed -E '/^ott/d' > ~/.bumped-opentree
+    echo "ott = %\(home\)s/ott/${btfn}" >> ~/.bumped-opentree
+    export OTC_CONFIG=~/.bumped-opentree
+    td={{ synth_dir }}/bumpedopentree${tag}
+    if test -d "$td"
+    then
+        rm -r "$td" || exit
+    fi
+    ./bin/build_at_dir.sh "${cfg}" "${td}" || exit 1
+fi
+

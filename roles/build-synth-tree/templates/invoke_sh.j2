@@ -3,4 +3,8 @@ source "{{ venv_synth }}/bin/activate" || exit
 export PATH="${PATH}:{{ synth_dir }}/local/bin"
 export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:{{ synth_dir }}/local/lib/otcetera"
 export PEYOTL_CONFIG_FILE="{{ synth_dir }}/propinquity/synth_peyotl_conf_{{ next_synth_version }}.ini"
-./bin/build_at_dir.sh next.config "{{ synth_dir }}/in_progress_tree_builds/opentree{{ next_synth_version }}" || exit
+echo ./invoke_generic.sh \
+  next.config \
+  "{{ synth_dir }}/in_progress_tree_builds/opentree{{ next_synth_version }}" \
+  {{ next_synth_version }} \
+  {{ ott_tag }} || exit
