@@ -18,9 +18,11 @@ export OTC_CONFIG="/home/{{ ansible_user }}/.synth_flag_opentree"
 eftaxonomy="{{ synth_dir }}/ott/ott${otttag}-extinct-flagged"
 if ! test -f "${eftaxonomy}/taxonomy.tsv"
 then
-    mkdir -p "${eftaxonomy}"
+    if test -d "${eftaxonomy}" ; then
+        rm -rf "${eftaxonomy}"
+    fi
     rawott="{{ synth_dir }}/ott/{{ ott_synth_full_version }}/ott"
-    if ! otc-taxonomy-parser "${rawott}" -E --write-taxonomy="${eftaxonomy}/taxonomy.tsv" 2>err-extinct-flag.log
+    if ! otc-taxonomy-parser "${rawott}" -E --write-taxonomy="${eftaxonomy}" 2>err-extinct-flag.log
     then
         echo flagging of extinct taxa failed
         cat err-extinct-flag.log
@@ -46,13 +48,18 @@ then
     fi
     ./bin/patch_taxonomy_by_bumping.py "${eftaxonomy}" "${jsonfp}" "${btfp}" || exit
     cat "${OTC_CONFIG}"  | sed -E '/^ott/d' > ~/.bumped-opentree
-    echo "ott = %\(home\)s/ott/${btfn}" >> ~/.bumped-opentree
-    export OTC_CONFIG=~/.bumped-opentree
-    td={{ synth_dir }}/bumpedopentree${tag}
+    echo "ott = %(home)s/ott/${btfn}" >> ~/.bumped-opentree
+    export OTC_CONFIG="/home/{{ ansible_user }}/.bumped-opentree"
+    td={{ synth_dir }}/in_progress_tree_builds/bumpedopentree${tag}
     if test -d "$td"
     then
         rm -r "$td" || exit
     fi
     ./bin/build_at_dir.sh "${cfg}" "${td}" || exit 1
+    if test -d "${wd}-failed" ; then
+        rm -r "${wd}-failed" || exit
+    fi
+    mv "${wd}" "${wd}-failed" || exit
+    mv "${td}" "${wd}" || exit
 fi
 
