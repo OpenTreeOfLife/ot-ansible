@@ -18,7 +18,6 @@
 
 - name: Copy web2py dir if needed
   command: cp -r "{{ unpacked_dir }}/web2py-R-2.8.2" "{{ web2py_dir }}"
-  creates: "{{ web2py_dir }}"
   when: (not web2pyd.stat.exists)
 
 - name: Write web2py wsgihandler.py

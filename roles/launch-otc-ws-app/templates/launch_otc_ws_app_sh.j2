@@ -7,11 +7,11 @@ if test -f "{{ otc_ws_data }}/wspidfile.txt" ; then
 fi
 
 echo -n "Starting otcetera web services (otc-tol-ws)... "
-export LD_LIBRARY_PATH="{{ ws_dir }}/installed/library:${LD_LIBRARY_PATH}"
+export LD_LIBRARY_PATH="{{ ws_dir }}/local/library:${LD_LIBRARY_PATH}"
 /usr/sbin/daemonize \
     -c "{{ otc_ws_data }}" \
-    "{{ ws_dir }}/installed/bin/otc-tol-ws" \
-    "{{ otc_ws_data }}/ott" \
+    "{{ ws_dir }}/local/bin/otc-tol-ws" \
+    "{{ otc_ws_data }}/ott-used-in-synth" \
     "-D{{ otc_ws_data }}/synth_trees" \
     "-p{{ otc_ws_data }}/wspidfile.txt" \
     -P1984 \

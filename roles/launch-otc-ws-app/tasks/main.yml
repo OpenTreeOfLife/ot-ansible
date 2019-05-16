@@ -24,16 +24,16 @@
 - name: write launch_otc_ws_app.sh script
   template:
     src: templates/launch_otc_ws_app_sh.j2
-    dest: "{{ ws_dir }}/installed/bin/launch_otc_ws_app.sh"
+    dest: "{{ ws_dir }}/local/bin/launch_otc_ws_app.sh"
 
 
 - name: write launch_ws_wrapper.sh script
   template:
     src: templates/launch_ws_wrapper_sh.j2
-    dest: "{{ ws_dir }}/installed/bin/launch_ws_wrapper.sh"
+    dest: "{{ ws_dir }}/local/bin/launch_ws_wrapper.sh"
 
 - name: "launch servers via launch scripts"
   command: "bash {{ item }}"
   with_items:
-   - "{{ ws_dir }}/installed/bin/launch_otc_ws_app.sh"
-   - "{{ ws_dir }}/installed/bin/launch_ws_wrapper.sh"
+   - "{{ ws_dir }}/local/bin/launch_otc_ws_app.sh"
+   - "{{ ws_dir }}/local/bin/launch_ws_wrapper.sh"

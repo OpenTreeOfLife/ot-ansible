@@ -70,6 +70,10 @@ if test -d "${destott}"
 then
     rm -r "${destott}" || exit
 fi
+if test -f "${destott}.tgz"
+then
+    rm "${destott}.tgz" || exit
+fi
 cp -r "${taxdir}" "${destott}" || exit
 
 
