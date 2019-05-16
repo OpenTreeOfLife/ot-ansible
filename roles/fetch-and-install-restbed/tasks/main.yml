@@ -14,12 +14,14 @@
     group: "{{ normaluser }}"
 
 - name: create restbuild Makefile
-  command: "cmake -DBUILD_SSL=NO -DCMAKE_INSTALL_PREFIX={{ ws_dir }}/installed .."
+  command: "cmake .. -G Ninja -DBUILD_SSL=NO -DCMAKE_INSTALL_PREFIX={{ ws_dir }}/local"
   args:
     chdir: "{{ ws_dir }}/restbed/build"
-    creates: "{{ ws_dir }}/restbed/build/Makefile"
+    creates: "{{ ws_dir }}/restbed/build/build.ninja"
 
-- name: build and install resetbed
-  make:
+- name: build and install restbed
+  command: ninja install
+  args:
     chdir: "{{ ws_dir }}/restbed/build"
-    target: install
+    creates: "{{ ws_dir }}/local/library/librestbed.a"
+

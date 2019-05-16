@@ -6,25 +6,18 @@
     dest: "{{ ws_dir }}/otcetera"
     version: "{{ otcetera_ws_branch }}"
 
-- name: create the configure script for otcetera for webservices
-  command: bash bootstrap.sh
-  args:
-    chdir: "{{ws_dir}}/otcetera"
-    creates: "{{ws_dir}}/otcetera/configure"
+- name: Create parent of buildotc
+  file:
+    path: "{{ ws_dir }}/buildotc"
+    state: directory
 
 - name: write reconf.sh script
   template:
     src: templates/reconf_ws_sh.j2
     dest: "{{ ws_dir }}/buildotc/reconf.sh"
-  register: result
 
-- name: Check if the otcetera Makefile exists
-  stat:
-    path: "{{ ws_dir }}/buildotc/Makefile"
-  register: otcmakefile
-
-- name: Create the Makefiles by running our invocation of configure (via reconf.sh)
+- name: Create the build subdir by running meson (via reconf.sh)
   command: bash reconf.sh
   args:
-    chdir: "{{ ws_dir }}/buildotc"
-  when: result.changed or not otcmakefile.stat.exists
+    chdir: "{{ws_dir}}/buildotc"
+    creates: "{{ws_dir}}/buildotc/build"
