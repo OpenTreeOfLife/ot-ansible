@@ -82,7 +82,7 @@
   command: "mv '{{ synth_dir }}/in_progress_tree_builds/opentree{{ next_synth_version }}' '{{ synth_dir }}/tree_builds/opentree{{ next_synth_version }}'"
   args:
     creates: "{{ synth_dir }}/tree_builds/opentree{{ next_synth_version }}"
-  when: log_index_html.stat.exists and not tb_dir.stat.exists
+  when: not tb_dir.stat.exists and log_index_html.stat.exists
 
 
 - name: Notify if build is old

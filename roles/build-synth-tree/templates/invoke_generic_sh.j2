@@ -32,8 +32,10 @@ then
     fi
 fi
 
-if ! ./bin/build_at_dir.sh "${cfg}" "${wd}"
+if ./bin/build_at_dir.sh "${cfg}" "${wd}"
 then
+    taxdir="{{ synth_dir }}/ott/ott{{ ott_tag }}-extinct-flagged"
+else
     jsonfp="${wd}/cleaned_ott/move_extinct_higher_log.json"
     if ./bin/verify_taxon_edits_not_needed.py "${jsonfp}"
     then
@@ -61,5 +63,13 @@ then
     fi
     mv "${wd}" "${wd}-failed" || exit
     mv "${td}" "${wd}" || exit
+    taxdir="{{ synth_dir }}/ott/${btfn}"
 fi
+destott="{{ synth_dir }}/tree_builds/ott-used-in-synth"
+if test -d "${destott}"
+then
+    rm -r "${destott}" || exit
+fi
+cp -r "${taxdir}" "${destott}" || exit
+
 
