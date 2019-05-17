@@ -29,6 +29,7 @@
     - proxy_http
     - rewrite
     - ssl
+    - cgid
   become: true
   become_method: sudo
 
@@ -96,3 +97,11 @@
   when: (not venvweb2pypython.stat.exists)
   become: true
   become_user: "{{ normaluser }}"
+
+- name: "install requests system-wide python2.7 for the taxonomy cgi browser"
+  command:
+    python2.7  -m pip install --system requests
+  become: true
+  become_method: sudo
+
+
