@@ -77,16 +77,16 @@
   become: true
   become_user: "{{ normaluser }}"
 
-- name: "Create python 3 virtualenvs for otc-web-services."
-  command:
-    python3  -m venv "{{ venv_otcws }}"
-  when: (not venvotcwspython.stat.exists)
-  become: true
-  become_user: "{{ normaluser }}"
-
 - name: "Make sure that python2.7 can use virtualenv"
   command:
     python2.7  -m pip install virtualenv
+  become: true
+  become_user: "{{ normaluser }}"
+
+- name: "Create python 2 virtualenvs for otc-web-services."
+  command:
+    python2.7  -m virtualenv "{{ venv_otcws }}"
+  when: (not venvotcwspython.stat.exists)
   become: true
   become_user: "{{ normaluser }}"
 
