@@ -1,3 +1,5 @@
 ---
 ansible_user: opentree
 peyotl_otc_ws_branch: bump_fossil_higher
+taxomachine_local_url_prefix: http://localhost:7476/db/data/ext/tnrs_v3/graphdb
+tnrs_timing_filepath: /tmp/tnrslogs

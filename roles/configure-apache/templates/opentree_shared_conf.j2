@@ -37,19 +37,27 @@
     # N.B. that we should match "bare" URLs like '/v3/amendment' to create a resource!
     # RewriteRule ^/v3/amendments(.*) /phylesystem/v1/amendments$1 [PT]
     # RewriteRule ^/v3/amendment(.*)  /phylesystem/v1/amendment$1 [PT]
-    # 6543 = default port for ws_wrapper (calls port 1984: otc-tol-ws from otctera)
+    # 6543 = default port for ws_wrapper (calls port 1984: otc-tol-ws from otcetera)
     <Location /v3/tree_of_life>
       Require all granted
       ProxyPass  http://localhost:1983/v3/tree_of_life
       ProxyPassReverse  http://localhost:1983/v3/tree_of_life
     </Location>
 
-    # taxomachine neo4j
+    # ws_wrapper tnrs
     <Location /v3/tnrs>
       Require all granted
-      ProxyPass  http://localhost:7476/db/data/ext/tnrs_v3/graphdb
-      ProxyPassReverse  http://localhost:7476/db/data/ext/tnrs_v3/graphdb
+      ProxyPass  http://localhost:1983/v3/tnrs
+      ProxyPassReverse  http://localhost:1983/v3/tnrs
     </Location>
+
+    # taxomachine neo4j
+    # <Location /v3/tnrs>
+    #  Require all granted
+    #  ProxyPass  http://localhost:7476/db/data/ext/tnrs_v3/graphdb
+    #  ProxyPassReverse  http://localhost:7476/db/data/ext/tnrs_v3/graphdb
+    # </Location>
+
     <Location /v3/taxonomy>
       Require all granted
       ProxyPass  http://localhost:1983/v3/taxonomy
@@ -88,11 +96,11 @@
     # </Location>
 
     # 7476 = taxomachine neo4j
-    <Location /v2/tnrs>
-      Require all granted
-      ProxyPass  http://localhost:7476/db/data/ext/tnrs_v2/graphdb
-      ProxyPassReverse  http://localhost:7476/db/data/ext/tnrs_v2/graphdb
-    </Location>
+    # <Location /v2/tnrs>
+    #  Require all granted
+    #  ProxyPass  http://localhost:7476/db/data/ext/tnrs_v2/graphdb
+    #  ProxyPassReverse  http://localhost:7476/db/data/ext/tnrs_v2/graphdb
+    #</Location>
 
     # <Location /v2/taxonomy>
     #  Require all granted
@@ -109,11 +117,11 @@
 
 
     # 6543 = Route /v2/conflict to the same destination as /v3/conflict
-    <Location /v2/conflict>
-      Require all granted
-      ProxyPass  http://localhost:1983/v3/conflict
-      ProxyPassReverse  http://localhost:1983/v3/conflict
-    </Location>
+    # <Location /v2/conflict>
+    #  Require all granted
+    #  ProxyPass  http://localhost:1983/v3/conflict
+    #  ProxyPassReverse  http://localhost:1983/v3/conflict
+    # </Location>
 
 
 

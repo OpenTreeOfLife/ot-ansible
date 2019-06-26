@@ -71,10 +71,17 @@
     path: "{{ venv_web2py }}/bin/python"
   register: venvweb2pypython
 
-- name: "Create python 3 virtualenvs for synthesis."
+- name: "Create python 3 virtualenv for synthesis."
   command:
     python3 -m venv "{{ venv_synth }}"
   when: (not venvsynthpython.stat.exists)
+  become: true
+  become_user: "{{ normaluser }}"
+
+- name: "Create python 3 virtualenv for otc-web-services."
+  command:
+    python3 -m venv "{{ venv_otcws }}"
+  when: (not venvotcwspython.stat.exists)
   become: true
   become_user: "{{ normaluser }}"
 
@@ -84,12 +91,6 @@
   become: true
   become_user: "{{ normaluser }}"
 
-- name: "Create python 2 virtualenvs for otc-web-services."
-  command:
-    python2.7  -m virtualenv "{{ venv_otcws }}"
-  when: (not venvotcwspython.stat.exists)
-  become: true
-  become_user: "{{ normaluser }}"
 
 - name: "Create python 2.7 virtualenv for web2py-based web services."
   command:
