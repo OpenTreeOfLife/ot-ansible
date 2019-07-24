@@ -24,4 +24,4 @@
 
 - name: "restart neo4j"
   command: bash "{{ users_bin_dir }}/restart_neo4j.sh"
-  listen: "restart taxomachine neo4j"
+  listen: "restart neo4j"

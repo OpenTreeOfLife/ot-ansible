@@ -18,7 +18,6 @@
 
 - name: Create scaffold for neo4j apps
   command: cp -r "{{ unpacked_dir }}/neo4j-community-1.9.5" "{{ taxomachine_neo4j_dir }}"
-  creates: "{{ taxomachine_neo4j_dir }}"
   when: (not taxo_neo_dir.stat.exists)
 
 - name: Create parent of unpacked

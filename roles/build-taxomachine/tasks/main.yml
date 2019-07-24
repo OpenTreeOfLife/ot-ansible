@@ -67,7 +67,7 @@
 
 - name: see if we need to trigger restart
   debug:
-    msg: "jar needs to be copied and taxomachine needs to be resetarted"
+    msg: "jar needs to be copied and taxomachine needs to be restarted"
   when: (not dest_plugin_location.stat.exists) or (dest_plugin_location.stat.mtime < src_plugin_location.stat.mtime)
   changed_when: true
   notify: "copy taxomachine jar"
