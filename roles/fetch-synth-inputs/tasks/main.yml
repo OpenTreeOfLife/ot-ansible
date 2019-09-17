@@ -31,5 +31,6 @@
 - name: Uncompress OTT
   unarchive:
     src: "{{ synth_dir }}/ott/{{ ott_synth_full_version }}.tgz"
-    dest: "{{ synth_dir }}/ott/{{ ott_synth_full_version }}"
+    dest: "{{ synth_dir }}/ott/"
+    creates: "{{ synth_dir }}/ott/{{ ott_synth_full_version }}/taxonomy.tsv"
     remote_src: yes
