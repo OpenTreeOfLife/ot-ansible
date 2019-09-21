@@ -14,7 +14,7 @@
     group: "{{ normaluser }}"
 
 - name: create restbuild Makefile
-  command: "cmake .. -G Ninja -DBUILD_SSL=NO -DCMAKE_INSTALL_PREFIX={{ ws_dir }}/local"
+  command: "cmake .. -G Ninja -DBUILD_SSL=NO -DCMAKE_INSTALL_PREFIX={{ ws_dir }}/local -DCMAKE_POSITION_INDEPENDENT_CODE=ON"
   args:
     chdir: "{{ ws_dir }}/restbed/build"
     creates: "{{ ws_dir }}/restbed/build/build.ninja"
