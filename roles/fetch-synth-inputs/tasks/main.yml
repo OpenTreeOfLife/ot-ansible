@@ -25,7 +25,7 @@
 
 - name: Download copy of the OTT that will be the synthesis input taxonomy
   get_url:
-    url: http://files.opentreeoflife.org/ott/ott3.0/ott3.0draft6.tgz
+    url: "{{ ott_download_url }}"
     dest: "{{ synth_dir }}/ott/"
 
 - name: Uncompress OTT
