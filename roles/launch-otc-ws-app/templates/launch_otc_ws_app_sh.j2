@@ -27,8 +27,8 @@ while true ; do
     if ! pgrep otc-tol-ws >/dev/null ; then
         echo "otc-tol-ws could not be launched"
     fi
-    if test $nt -gt 30 ; then
-        echo "otc-tol-ws not launched after 15 seconds, aborting..."
+    if test $nt -gt 240 ; then
+        echo "otc-tol-ws not launched after 120 seconds, aborting..."
         exit 2
     fi
     nt=$(expr $nt + 1)
