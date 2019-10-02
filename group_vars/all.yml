@@ -24,7 +24,7 @@ next_synth_version: 11.3
 
 otcetera_git_remote: https://github.com/OpenTreeOfLife/otcetera
 otcetera_synth_branch: bump_fossil_higher
-otcetera_ws_branch: deployed
+otcetera_ws_branch: no-fuzzy-match-db
 
 taxomachine_git_remote: https://github.com/OpenTreeOfLife/taxomachine
 taxomachine_branch: master
