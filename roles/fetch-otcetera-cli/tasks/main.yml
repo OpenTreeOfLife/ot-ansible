@@ -5,8 +5,8 @@
     dest: "{{ synth_dir }}/otcetera"
     version: "{{ otcetera_synth_branch }}"
 
-- name: create the configure script for otcetera
-  command: bash bootstrap.sh
-  args:
-    chdir: "{{synth_dir}}/otcetera"
-    creates: "{{synth_dir}}/otcetera/configure"
+# - name: create the configure script for otcetera
+#   command: bash bootstrap.sh
+#   args:
+#     chdir: "{{synth_dir}}/otcetera"
+#     creates: "{{synth_dir}}/otcetera/configure"
