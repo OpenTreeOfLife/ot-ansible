@@ -21,7 +21,7 @@ then
     if test -d "${eftaxonomy}" ; then
         rm -rf "${eftaxonomy}"
     fi
-    rawott="{{ synth_dir }}/ott/{{ ott_synth_full_version }}/ott"
+    rawott="{{ synth_dir }}/ott/{{ ott_synth_full_version }}"
     if ! otc-taxonomy-parser "${rawott}" -E --write-taxonomy="${eftaxonomy}" 2>err-extinct-flag.log
     then
         echo flagging of extinct taxa failed
