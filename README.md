@@ -29,3 +29,19 @@ Some links that were helpful:
   * Previous Open Tree component with ansible installation:
     https://github.com/OpenTreeOfLife/otindex_ansible
   * https://andidog.de/blog/2017-04-24-ansible-best-practices
+
+# Deploying the synthetic tree
+
+A very rough overview of deploying the synthetic tree looks like this:
+
+1. To download a new copy of OTT:
+    * `ansible-playbook --limit=nexttree playbk-refresh-synth-runtime.yml`
+    * This is downloaded to `~/synth/ott/ott<version>/`
+2. To build the synth tree:
+    * `ansible-playbook --limit=nexttree playbk-rerebuilt-synth-tree.yml`
+    * This is built in `~/synth/in_progress_tree_builds/` and is copied to `~/synth/tree_builds/`
+3. To start serving the synth tree
+    * `ansible-playbook --limit=nexttree playbk-serve-next-tree.yml`
+    * This involves copying the tree and taxonomy to `~/ws/otc_ws_data`
+    * The webservices are run using an instance of otcetera in `~/ws/local/bin/`
+
