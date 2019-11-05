@@ -20,7 +20,7 @@ peyotl_git_remote: https://github.com/OpenTreeOfLife/peyotl
 peyotl_webapp_branch: master
 
 # next_synth_version should not be hard-coded
-next_synth_version: 11.4
+next_synth_version: 12.0
 
 otcetera_git_remote: https://github.com/OpenTreeOfLife/otcetera
 otcetera_synth_branch: bump_fossil_higher
@@ -32,9 +32,9 @@ taxomachine_branch: master
 ws_wrapper_git_remote: https://github.com/OpenTreeOfLife/ws_wrapper
 ws_wrapper_branch: master
 
-ott_synth_full_version: ott3.1
-ott_version: ott3.1
-ott_tag: 3.1.0
+ott_synth_full_version: ott3.2
+ott_version: ott3.2
+ott_tag: 3.2.0
 
 otc_ws_data: /home/{{normaluser}}/ws/otc_ws_data
 
