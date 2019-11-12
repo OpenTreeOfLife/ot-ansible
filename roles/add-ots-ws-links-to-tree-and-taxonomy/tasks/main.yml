@@ -1,37 +1,16 @@
 ---
 
-- name: Check if archive of next synth has been created
-  stat:
-    path: "{{ synth_dir }}/tree_builds/opentree{{ next_synth_version }}.tgz"
-  register: synth_archive
+- name: Copy synth tree to served location.
+  copy:
+    src: "{{ synth_dir }}/tree_builds/opentree{{ next_synth_version }}"
+    dest: "{{ otc_ws_data }}/synth_trees/"
+    remote_src: true
+    mode: preserve
 
-- name: compress synth tree if required
-  archive:
-    path: "{{ synth_dir }}/tree_builds/opentree{{ next_synth_version }}"
-    dest: "{{ synth_dir }}/tree_builds/opentree{{ next_synth_version }}.tgz"
-  when: not synth_archive.stat.exists
+- name: Copy OTT to served location.
+  copy:
+    src: "{{ synth_dir }}/tree_builds/ott-used-in-synth"
+    dest: "{{ otc_ws_data }}/"
+    remote_src: true
+    mode: preserve
 
-- name: Check if archive of most recently used OTT has been created
-  stat:
-    path: "{{ synth_dir }}/tree_builds/ott-used-in-synth{{ next_synth_version }}.tgz"
-  register: synth_ott_archive
-
-- name: compress most recently used OTT if required
-  archive:
-    path: "{{ synth_dir }}/tree_builds/ott-used-in-synth"
-    dest: "{{ synth_dir }}/tree_builds/ott-used-in-synth{{ next_synth_version }}.tgz"
-  when: not synth_ott_archive.stat.exists
-
-- name: Uncompress synth tree
-  unarchive:
-    src: "{{ synth_dir }}/tree_builds/opentree{{ next_synth_version }}.tgz"
-    dest: "{{ otc_ws_data }}/synth_trees"
-    remote_src: yes
-    creates: "{{ otc_ws_data }}/synth_trees/opentree{{ next_synth_version }}"
-
-- name: Uncompress most recently used OTT
-  unarchive:
-    src: "{{ synth_dir }}/tree_builds/ott-used-in-synth{{ next_synth_version }}.tgz"
-    dest: "{{ otc_ws_data }}"
-    remote_src: yes
-    creates: "{{ otc_ws_data }}/ott-used-in-synth"
