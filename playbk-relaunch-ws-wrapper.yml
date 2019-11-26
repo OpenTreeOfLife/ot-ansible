@@ -11,6 +11,4 @@
       run_once: yes
 
   roles:
-    - add-ots-ws-links-to-tree-and-taxonomy
-    - launch-otc-ws-app
     - launch-otc-ws-wrapper

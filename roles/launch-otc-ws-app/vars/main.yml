@@ -1,4 +1,2 @@
 ---
 ansible_user: opentree
-peyotl_otc_ws_branch: bump_fossil_higher
-ws_wrapper_ini: wrapper.ini
