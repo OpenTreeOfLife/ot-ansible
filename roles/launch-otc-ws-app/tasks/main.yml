@@ -1,39 +1,10 @@
 ---
-- name: Pull ws_wrapper repo
-  git:
-    repo: "{{ ws_wrapper_git_remote }}"
-    dest: "{{ repo_dir }}/ws_wrapper"
-    version: "{{ ws_wrapper_branch }}"
-
-- name: Clone peyotl repo
-  git:
-    repo: "{{ peyotl_git_remote }}"
-    dest: "{{ ws_dir }}/peyotl"
-    version: "{{ peyotl_otc_ws_branch }}"
-
-
-- name: "install ws_wrapper in {{ venv_otcws }}"
-  pip:
-    name: "{{ item }}"
-    extra_args: '-e'   # link rather than copy
-    virtualenv: "{{ venv_otcws }}"
-  with_items:
-   - "{{ repo_dir }}/ws_wrapper"
-   - "{{ ws_dir }}/peyotl"
-
 - name: write launch_otc_ws_app.sh script
   template:
     src: templates/launch_otc_ws_app_sh.j2
     dest: "{{ ws_dir }}/local/bin/launch_otc_ws_app.sh"
 
-
-- name: write launch_ws_wrapper.sh script
-  template:
-    src: templates/launch_ws_wrapper_sh.j2
-    dest: "{{ ws_dir }}/local/bin/launch_ws_wrapper.sh"
-
 - name: "launch servers via launch scripts"
   command: "bash {{ item }}"
   with_items:
-   - "{{ ws_dir }}/local/bin/launch_otc_ws_app.sh"
    - "{{ ws_dir }}/local/bin/launch_ws_wrapper.sh"
