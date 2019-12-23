@@ -9,7 +9,7 @@
 
 - name: Copy OTT to served location.
   copy:
-    src: "{{ synth_dir }}/tree_builds/ott-used-in-synth"
+    src: "{{ synth_dir }}/ott/{{ ott_synth_full_version }}"
     dest: "{{ otc_ws_data }}/"
     remote_src: true
     mode: preserve

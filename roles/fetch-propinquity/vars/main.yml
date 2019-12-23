@@ -1,4 +1,4 @@
 ---
-propinquity_branch: bump_fossil_higher
+propinquity_branch: all-incert-sed
 propinquity_git_remote: https://github.com/OpenTreeOfLife/propinquity
 ansible_user: opentree
