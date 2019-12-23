@@ -20,7 +20,7 @@ peyotl_git_remote: https://github.com/OpenTreeOfLife/peyotl
 peyotl_webapp_branch: master
 
 # next_synth_version should not be hard-coded
-next_synth_version: 12.2
+next_synth_version: 12.3
 
 otcetera_git_remote: https://github.com/OpenTreeOfLife/otcetera
 otcetera_synth_branch: bump_fossil_higher
