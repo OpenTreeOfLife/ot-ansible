@@ -6,7 +6,7 @@ all:
         nexttree:
           host: nexttree
           deploy_type: curatorless
-          ansible_ssh_private_key_file: ~/.ssh/opentree/production.pem
+          ansible_ssh_private_key_file: ~/.ssh/opentree/otansible
           ansible_host: ot37.opentreeoflife.org
           curator_endpoint: https://tree.opentreeoflife.org/curator
           taxonomy_endpoint:  https://ot37.opentreeoflife.org
@@ -19,7 +19,7 @@ all:
         ot38:
           host: ot38
           deploy_type: curatorless
-          ansible_ssh_private_key_file: ~/.ssh/opentree/production.pem
+          ansible_ssh_private_key_file: ~/.ssh/opentree/otansible
           ansible_host: ot38.opentreeoflife.org
           curator_endpoint: https://tree.opentreeoflife.org/curator
           taxonomy_endpoint:  https://ot38.opentreeoflife.org
@@ -32,7 +32,7 @@ all:
         ot40:
           host: ot40
           deploy_type: curatorless
-          ansible_ssh_private_key_file: ~/.ssh/opentree/opentree.pem
+          ansible_ssh_private_key_file: ~/.ssh/opentree/otansible
           ansible_host: ot40.opentreeoflife.org
           curator_endpoint: https://tree.opentreeoflife.org/curator
           taxonomy_endpoint:  https://ot40.opentreeoflife.org
