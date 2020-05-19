@@ -10,7 +10,7 @@ or see http://docs.ansible.com/ansible/latest/installation_guide
 ## new host prep
 
 MTH has an `ot-private` repo that interacts with a fresh AWS instance to create an
-"admin" account with sudo privileges and the open tree keys (the SSH private keys are 
+"admin" account with sudo privileges and the open tree keys (the SSH private keys are
 not in that repo, developers need to be given those). Other than the user account
 creation, the only initial steps applied to the OS (currently ubuntu 16.04) boil down
 to:
@@ -24,7 +24,7 @@ Then you have to add the hostname to the hosts file in this repo.
 # Thanks
 
 Some links that were helpful:
-  * Previous Open Tree deployment system: 
+  * Previous Open Tree deployment system:
     https://github.com/OpenTreeOfLife/germinator/tree/master/deploy
   * Previous Open Tree component with ansible installation:
     https://github.com/OpenTreeOfLife/otindex_ansible
@@ -45,3 +45,8 @@ A very rough overview of deploying the synthetic tree looks like this:
     * This involves copying the tree and taxonomy to `~/ws/otc_ws_data`
     * The webservices are run using an instance of otcetera in `~/ws/local/bin/`
 
+# Local testing with Vagrant
+
+You can test any of the playbooks locally using Vagrant and VirtualBox (or other provider like VMWare, Hyper-V). Once you have vagrant and virtualbox installed, running `vagrant up` will start the virtual host and run the playbook `opentree.yml`. To run a different playbook, edit the `ansible.playbook` option in the Vagrantfile.
+
+See the [Ansible documentation on using Vagrant](https://docs.ansible.com/ansible/2.3/guide_vagrant.html) for more info. 
