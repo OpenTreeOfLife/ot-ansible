@@ -1,0 +1,30 @@
+---
+
+- name: Create a source dir in the synth dir
+  file:
+    state: directory
+    path: "{{ synth_dir }}"
+    owner: "{{normaluser}}"
+    group: "{{normaluser}}"
+
+- name: Clone peyotl repo
+  git:
+    repo: "{{ peyotl_git_remote }}"
+    dest: "{{ synth_dir }}/peyotl"
+    version: "{{ peyotl_synth_branch }}"
+
+- name: install peyotl prerequisites into {{venv_synth}}
+  pip:
+    virtualenv: "{{ venv_synth }}"
+    requirements: "{{ synth_dir }}/peyotl/requirements.txt"
+
+- name: install peyotl into {{venv_synth}} as a link
+  pip:
+    name: "{{ synth_dir }}/peyotl"
+    extra_args: '-e'
+    virtualenv: "{{ venv_synth }}"
+
+- name: install Chameleon into {{venv_synth}}
+  pip:
+    virtualenv: "{{ venv_synth }}"
+    name: Chameleon
