@@ -1,0 +1,47 @@
+---
+- hosts: all
+  gather_facts: False
+
+  pre_tasks:
+    - name: Check Ansible version
+      assert:
+        that: '(ansible_version.major, ansible_version.minor, ansible_version.revision) >= (2, 5, 1)'
+        msg: 'Please install the recommended version 2.5.1+. You have Ansible {{ ansible_version.string }}.'
+      run_once: yes
+
+    - name: Install basic libraries and tools using apt
+      become: yes
+      apt:
+        name:
+          - git-core
+          - python3-pip
+          - python3-venv
+          - python-setuptools
+        state: present
+
+    - name: Create a non-privileged user (e.g. the "opentree" user)
+      user:
+        name: "{{normaluser}}"
+        shell: /bin/bash
+      become: true
+      become_method: sudo
+
+    - name: Create the synthesis directory
+      file:
+        state: directory
+        path: "{{ synth_dir }}"
+        owner: "{{ normaluser }}"
+        group: "{{ normaluser }}"
+
+  roles:
+    #- users
+    #- apache
+    - peyotl
+    #- otcetera-ws
+    #- ot-webapp
+
+
+  # handlers:
+  #   - name: restart apache
+  #     become: true
+  #     service: name=apache2 state=restarted
