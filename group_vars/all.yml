@@ -1,26 +1,43 @@
 ---
-normaluser: opentree
+###
+# Variables here apply to both production and development
+# Variables set here will override settings in roles/defaults
+###
+
+# we assume the ansibleuser exists and has sudo access
+ansibleuser: deploy
 adminuser: admin
-opentree_maven_dir: /home/{{normaluser}}/.m2/repository/org/opentree
-venv_synth: /home/{{normaluser}}/venv_synth
-venv_otcws: /home/{{normaluser}}/venv_otcws
-venv_web2py: /home/{{normaluser}}/venv_web2py
-repo_dir: /home/{{normaluser}}/repo
-synth_dir: /home/{{normaluser}}/synth
-ws_dir: /home/{{normaluser}}/ws
-users_bin_dir: /home/{{normaluser}}/bin
-taxomachine_neo4j_dir: /home/{{normaluser}}/neo4j-taxomachine
-web2py_dir: /home/{{normaluser}}/web2py
-# treemachine_neo4j_dir: /home/{{normaluser}}/neo4j-treemachine
-# oti_neo4j_dir: /home/{{normaluser}}/neo4j-oti
-downloads_dir: /home/{{normaluser}}/downloads
-unpacked_dir: /home/{{normaluser}}/unpacked
+#opentree_maven_dir: /home/{{ansibleuser}}/.m2/repository/org/opentree
+
+# python virtualenvs
+venv_otcws: /home/{{ansibleuser}}/venv_otcws
+venv_web2py: /home/{{ansibleuser}}/venv_web2py
+
+# directories
+repo_dir: /home/{{ansibleuser}}/repo
+synth_dir: /home/{{ansibleuser}}/synth
+ws_dir: /home/{{ansibleuser}}/ws
+users_bin_dir: /home/{{ansibleuser}}/bin
+#taxomachine_neo4j_dir: /home/{{ansibleuser}}/neo4j-taxomachine
+web2py_dir: /home/{{ansibleuser}}/web2py
+# treemachine_neo4j_dir: /home/{{ansibleuser}}/neo4j-treemachine
+# oti_neo4j_dir: /home/{{ansibleuser}}/neo4j-oti
+downloads_dir: /home/{{ansibleuser}}/downloads
+unpacked_dir: /home/{{ansibleuser}}/unpacked
 
 peyotl_git_remote: https://github.com/OpenTreeOfLife/peyotl
 peyotl_webapp_branch: master
 
+# github organization url; base for other repos
+opentree_github_url: https://github.com/OpenTreeOfLife
+
+# location of synthesis tree and open tree taxonomy downloads
+files_url: http://files.opentreeoflife.org
+synth_tree_location: "{{ files_url }}/synthesis/opentree12.3/opentree{{synth_tree_version}}_output.tgz"
+ott_location: "{{ files_url }}/ott/ott{{ott_version}}/ott{{ott_version}}.tgz"
+
 # next_synth_version should not be hard-coded
-next_synth_version: 12.3
+# next_synth_version: 12.3
 
 otcetera_git_remote: https://github.com/OpenTreeOfLife/otcetera
 otcetera_synth_branch: bump_fossil_higher
@@ -32,10 +49,7 @@ taxomachine_branch: master
 ws_wrapper_git_remote: https://github.com/OpenTreeOfLife/ws_wrapper
 ws_wrapper_branch: master
 
-ott_synth_full_version: ott3.2
-ott_version: ott3.2
-ott_tag: 3.2.0
 
-otc_ws_data: /home/{{normaluser}}/ws/otc_ws_data
+otc_ws_data: /home/{{ansibleuser}}/ws/otc_ws_data
 
 opentree_branch: nexttree
