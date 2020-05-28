@@ -1,0 +1,12 @@
+---
+# nextreee is used for building and testing the synthetic tree
+# it runs the webapp without curation, the tree services, and
+# the taxonomy services and calls other production apis
+all:
+  hosts:
+    ot58.opentreeoflife.org 
+    # deploy_type: curatorless
+    # files_server: files.opentreeoflife.org
+    # api_endpoint: ot58.opentreeoflife.org
+    # phylesystem_api_endpoint: phylesystemapi.opentreeoflife.org
+    # otindex_endpoint: otindex.opentreeoflife.org
