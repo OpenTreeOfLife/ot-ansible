@@ -1,0 +1,11 @@
+---
+- name: Clone propinquity repo
+  git:
+    repo: "{{ propinquity_git_remote }}"
+    dest: "{{ synth_dir }}/propinquity"
+    version: "{{ propinquity_branch }}"
+
+- name: write global .opentree config file
+  template:
+    src: templates/dot_opentree.j2
+    dest: "{{ propinquity_config_location }}"

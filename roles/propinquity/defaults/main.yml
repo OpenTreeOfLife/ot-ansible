@@ -1,0 +1,4 @@
+---
+propinquity_git_remote: "{{ opentree_github_url }}/propinquity"
+propinquity_config_location: "/home/{{ ansibleuser }}/.opentree"
+propinquity_branch: master
