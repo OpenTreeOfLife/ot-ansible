@@ -1,6 +1,13 @@
 ---
 
 # Install and configure peyotl library
+# Not pip installable, so install from locally cloned repo
+# Assumes git, python3, pip, virtualenv already installed
+
+- name: Create the synthesis directory
+  file:
+    state: directory
+    path: "{{ synth_dir }}"
 
 - name: Clone peyotl repo
   git:
@@ -9,38 +16,32 @@
     version: "{{ peyotl_synth_branch }}"
 
 - name: Create dir for peyotl config file
-  file: path={{peyotl_config_location}} state=directory
-  become: yes
-  become_user: opentree
-#Why does this need to be in the admin home?
+  file:
+    state: directory
+    path: "{{ peyotl_config_location }}"
 
 - name: Create peyotl config file from template
-  template: src=templates/config.j2 dest={{ peyotl_config_location }}/config
-  become: yes
+  template:
+    src: templates/config.j2
+    dest: "{{ peyotl_config_location }}/config.ini"
 
+- name: "Create python 3 virtualenv if it does not already exist"
+  command:
+    cmd: python3 -m venv "{{ venv_synth }}"
+    creates: /home/{{ ansibleuser }}/venv_synth
 
-- name: Install peyotl python requirements
+- name: Install peyotl prerequisites into {{venv_synth}}
   pip:
-    requirements: "{{install_dir}}/peyotl/requirements.txt"
-    virtualenv: "{{install_dir}}/../venv"
-  become: yes
-  become_user: opentree
+    requirements: "{{ synth_dir }}/peyotl/requirements.txt"
+    virtualenv: "{{ venv_synth }}"
 
-- name: Install peyotl
-  command: $VENV/bin/python setup.py install
-  environment:
-    VENV: "{{install_dir}}/../venv"
-  args:
-    chdir: "{{install_dir}}/peyotl"
-  become: yes
-  become_user: opentree
+- name: Install peyotl into {{venv_synth}} as a link
+  pip:
+    name: "{{ synth_dir }}/peyotl"
+    extra_args: '-e'
+    virtualenv: "{{ venv_synth }}"
 
-- name: ensure peyotl log file exists and is writable
-  copy:
-    content: ""
-    dest: "{{ peyotl_logging_filepath }}"
-    force: no
-    group: opentree
-    owner: opentree
-  become: true
-# UGH permissions hack
+- name: Install Chameleon into {{venv_synth}}
+  pip:
+    name: Chameleon
+    virtualenv: "{{ venv_synth }}"
