@@ -102,8 +102,8 @@ Staging = nexttree (no curation; api and webapp on same server)
 
 Development is where we test new software, and nexttree is production software but with new synthesis (tree and underlying taxonomy)
 
-Tree + taxonomy servers = nextree, tree, devtree
-Phylesystem servers = nextree, phylesystemapi, devphylesystemapi
+Tree + taxonomy servers = nexttree, tree, devtree
+Phylesystem servers = nexttree, phylesystemapi, devphylesystemapi
 Otindex servers
 
 ## Actions

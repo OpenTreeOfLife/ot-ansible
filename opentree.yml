@@ -1,4 +1,6 @@
-
+# top-level playbook for nexttree (creating and serving a new
+# synthetic tree)
+# assumes deploy user with sudo access exists
 ---
 - hosts: all
   gather_facts: False
@@ -20,25 +22,10 @@
           - python-setuptools
         state: present
 
-    - name: Create a non-privileged user (e.g. the "opentree" user)
-      user:
-        name: "{{normaluser}}"
-        shell: /bin/bash
-      become: true
-      become_method: sudo
-
-    - name: Create the synthesis directory
-      file:
-        state: directory
-        path: "{{ synth_dir }}"
-        owner: "{{ normaluser }}"
-        group: "{{ normaluser }}"
-
   roles:
-    #- users
     #- apache
-    #- fetch-peyotl-synth
-    # - peyotl
+    - peyotl
+    - propinquity
     #- otcetera-ws
     #- ot-webapp
 
