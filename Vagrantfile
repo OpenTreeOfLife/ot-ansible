@@ -36,7 +36,7 @@ Vagrant.configure("2") do |config|
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
 
-  # Enable provisioning with a ansible 
+  # Enable provisioning with ansible
   config.vm.provision "ansible" do |ansible|
     ansible.verbose = "v"
     ansible.playbook = "opentree.yml"
