@@ -64,22 +64,24 @@ take-server-out-of-maintenance-mode
 
 - synthetic tree :
   - built using otcetera + propinquity
+  - source = flat files on files.opentreeoflife.org
   - served with otcetera
 
 - studies (curated input phylogenies)
-  - canonical source is phylesystem repo on github
+  - source = phylesystem repo on github
   - indexed / served by otindex (find methods) and phylesystem-api (get methods)
 
 - amendments
-  - source github repo
+  - source = github repo
   - served by phylesystem-api
 
 - taxonomy (OTT)
   - build using reference-taxonomy
+  - source = flat files on files.opentreeoflife.org
   - served by otcetera (taxonomy, TNRS), smasher (taxonomy browser)
 
 - collections (lists of trees used as inputs for synthesis)
-  - source github repo
+  - source = github repo
   - served by phylesystem-api
 
 
@@ -90,3 +92,22 @@ take-server-out-of-maintenance-mode
 - phylesystem-api : (python web2py) serves studies and collections
 - opentree : (python web2py) front-end tree browser and study curator
 - ws_wrapper : (python Pyramid) routes api calls to correct place
+
+
+## Hosts
+
+Production = tree + api + otindex + phylesystemapi
+Development = devtree + devapi + devotindex + devphylesystemapi
+Staging = nexttree (no curation; api and webapp on same server)
+
+Development is where we test new software, and nexttree is production software but with new synthesis (tree and underlying taxonomy)
+
+Tree + taxonomy servers = nextree, tree, devtree
+Phylesystem servers = nextree, phylesystemapi, devphylesystemapi
+Otindex servers
+
+## Actions
+
+* build synthetic tree
+* deploy synthetic tree
+* deploy taxonomy
