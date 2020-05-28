@@ -9,6 +9,11 @@ or see http://docs.ansible.com/ansible/latest/installation_guide
 
 ## new host prep
 
+Ansible connects and runs using the `ansibleuser` set in
+`group_vars/all.yml`. All playbooks assume this user exists, you can
+log into the server with this user using ssh keys, and that the user has
+sudo privileges.
+
 MTH has an `ot-private` repo that interacts with a fresh AWS instance to create an
 "admin" account with sudo privileges and the open tree keys (the SSH private keys are
 not in that repo, developers need to be given those). Other than the user account
@@ -49,4 +54,4 @@ A very rough overview of deploying the synthetic tree looks like this:
 
 You can test any of the playbooks locally using Vagrant and VirtualBox (or other provider like VMWare, Hyper-V). Once you have vagrant and virtualbox installed, running `vagrant up` will start the virtual host and run the playbook `opentree.yml`. To run a different playbook, edit the `ansible.playbook` option in the Vagrantfile.
 
-See the [Ansible documentation on using Vagrant](https://docs.ansible.com/ansible/2.3/guide_vagrant.html) for more info. 
+See the [Ansible documentation on using Vagrant](https://docs.ansible.com/ansible/2.3/guide_vagrant.html) for more info.
