@@ -7,3 +7,4 @@ next_synth_version: 12.4
 ott_version: 3.2
 phylesystem_repo: phylesystem-1
 deploy_type: curatorless
+otcetera_synth_branch: master
