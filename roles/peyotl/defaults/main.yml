@@ -1,5 +1,5 @@
 ---
-peyotl_git_remote: "{{ opentree_github_url }}/peyotl"
+peyotl_git_remote: https://github.com/OpenTreeOfLife/peyotl"
 peyotl_config_location: "/home/{{ ansibleuser }}/.peyotl"
 peyotl_synth_branch: master
 venv_synth: /home/{{ ansibleuser }}/venv_synth
