@@ -35,6 +35,10 @@ Some links that were helpful:
     https://github.com/OpenTreeOfLife/otindex_ansible
   * https://andidog.de/blog/2017-04-24-ansible-best-practices
 
+# Role variables
+
+Variables for roles are set in `role/defaults`, not `role/vars`. This makes is easy to override role defaults using variables for hosts in `group_vars`.  
+
 # Deploying the synthetic tree
 
 A very rough overview of deploying the synthetic tree looks like this:
