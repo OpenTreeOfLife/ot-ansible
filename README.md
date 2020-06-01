@@ -47,7 +47,7 @@ A very rough overview of deploying the synthetic tree looks like this:
     * `ansible-playbook --limit=nexttree playbk-refresh-synth-runtime.yml`
     * This is downloaded to `~/synth/ott/ott<version>/`
 2. To build the synth tree:
-    * `ansible-playbook --limit=nexttree playbk-rerebuilt-synth-tree.yml`
+    * `ansible-playbook --limit=nexttree playbk-rebuilt-synth-tree.yml`
     * This is built in `~/synth/in_progress_tree_builds/` and is copied to `~/synth/tree_builds/`
 3. To start serving the synth tree
     * `ansible-playbook --limit=nexttree playbk-serve-next-tree.yml`
