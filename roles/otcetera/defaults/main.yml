@@ -1,0 +1,7 @@
+otcetera_git_remote: https://github.com/OpenTreeOfLife/otcetera
+otcetera_branch: master
+clone_location: "/home/{{ ansibleuser }}/repos"
+
+# variables for otc web services
+otcws: True # whether to install the webservices
+venv_otcws: /home/{{ansibleuser}}/venv_otcws 

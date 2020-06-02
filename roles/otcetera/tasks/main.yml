@@ -1,0 +1,75 @@
+- name: Clone otcetera repo
+  git:
+    repo: "{{ otcetera_git_remote }}"
+    dest: "{{ clone_location }}/otcetera"
+    version: "{{ otcetera_branch }}"
+
+- name: Install requests into {{venv_otcws}} for testing
+  pip:
+    virtualenv: "{{ venv_otcws }}"
+    name: "requests"
+    when: otcws
+
+- name: Install otcetera packages using apt
+  become: yes
+  apt:
+    name:
+      - gcc-8
+      - g++-8
+      - meson
+      - ninja-build
+      - libboost-all-dev
+    state: present
+
+- name: Install otcetera webservices packages
+  become: yes
+  apt:
+    name:
+      - cmake
+      - libssl-dev
+      - libcurl4-openssl-dev
+      - daemonize
+    state: present
+    when: otcws
+
+- name: Make g++-8 and gcc-8 the defaults
+  alternatives:
+    name: "{{item}}"
+    link: "/usr/bin/{{item}}"
+    path: "/usr/bin/{{item}}-8"
+  with_items:
+    - gcc
+    - g++
+  become: true
+  become_method: sudo
+
+- name: Install restbed for otc webservices
+  include_role:
+    name: restbed
+  when: otcws
+
+- name: Create parent of buildotc
+  file:
+    path: "{{ clone_location }}/buildotc"
+    state: directory
+
+- name: write reconf.sh script
+  template:
+    src: templates/reconf_sh.j2
+    dest: "{{ clone_location }}/buildotc/reconf.sh"
+
+- name: Create the build subdir by running meson (via reconf.sh)
+  command: bash reconf.sh
+  args:
+    chdir: "{{ clone_location }}/buildotc"
+    creates: "{{ clone_location }}/buildotc/build"
+
+- name: Runs ninja to build and install otc
+  command: nice -n10 ninja -C build install
+  args:
+    chdir: "{{ clone_location }}/buildotc"
+
+- name: Performs the otc tests
+  command: nice -n10 ninja -C build test
+  args:
+    chdir: "{{ clone_location }}/buildotc"
