@@ -8,7 +8,7 @@
   pip:
     virtualenv: "{{ venv_otcws }}"
     name: "requests"
-    when: otcws
+  when: otcws
 
 - name: Install otcetera packages using apt
   become: yes
@@ -30,7 +30,7 @@
       - libcurl4-openssl-dev
       - daemonize
     state: present
-    when: otcws
+  when: otcws
 
 - name: Make g++-8 and gcc-8 the defaults
   alternatives:

@@ -26,8 +26,13 @@
     #- apache
     - peyotl
     - propinquity
-    #- otcetera-ws
-    #- ot-webapp
+    - role: otcetera
+      vars:
+        clone_location: "{{ synth_dir }}"
+        otcws: False
+        otcetera_branch: "{{ otcetera_synth_branch }}"
+    #- otcetera # for serving the tree, uses vars from group_vars & role
+
 
 
   # handlers:
