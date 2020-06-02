@@ -53,7 +53,7 @@
     path: "{{ clone_location }}/buildotc"
     state: directory
 
-- name: write reconf.sh script
+- name: Write reconf.sh script
   template:
     src: templates/reconf_sh.j2
     dest: "{{ clone_location }}/buildotc/reconf.sh"
@@ -64,12 +64,24 @@
     chdir: "{{ clone_location }}/buildotc"
     creates: "{{ clone_location }}/buildotc/build"
 
-- name: Runs ninja to build and install otc
+- name: Run ninja to build and install otc
   command: nice -n10 ninja -C build install
   args:
     chdir: "{{ clone_location }}/buildotc"
 
-- name: Performs the otc tests
+- name: Perform the otc tests
   command: nice -n10 ninja -C build test
   args:
     chdir: "{{ clone_location }}/buildotc"
+
+- name: Write run_test.sh script
+  template:
+    src: templates/run_test_sh.j2
+    dest: "{{ clone_location }}/buildotc/run_test.sh"
+  when: otcws
+
+- name: Perform otc tests using run_test.sh that sources the correct env
+  command: bash run_test.sh
+  args:
+    chdir: "{{ clone_location }}/buildotc"
+  when: otcws
