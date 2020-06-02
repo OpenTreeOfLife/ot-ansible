@@ -1,4 +1,6 @@
 ---
+# We assume this is only called from the otcetera role,
+# so the (shared) requirements are installed there, not here
 
 - name: Clone restbed repo to web services dir
   git:
@@ -10,8 +12,8 @@
   file:
     state: directory
     path: "{{ ws_dir }}/restbed/build"
-    owner: "{{ normaluser }}"
-    group: "{{ normaluser }}"
+    owner: "{{ ansibleuser }}"
+    group: "{{ ansibleuser }}"
 
 - name: create restbuild Makefile
   command: "cmake .. -G Ninja -DBUILD_SSL=NO -DBUILD_TESTS=NO -DCMAKE_INSTALL_PREFIX={{ ws_dir }}/local -DCMAKE_POSITION_INDEPENDENT_CODE=ON"
@@ -20,8 +22,7 @@
     creates: "{{ ws_dir }}/restbed/build/build.ninja"
 
 - name: build and install restbed
-  command: ninja install
+  command: nice -n10 ninja install
   args:
     chdir: "{{ ws_dir }}/restbed/build"
     creates: "{{ ws_dir }}/local/library/librestbed.a"
-
