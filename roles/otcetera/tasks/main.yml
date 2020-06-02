@@ -74,7 +74,7 @@
   args:
     chdir: "{{ clone_location }}/buildotc"
 
-- name: Write run_test.sh script
+- name: Write run_test.sh script for webservices tests
   template:
     src: templates/run_test_sh.j2
     dest: "{{ clone_location }}/buildotc/run_test.sh"
