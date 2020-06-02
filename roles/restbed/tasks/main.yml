@@ -7,6 +7,7 @@
     repo: "{{ restbed_git_remote }}"
     dest: "{{ ws_dir }}/restbed"
     version: "{{ restbed_git_tag }}"
+    recursive: yes  # yes is the default, but being explicit
 
 - name: Create restbed build dir
   file:
