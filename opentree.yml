@@ -1,6 +1,6 @@
-# top-level playbook for nexttree (creating and serving a new
-# synthetic tree)
-# assumes deploy user with sudo access exists
+# Top-level playbook for opentree deployment 
+# Run with either production or development hosts file
+# Assumes deploy user with sudo access exists
 ---
 - hosts: all
   gather_facts: False
@@ -12,30 +12,25 @@
         msg: 'Please install the recommended version 2.5.1+. You have Ansible {{ ansible_version.string }}.'
       run_once: yes
 
-    - name: Install basic libraries and tools using apt
-      become: yes
-      apt:
-        name:
-          - git-core
-          - python3-pip
-          - python3-venv
-          - python-setuptools
-        state: present
+# Configure and deploy tree server
+- hosts: tree
 
   roles:
-    #- apache
-    - peyotl
-    - propinquity
-    - role: otcetera
-      vars:
-        clone_location: "{{ synth_dir }}"
-        otcws: False
-        otcetera_branch: "{{ otcetera_synth_branch }}"
-    #- otcetera # for serving the tree, uses vars from group_vars & role
+    - web2py
+    - opentree
+    - apache
 
+# Configure and deploy the api server
+- hosts: api
 
+  roles:
+    - apache
+    - ws_wrapper
+    - otcetera
 
-  # handlers:
-  #   - name: restart apache
-  #     become: true
-  #     service: name=apache2 state=restarted
+# Configure and deploy the phylesystem-api server
+- hosts: phylesystem
+
+  roles:
+    - phylesystem-api
+    - apache
