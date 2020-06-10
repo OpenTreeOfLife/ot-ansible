@@ -1,3 +1,4 @@
+# Clone location either synth_dir or ws_dir, depending on use case
 - name: Clone otcetera repo
   git:
     repo: "{{ otcetera_git_remote }}"
@@ -84,4 +85,16 @@
   command: bash run_test.sh
   args:
     chdir: "{{ clone_location }}/buildotc"
+  when: otcws
+
+# final two steps configure and launch otc webservices
+
+- name: write launch_otc_ws_app.sh script
+  template:
+    src: templates/launch_otc_ws_app_sh.j2
+    dest: "{{ ws_dir }}/local/bin/launch_otc_ws_app.sh"
+  when: otcws
+
+- name: "launch servers via launch scripts"
+  command: "bash {{ ws_dir }}/local/bin/launch_otc_ws_app.sh"
   when: otcws
