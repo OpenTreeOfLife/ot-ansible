@@ -95,6 +95,6 @@
     dest: "{{ ws_dir }}/local/bin/launch_otc_ws_app.sh"
   when: otcws
 
-- name: "launch servers via launch scripts"
+- name: "launch otcws server via launch script"
   command: "bash {{ ws_dir }}/local/bin/launch_otc_ws_app.sh"
   when: otcws
