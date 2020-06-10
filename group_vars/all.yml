@@ -10,7 +10,7 @@ adminuser: admin
 #opentree_maven_dir: /home/{{ansibleuser}}/.m2/repository/org/opentree
 
 # python virtualenvs
-venv_otcws: /home/{{ansibleuser}}/venv_otcws
+#venv_otcws: /home/{{ansibleuser}}/venv_otcws
 venv_web2py: /home/{{ansibleuser}}/venv_web2py
 
 # directories
@@ -18,20 +18,18 @@ repo_dir: /home/{{ansibleuser}}/repo
 synth_dir: /home/{{ansibleuser}}/synth
 ws_dir: /home/{{ansibleuser}}/ws
 users_bin_dir: /home/{{ansibleuser}}/bin
-#taxomachine_neo4j_dir: /home/{{ansibleuser}}/neo4j-taxomachine
 web2py_dir: /home/{{ansibleuser}}/web2py
-# treemachine_neo4j_dir: /home/{{ansibleuser}}/neo4j-treemachine
-# oti_neo4j_dir: /home/{{ansibleuser}}/neo4j-oti
 downloads_dir: /home/{{ansibleuser}}/downloads
 unpacked_dir: /home/{{ansibleuser}}/unpacked
 
 peyotl_git_remote: https://github.com/OpenTreeOfLife/peyotl
 peyotl_webapp_branch: master
 
-# location of synthesis tree and open tree taxonomy downloads
-files_url: http://files.opentreeoflife.org
-synth_tree_location: "{{ files_url }}/synthesis/opentree12.3/opentree{{synth_tree_version}}_output.tgz"
-ott_location: "{{ files_url }}/ott/ott{{ott_version}}/ott{{ott_version}}.tgz"
+# Synthesis tree and open tree taxonomy download locations
+# Versions defined in production, development, or nexttree variable file
+files_url: https://files.opentreeoflife.org
+synth_tree_location: "{{ files_url }}/synthesis/opentree{{ synth_version }}/opentree{{synth_version}}.tgz"
+ott_location: "{{ files_url }}/ott/ott{{ ott_version }}/ott{{ ott_version }}.tgz"
 
 # next_synth_version should not be hard-coded
 # next_synth_version: 12.3

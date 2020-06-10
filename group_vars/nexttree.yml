@@ -2,9 +2,19 @@
 # variables for nexttree server
 # Variables set here will override settings in roles/defaults
 
-previous_synth_version: 12.3
-next_synth_version: 12.4
+synth_version: 12.4
 ott_version: 3.2
 phylesystem_repo: phylesystem-1
-deploy_type: curatorless
 otcetera_synth_branch: master
+
+deploy_type: curatorless
+
+# These next two control whether you are building a new synthetic tree
+# and whether to serve a local tree + OTT or download them from files 
+build_synthesis: False
+synthesis_local: True
+
+# URLs; nextree runs its own synth and ott webservices but calls
+# production services for phylesystem-api and otindex
+otindex_url: https://otindex.opentreeoflife.org
+phylapi_url: https://phylesystemapi.opentreeoflife.org

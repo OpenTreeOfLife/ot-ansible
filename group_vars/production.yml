@@ -1,7 +1,7 @@
 ---
-# variables for production servers
-# Variables set here will override settings in roles/defaults
+# Variables for production servers
+# Values set here will override settings in roles/defaults
 
-synth_tree_version: 12.3
+synth_version: 12.3
 ott_version: 3.2
 phylesystem_repo: phylesystem-1
