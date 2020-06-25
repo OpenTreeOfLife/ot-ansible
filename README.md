@@ -35,9 +35,13 @@ Some links that were helpful:
     https://github.com/OpenTreeOfLife/otindex_ansible
   * https://andidog.de/blog/2017-04-24-ansible-best-practices
 
-# Role variables
+# Setting variables
 
-Variables for roles are set in `role/defaults`, not `role/vars`. This makes is easy to override role defaults using variables for hosts in `group_vars`.  
+Variables for roles are set in `role/defaults`, not `role/vars`. This makes
+it easy to override role defaults using variables for hosts in `group_vars`.
+You can also set variables as command line parameters when calling
+`ansible-playbook`. See the [ansible docs on variable priority](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable) for the gory details on how
+this works.
 
 # Deploying the synthetic tree
 
@@ -47,7 +51,7 @@ A very rough overview of deploying the synthetic tree looks like this:
     * `ansible-playbook --limit=nexttree playbk-refresh-synth-runtime.yml`
     * This is downloaded to `~/synth/ott/ott<version>/`
 2. To build the synth tree:
-    * `ansible-playbook --limit=nexttree playbk-rebuilt-synth-tree.yml`
+    * `ansible-playbook --limit=nexttree playbk-rebuild-synth-tree.yml`
     * This is built in `~/synth/in_progress_tree_builds/` and is copied to `~/synth/tree_builds/`
 3. To start serving the synth tree
     * `ansible-playbook --limit=nexttree playbk-serve-next-tree.yml`
