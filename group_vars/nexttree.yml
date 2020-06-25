@@ -1,6 +1,6 @@
 ---
 # variables for nexttree server
-# Variables set here will override settings in roles/defaults
+# Variables set here will override settings in role/*/defaults/main.yml
 
 synth_version: 12.4
 ott_version: 3.2
@@ -10,11 +10,13 @@ otcetera_synth_branch: master
 deploy_type: curatorless
 
 # These next two control whether you are building a new synthetic tree
-# and whether to serve a local tree + OTT or download them from files 
+# and whether to copy the synthesis tree + OTT from synth_dir or download
+# them from files server
+synth_dir: /home/{{ansibleuser}}/synth
 build_synthesis: False
 synthesis_local: True
 
-# URLs; nextree runs its own synth and ott webservices but calls
+# URLs; nextree runs its own tree and ott webservices but calls
 # production services for phylesystem-api and otindex
 otindex_url: https://otindex.opentreeoflife.org
 phylapi_url: https://phylesystemapi.opentreeoflife.org
