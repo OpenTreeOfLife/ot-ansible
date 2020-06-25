@@ -14,25 +14,12 @@
     state: directory
 
 ## download, unpack, and copy OTT
-- name: Download copy of OTT from files server
-  get_url:
-    url: "{{ ott_url }}"
-    dest: "{{ downloads_dir }}"
-    creates: "{{ downloads_dir }}/ott{{ ott_version }}.tgz"
+- name: Download OTT
+  include_role:
+    name: taxonomy
+  vars:
+    ott_destination_dir: "{{ otc_ws_data }}"
 
-- name: Uncompress OTT
-  unarchive:
-    src: "{{ downloads_dir }}/{{ ott_version }}.tgz"
-    dest: "{{ unpacked_dir }}"
-    creates: "{{ unpacked_dir }}/ott{{ ott_version }}/taxonomy.tsv"
-    remote_src: yes
-
-- name: Copy OTT from unpacked_dir to ws dir
-  copy:
-    src: "{{ unpacked_dir }}/ott/{{ ott_version }}"
-    dest: "{{ otc_ws_data }}/"
-    remote_src: true
-    mode: preserve
 
 ## download, unpack, and copy synthesis tree
 - name: Download copy of synth tree from files server
