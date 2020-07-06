@@ -1,8 +1,13 @@
-# Clone location either synth_dir or ws_dir, depending on use case
+
+- name: Create otcetera dir
+  file:
+    path: "{{ install_location }}/otcetera"
+    state: directory
+
 - name: Clone otcetera repo
   git:
     repo: "{{ otcetera_git_remote }}"
-    dest: "{{ clone_location }}/otcetera"
+    dest: "{{ install_location }}/otcetera/source"
     version: "{{ otcetera_branch }}"
 
 - name: Install requests into {{venv_otcws}} for testing
@@ -44,47 +49,47 @@
   become: true
   become_method: sudo
 
-- name: Install restbed for otc webservices
+- name: Install restbed for otc webservices using same install_location as otc
   include_role:
     name: restbed
   when: otcws
 
 - name: Create parent of buildotc
   file:
-    path: "{{ clone_location }}/buildotc"
+    path: "{{ install_location }}/otcetera/buildotc"
     state: directory
 
 - name: Write reconf.sh script
   template:
     src: templates/reconf_sh.j2
-    dest: "{{ clone_location }}/buildotc/reconf.sh"
+    dest: "{{ install_location }}/otcetera/buildotc/reconf.sh"
 
 - name: Create the build subdir by running meson (via reconf.sh)
   command: bash reconf.sh
   args:
-    chdir: "{{ clone_location }}/buildotc"
-    creates: "{{ clone_location }}/buildotc/build"
+    chdir: "{{ install_location }}/otcetera/buildotc"
+    creates: "{{ install_location }}/otcetera/buildotc/build"
 
 - name: Run ninja to build and install otc
   command: nice -n10 ninja -C build install
   args:
-    chdir: "{{ clone_location }}/buildotc"
+    chdir: "{{ install_location }}/otcetera/buildotc"
 
 - name: Perform the otc tests
   command: nice -n10 ninja -C build test
   args:
-    chdir: "{{ clone_location }}/buildotc"
+    chdir: "{{ install_location }}/otcetera/buildotc"
 
 - name: Write run_test.sh script for webservices tests
   template:
     src: templates/run_test_sh.j2
-    dest: "{{ clone_location }}/buildotc/run_test.sh"
+    dest: "{{ install_location }}/otcetera/buildotc/run_test.sh"
   when: otcws
 
 - name: Perform otc tests using run_test.sh that sources the correct env
   command: bash run_test.sh
   args:
-    chdir: "{{ clone_location }}/buildotc"
+    chdir: "{{ install_location }}/buildotc"
   when: otcws
 
 # final two steps configure and launch otc webservices
@@ -92,9 +97,9 @@
 - name: write launch_otc_ws_app.sh script
   template:
     src: templates/launch_otc_ws_app_sh.j2
-    dest: "{{ ws_dir }}/local/bin/launch_otc_ws_app.sh"
+    dest: "{{ install_location }}/local/bin/launch_otc_ws_app.sh"
   when: otcws
 
 - name: "launch otcws server via launch script"
-  command: "bash {{ ws_dir }}/local/bin/launch_otc_ws_app.sh"
+  command: "bash {{ install_location }}/local/bin/launch_otc_ws_app.sh"
   when: otcws
