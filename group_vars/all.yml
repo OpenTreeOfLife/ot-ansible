@@ -14,10 +14,12 @@ adminuser: admin
 venv_web2py: /home/{{ansibleuser}}/venv_web2py
 
 # directories
-repo_dir: /home/{{ansibleuser}}/repo
-ws_dir: /home/{{ansibleuser}}/ws
-users_bin_dir: /home/{{ansibleuser}}/bin
-web2py_dir: /home/{{ansibleuser}}/web2py
+# these all get created in /home/{{ansibleuser}}
+#repo_dir: repos
+#cpp_apps_dir: cpp_apps
+#ws_dir: /home/{{ansibleuser}}/ws
+#users_bin_dir: /home/{{ansibleuser}}/bin
+#web2py_dir: /home/{{ansibleuser}}/web2py
 downloads_dir: /home/{{ansibleuser}}/downloads
 unpacked_dir: /home/{{ansibleuser}}/unpacked
 
@@ -33,9 +35,6 @@ ott_url: "{{ files_url }}/ott/ott{{ ott_version }}/ott{{ ott_version }}.tgz"
 # otcetera_git_remote: https://github.com/OpenTreeOfLife/otcetera
 # otcetera_synth_branch: bump_fossil_higher
 # otcetera_ws_branch: no-fuzzy-match-db
-
-taxomachine_git_remote: https://github.com/OpenTreeOfLife/taxomachine
-taxomachine_branch: master
 
 ws_wrapper_git_remote: https://github.com/OpenTreeOfLife/ws_wrapper
 ws_wrapper_branch: master
