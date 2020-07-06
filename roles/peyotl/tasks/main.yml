@@ -4,11 +4,6 @@
 # Not pip installable, so install from locally cloned repo
 # Assumes git, python3, pip, virtualenv already installed
 
-- name: Create the synthesis directory
-  file:
-    state: directory
-    path: "{{ synth_dir }}"
-
 - name: Clone peyotl repo
   git:
     repo: "{{ peyotl_git_remote }}"
