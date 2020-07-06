@@ -1,8 +1,9 @@
 # top-level playbook for nexttree (creating and serving a new
 # synthetic tree)
+
 # assumes deploy user with sudo access exists
 ---
-- hosts: all
+- hosts: nexttree
   gather_facts: False
 
   pre_tasks:
@@ -20,19 +21,30 @@
           - python3-pip
           - python3-venv
           - python-setuptools
+          - python-virtualenv
+          - unzip
         state: present
 
-  roles:
-    #- apache
-    - peyotl
-    - propinquity
-    - role: otcetera
-      vars:
-        clone_location: "{{ synth_dir }}"
-        otcws: False
-        otcetera_branch: "{{ otcetera_synth_branch }}"
-    #- otcetera # for serving the tree, uses vars from group_vars & role
+  tasks:
 
+    - name: Build synth tree
+      include_role:
+        name: synthesis
+      when: build_synthesis
+
+    - name: Install otcetera for serving the tree
+      include_role:
+        name: otcetera
+      vars:
+        install_location: "{{ ws_dir }}/cpp_apps"
+
+    - name: Install ws_wrapper
+      include_role:
+        name: ws_wrapper
+      vars:
+        install_location: "{{ ws_dir }}/repos"
+    #- opentree
+    #- apache
 
 
   # handlers:
