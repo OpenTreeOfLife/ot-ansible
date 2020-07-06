@@ -11,7 +11,7 @@ export LD_LIBRARY_PATH="{{ ws_dir }}/local/library:${LD_LIBRARY_PATH}"
 /usr/sbin/daemonize \
     -c "{{ otc_ws_data }}" \
     "{{ ws_dir }}/local/bin/otc-tol-ws" \
-    "{{ otc_ws_data }}/{{ ott_synth_full_version }}" \
+    "{{ otc_ws_data }}/{{ synth_version }}" \
     "-D{{ otc_ws_data }}/synth_trees" \
     "-p{{ otc_ws_data }}/wspidfile.txt" \
     -P1984 \

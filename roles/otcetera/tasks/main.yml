@@ -10,10 +10,12 @@
     dest: "{{ install_location }}/otcetera/source"
     version: "{{ otcetera_branch }}"
 
-- name: Install requests into {{venv_otcws}} for testing
+- name: Install meson and requests into {{venv_otcws}}
   pip:
     virtualenv: "{{ venv_otcws }}"
-    name: "requests"
+    name:
+      - "requests"
+      - "meson"
   when: otcws
 
 - name: Install otcetera packages using apt
@@ -22,7 +24,6 @@
     name:
       - gcc-8
       - g++-8
-      - meson
       - ninja-build
       - libboost-all-dev
     state: present
@@ -68,7 +69,7 @@
   command: bash reconf.sh
   args:
     chdir: "{{ install_location }}/otcetera/buildotc"
-    creates: "{{ install_location }}/otcetera/buildotc/build"
+    creates: "{{ install_location }}/otcetera/buildotc/build/build.ninja"
 
 - name: Run ninja to build and install otc
   command: nice -n10 ninja -C build install
@@ -80,6 +81,8 @@
   args:
     chdir: "{{ install_location }}/otcetera/buildotc"
 
+# Everything after this point is for webservices builds
+
 - name: Write run_test.sh script for webservices tests
   template:
     src: templates/run_test_sh.j2
@@ -89,7 +92,7 @@
 - name: Perform otc tests using run_test.sh that sources the correct env
   command: bash run_test.sh
   args:
-    chdir: "{{ install_location }}/buildotc"
+    chdir: "{{ install_location }}/otcetera/buildotc"
   when: otcws
 
 # final two steps configure and launch otc webservices
