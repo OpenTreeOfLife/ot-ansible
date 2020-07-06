@@ -1,14 +1,14 @@
 ---
 - include_tasks: copy-local-ott-synth.yml
-  when: "{{ synthesis_local }}"
+  when: synthesis_local
 
 - include_tasks: download-ott-synth.yml
-  when: not "{{ synthesis_local }}"
+  when: not synthesis_local
 
 - name: Pull ws_wrapper repo
   git:
     repo: "{{ ws_wrapper_git_remote }}"
-    dest: "{{ clone_location }}/ws_wrapper"
+    dest: "{{ install_location }}/ws_wrapper"
     version: "{{ ws_wrapper_branch }}"
 
 # Simple clone + install rather than using full peyotl role because no
@@ -16,7 +16,7 @@
 - name: Clone peyotl repo
   git:
     repo: "{{ peyotl_git_remote }}"
-    dest: "{{ ws_dir }}/peyotl"
+    dest: "{{ install_location }}/peyotl"
     version: "{{ peyotl_otc_ws_branch }}"
 
 - name: "install ws_wrapper and peyotl in {{ venv_otcws }}"
@@ -25,8 +25,8 @@
     extra_args: '-e'   # link rather than copy
     virtualenv: "{{ venv_otcws }}"
   with_items:
-   - "{{ repo_dir }}/ws_wrapper"
-   - "{{ ws_dir }}/peyotl"
+   - "{{ install_location }}/ws_wrapper"
+   - "{{ install_location }}/peyotl"
 
 # Last two tasks launch ws_wrapper application
 

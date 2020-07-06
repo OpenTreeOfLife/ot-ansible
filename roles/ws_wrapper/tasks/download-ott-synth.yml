@@ -20,13 +20,12 @@
   vars:
     ott_destination_dir: "{{ otc_ws_data }}"
 
-
 ## download, unpack, and copy synthesis tree
 - name: Download copy of synth tree from files server
   get_url:
     url: "{{ synth_tree_url }}"
     dest: "{{ downloads_dir }}"
-    creates: "{{ downloads_dir }}/opentree{{ synth_version }}.tgz"
+    #creates: "{{ downloads_dir }}/opentree{{ synth_version }}.tgz"
 
 - name: Uncompress synth tree
   unarchive:
