@@ -38,6 +38,10 @@
         name: synthesis
       when: build_synthesis
 
+    - name: Get synthesis tree and OTT for web services
+      include_role:
+        name: ws_data
+
     - name: Install otcetera for serving the tree
       include_role:
         name: otcetera
