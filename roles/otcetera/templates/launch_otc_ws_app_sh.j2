@@ -7,11 +7,11 @@ if test -f "{{ otc_ws_data }}/wspidfile.txt" ; then
 fi
 
 echo -n "Starting otcetera web services (otc-tol-ws)... "
-export LD_LIBRARY_PATH="{{ ws_dir }}/local/library:${LD_LIBRARY_PATH}"
+export LD_LIBRARY_PATH="{{ install_location }}/local/library:${LD_LIBRARY_PATH}"
 /usr/sbin/daemonize \
     -c "{{ otc_ws_data }}" \
-    "{{ ws_dir }}/local/bin/otc-tol-ws" \
-    "{{ otc_ws_data }}/{{ synth_version }}" \
+    "{{ install_location }}/local/bin/otc-tol-ws" \
+    "{{ otc_ws_data }}/ott{{ ott_version }}" \
     "-D{{ otc_ws_data }}/synth_trees" \
     "-p{{ otc_ws_data }}/wspidfile.txt" \
     -P1984 \
@@ -27,8 +27,8 @@ while true ; do
     if ! pgrep otc-tol-ws >/dev/null ; then
         echo "otc-tol-ws could not be launched"
     fi
-    if test $nt -gt 240 ; then
-        echo "otc-tol-ws not launched after 120 seconds, aborting..."
+    if test $nt -gt 400 ; then
+        echo "otc-tol-ws not launched after 400 seconds, aborting..."
         exit 2
     fi
     nt=$(expr $nt + 1)

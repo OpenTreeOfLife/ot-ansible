@@ -1,15 +1,7 @@
+# When compiling with otcws = True, this role assumes that synthesis
+# tree and taxonomy exist in otc_ws_data (see ws_data role)
 
-- name: Create otcetera dir
-  file:
-    path: "{{ install_location }}/otcetera"
-    state: directory
-
-- name: Clone otcetera repo
-  git:
-    repo: "{{ otcetera_git_remote }}"
-    dest: "{{ install_location }}/otcetera/source"
-    version: "{{ otcetera_branch }}"
-
+# SETUP
 - name: Install meson and requests into {{venv_otcws}}
   pip:
     virtualenv: "{{ venv_otcws }}"
@@ -18,7 +10,7 @@
       - "meson"
   when: otcws
 
-- name: Install otcetera packages using apt
+- name: Install packages using apt
   become: yes
   apt:
     name:
@@ -28,7 +20,7 @@
       - libboost-all-dev
     state: present
 
-- name: Install otcetera webservices packages
+- name: Install packages needed for webservices
   become: yes
   apt:
     name:
@@ -50,52 +42,76 @@
   become: true
   become_method: sudo
 
-- name: Install restbed for otc webservices using same install_location as otc
+- name: Install restbed for otc webservices
   include_role:
     name: restbed
   when: otcws
 
-- name: Create parent of buildotc
+- name: Create otcetera dir
   file:
-    path: "{{ install_location }}/otcetera/buildotc"
+    path: "{{ install_location }}/otcetera"
     state: directory
 
-- name: Write reconf.sh script
-  template:
-    src: templates/reconf_sh.j2
-    dest: "{{ install_location }}/otcetera/buildotc/reconf.sh"
+- name: Clone otcetera repo
+  git:
+    repo: "{{ otcetera_git_remote }}"
+    dest: "{{ install_location }}/otcetera/source"
+    version: "{{ otcetera_branch }}"
+  register: otcetera_git
 
-- name: Create the build subdir by running meson (via reconf.sh)
-  command: bash reconf.sh
-  args:
-    chdir: "{{ install_location }}/otcetera/buildotc"
-    creates: "{{ install_location }}/otcetera/buildotc/build/build.ninja"
+# The rest of the role only gets run if the git repo has changed
+- name: Build and install ocetera if git repo changed
+  # BLOCK BEGINS
+  block:
 
-- name: Run ninja to build and install otc
-  command: nice -n10 ninja -C build install
-  args:
-    chdir: "{{ install_location }}/otcetera/buildotc"
+  - name: Create parent of buildotc
+    file:
+      path: "{{ install_location }}/otcetera/buildotc"
+      state: directory
 
-- name: Perform the otc tests
-  command: nice -n10 ninja -C build test
-  args:
-    chdir: "{{ install_location }}/otcetera/buildotc"
+  - name: Write reconf.sh script
+    template:
+      src: templates/reconf_sh.j2
+      dest: "{{ install_location }}/otcetera/buildotc/reconf.sh"
 
-# Everything after this point is for webservices builds
+  - name: Create the build subdir by running meson (via reconf.sh)
+    command: bash reconf.sh
+    args:
+      chdir: "{{ install_location }}/otcetera/buildotc"
+      creates: "{{ install_location }}/otcetera/buildotc/build/build.ninja"
 
-- name: Write run_test.sh script for webservices tests
-  template:
-    src: templates/run_test_sh.j2
-    dest: "{{ install_location }}/otcetera/buildotc/run_test.sh"
-  when: otcws
+  - name: Run ninja to build and install otc
+    command: nice -n10 ninja -C build install
+    args:
+      chdir: "{{ install_location }}/otcetera/buildotc"
 
-- name: Perform otc tests using run_test.sh that sources the correct env
-  command: bash run_test.sh
-  args:
-    chdir: "{{ install_location }}/otcetera/buildotc"
-  when: otcws
+  - name: Perform the otc tests
+    command: nice -n10 ninja -C build test
+    args:
+      chdir: "{{ install_location }}/otcetera/buildotc"
 
-# final two steps configure and launch otc webservices
+  # Everything after this point is for webservices builds
+  - name: Write run_test.sh script for webservices tests
+    template:
+      src: templates/run_test_sh.j2
+      dest: "{{ install_location }}/otcetera/buildotc/run_test.sh"
+    #when: otcws
+
+  - name: Perform otc tests using run_test.sh that sources the correct env
+    command: bash run_test.sh
+    args:
+      chdir: "{{ install_location }}/otcetera/buildotc"
+    #when: otcws
+
+  - name: Delete pid file so that we re-launch otcws
+    file:
+      path: "{{ otc_ws_data }}/wspidfile.txt"
+      state: absent
+
+  # BLOCK ENDS
+  when: otcetera_git.remote_url_changed
+
+  # final two steps configure and launch otc webservices
 
 - name: write launch_otc_ws_app.sh script
   template:
@@ -105,4 +121,6 @@
 
 - name: "launch otcws server via launch script"
   command: "bash {{ install_location }}/local/bin/launch_otc_ws_app.sh"
+  args:
+    creates: "{{ otc_ws_data }}/wspidfile.txt"
   when: otcws
