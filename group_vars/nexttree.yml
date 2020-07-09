@@ -16,6 +16,9 @@ synth_dir: /home/{{ansibleuser}}/synthesis
 ws_dir: /home/{{ansibleuser}}/ws_dir
 otc_ws_data: "{{ ws_dir }}/data"
 
+# virtualenv for various ws components
+venv_otcws: "{{ ws_dir }}/venv_otcws"
+
 # These next two control whether you are building a new synthetic tree
 # and whether to copy the synthesis tree + OTT from synth_dir or download
 # them from files server. If build_synthesis is True, ignores synthesis_local
