@@ -14,6 +14,7 @@ deploy_type: curatorless
 # web services repos and data in ws_dir
 synth_dir: /home/{{ansibleuser}}/synthesis
 ws_dir: /home/{{ansibleuser}}/ws_dir
+cpp_apps_dir: "{{ ws_dir }}/cpp_apps"
 otc_ws_data: "{{ ws_dir }}/data"
 
 # virtualenv for various ws components
