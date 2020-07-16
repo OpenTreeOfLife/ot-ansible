@@ -37,6 +37,6 @@
 - name: Copy synth tree from unpacked_dir to ws dir
   copy:
     src: "{{ unpacked_dir }}/opentree{{ synth_version }}"
-    dest: "{{ otc_ws_data }}/"
+    dest: "{{ otc_ws_data }}/synth_trees"
     remote_src: true
     mode: preserve
