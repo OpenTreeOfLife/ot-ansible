@@ -15,19 +15,32 @@
 
 - name: "install ws_wrapper and peyotl in {{ venv_otcws }}"
   pip:
-    name: "{{ item }}"
+    name:
+      - "{{ install_location }}/ws_wrapper"
+      - "{{ install_location }}/peyotl"
     extra_args: '-e'   # link rather than copy
     virtualenv: "{{ venv_otcws }}"
-  with_items:
-   - "{{ install_location }}/ws_wrapper"
-   - "{{ install_location }}/peyotl"
+
+- name: Copy ini file from template
+  copy:
+    src: "{{ install_location }}/ws_wrapper/template.ini"
+    dest: "{{ install_location }}/ws_wrapper/wswrapper.ini"
+    remote_src: yes
+
+- name: Edit ini file
+  ini_file:
+    path: "{{ install_location }}/ws_wrapper/ws_wrapper.ini"
+    section: "[app:main]"
+    option: phylesystem-api.host
+    value: "{{ phylapi_url }}"
+    mode: +x
 
 # Last two tasks launch ws_wrapper application
 
 - name: write launch_ws_wrapper.sh script
   template:
     src: templates/launch_ws_wrapper_sh.j2
-    dest: "{{ ws_dir }}/local/bin/launch_ws_wrapper.sh"
+    dest: "{{ script_location }}/local/bin/launch_ws_wrapper.sh"
 
 - name: "launch ws_wrapper server via launch script"
-  command: "bash {{ ws_dir }}/local/bin/launch_ws_wrapper.sh"
+  command: "bash {{ script_location }}/local/bin/launch_ws_wrapper.sh"
