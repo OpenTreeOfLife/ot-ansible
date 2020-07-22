@@ -9,4 +9,4 @@ fi
 /usr/sbin/daemonize \
    -p "{{ repo_dir }}/ws_wrapper/pid" \
      -c "{{ repo_dir }}/ws_wrapper" \
-      "{{ venv_otcws }}/bin/pserve" {{ ws_wrapper_ini }}
+      "{{ venv_otcws }}/bin/pserve wswrapper.ini"
