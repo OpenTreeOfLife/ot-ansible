@@ -1,8 +1,16 @@
 ---
+# Defaults set for building synth tree; for other installs, probably
+# want different values of venv, install_location, configuration
+
 peyotl_git_remote: https://github.com/OpenTreeOfLife/peyotl"
+peyotl_branch: master
+venv_peyotl: "{{ venv_synth }}"
+install_location: "{{ synth_dir }}"
+#venv_synth: /home/{{ ansibleuser }}/venv_synth
+
+# don't need to do all of the configuration for many use cases
+configure_peyotl: True
 peyotl_config_location: "/home/{{ ansibleuser }}/.peyotl"
-peyotl_synth_branch: master
-venv_synth: /home/{{ ansibleuser }}/venv_synth
 
 # template vars (used to create peyotl config)
 phylesystem_parent: "{{ synth_dir }}"

@@ -7,36 +7,38 @@
 - name: Clone peyotl repo
   git:
     repo: "{{ peyotl_git_remote }}"
-    dest: "{{ synth_dir }}/peyotl"
-    version: "{{ peyotl_synth_branch }}"
+    dest: "{{ install_location }}/peyotl"
+    version: "{{ peyotl_branch }}"
 
 - name: Create dir for peyotl config file
   file:
     state: directory
     path: "{{ peyotl_config_location }}"
+  when: configure_peyotl
 
 - name: Create peyotl config file from template
   template:
     src: templates/config.j2
     dest: "{{ peyotl_config_location }}/config.ini"
+  when: configure_peyotl
 
 - name: "Create python 3 virtualenv if it does not already exist"
   command:
-    cmd: python3 -m venv "{{ venv_synth }}"
-    creates: /home/{{ ansibleuser }}/venv_synth
+    cmd: python3 -m venv "{{ venv_peyotl }}"
+    creates: /home/{{ ansibleuser }}/venv_peyotl
 
-- name: Install peyotl prerequisites into {{venv_synth}}
+- name: Install peyotl prerequisites into {{venv_peyotl}}
   pip:
-    requirements: "{{ synth_dir }}/peyotl/requirements.txt"
-    virtualenv: "{{ venv_synth }}"
+    requirements: "{{ install_location }}/peyotl/requirements.txt"
+    virtualenv: "{{ venv_peyotl }}"
 
-- name: Install peyotl into {{venv_synth}} as a link
+- name: Install peyotl into {{venv_peyotl}} as a link
   pip:
-    name: "{{ synth_dir }}/peyotl"
+    name: "{{ install_location }}/peyotl"
     extra_args: '-e'
-    virtualenv: "{{ venv_synth }}"
+    virtualenv: "{{ venv_peyotl }}"
 
-- name: Install Chameleon into {{venv_synth}}
+- name: Install Chameleon into {{venv_peyotl}}
   pip:
     name: Chameleon
-    virtualenv: "{{ venv_synth }}"
+    virtualenv: "{{ venv_peyotl }}"
