@@ -20,7 +20,7 @@
     src: templates/dot_opentree.j2
     dest: "{{ propinquity_config_location }}"
 
-- name: install otcetera for synthesis
+- name: install a version of otcetera for synthesis
   include_role:
     name: otcetera
   vars:
