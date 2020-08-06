@@ -32,8 +32,7 @@
     path: "{{ install_location }}/ws_wrapper/ws_wrapper.ini"
     section: "[app:main]"
     option: phylesystem-api.host
-    value: "{{ phylapi_url }}"
-    mode: +x
+    value: "{{ study_api_endpoint }}"
 
 # Last two tasks launch ws_wrapper application
 
