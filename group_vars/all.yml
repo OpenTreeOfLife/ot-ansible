@@ -15,7 +15,7 @@ venv_web2py: /home/{{ansibleuser}}/venv_web2py
 
 # directories
 # these all get created in /home/{{ansibleuser}}
-#repo_dir: repos
+repo_dir: repos
 #cpp_apps_dir: cpp_apps
 #ws_dir: /home/{{ansibleuser}}/ws
 #users_bin_dir: /home/{{ansibleuser}}/bin
