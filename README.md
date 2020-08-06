@@ -35,13 +35,14 @@ Some links that were helpful:
     https://github.com/OpenTreeOfLife/otindex_ansible
   * https://andidog.de/blog/2017-04-24-ansible-best-practices
 
-# Setting variables
+# Setting role variables
 
 Variables for roles are set in `role/defaults`, not `role/vars`. This makes
-it easy to override role defaults using variables for hosts in `group_vars`.
-You can also set variables as command line parameters when calling
-`ansible-playbook`. See the [ansible docs on variable priority](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable) for the gory details on how
-this works.
+it easy to override role defaults either in `group_vars` (when the   
+setting is specific for a host) or with `include_role` (when a setting is
+specific for a playbook / another role). See the
+[ansible docs on variable priority](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable) for the gory details on how
+variable priority works.
 
 # Deploying the synthetic tree
 
