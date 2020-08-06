@@ -31,14 +31,17 @@
   pip:
     requirements: "{{ install_location }}/peyotl/requirements.txt"
     virtualenv: "{{ venv_peyotl }}"
+    virtualenv_python: "{{ python_version }}"
 
 - name: Install peyotl into {{venv_peyotl}} as a link
   pip:
     name: "{{ install_location }}/peyotl"
     extra_args: '-e'
     virtualenv: "{{ venv_peyotl }}"
+    virtualenv_python: "{{ python_version }}"
 
 - name: Install Chameleon into {{venv_peyotl}}
   pip:
     name: Chameleon
     virtualenv: "{{ venv_peyotl }}"
+    virtualenv_python: "{{ python_version }}"
