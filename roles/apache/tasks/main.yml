@@ -1,0 +1,71 @@
+---
+# apache tasks
+- name: install apache2 modules that we rely on.
+  apache2_module:
+    state: present
+    name: "{{ item }}"
+  with_items:
+    - proxy
+    - proxy_http
+    - rewrite
+    - ssl
+    - cgid
+  become: true
+  become_method: sudo
+
+- name: write /etc/apache2/sites-available/opentree.conf
+  template:
+    src: templates/opentree_conf.j2
+    dest: "/etc/apache2/sites-available/opentree.conf"
+  become: true
+  become_method: sudo
+  notify:
+    - restart apache2
+
+- name: write /etc/apache2/sites-available/opentree-ssl.conf
+  template:
+    src: templates/opentree_ssl_conf.j2
+    dest: "/etc/apache2/sites-available/opentree-ssl.conf"
+  become: true
+  become_method: sudo
+  notify:
+    - restart apache2
+
+- name: write /etc/apache2/opentree-shared.conf
+  template:
+    src: templates/opentree_shared_conf.j2
+    dest: "/etc/apache2/opentree-shared.conf"
+  become: true
+  become_method: sudo
+  notify:
+    - restart apache2
+
+- name: enable the opentree site
+  file:
+    src: /etc/apache2/sites-available/opentree.conf
+    dest: /etc/apache2/sites-enabled/000-opentree.conf
+    state: link
+  become: true
+  become_method: sudo
+  notify:
+    - restart apache2
+
+- name: enable the opentree ssl sites
+  file:
+    src: /etc/apache2/sites-available/opentree-ssl.conf
+    dest: /etc/apache2/sites-enabled/001-opentree-ssl.conf
+    state: link
+  become: true
+  become_method: sudo
+  notify:
+    - restart apache2
+
+
+- name: disable the opentree ssl sites
+  file:
+    dest: /etc/apache2/sites-enabled/000-default.conf
+    state: absent
+  become: true
+  become_method: sudo
+  notify:
+    - restart apache2
