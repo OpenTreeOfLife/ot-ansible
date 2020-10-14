@@ -2,7 +2,7 @@
 
 ## Playbook inventory
 
-All playbook files have naming convention `playbk-*.yml`
+List of playbooks and their function, prior to Spring 2020 re-factoring. All playbook files have naming convention `playbk-*.yml`
 
 build-otc-ws
 - builds the otcetera webservices
@@ -96,18 +96,64 @@ take-server-out-of-maintenance-mode
 
 ## Hosts
 
+**Named hosts**
+
+Each of these accessible at `*.opentreeoflife.org`:
+
+- tree / devtree = opentree
+- api / devapi = ws_wrapper, otcetera; routes calls to other services
+- phylesystemapi / devphylesystemapi = phylesystemapi
+- otindex / devotindex = otindex
+- nexttree = opentree, ws_wrapper, otcetera
+
+**Host groups**
+
 Production = tree + api + otindex + phylesystemapi
 Development = devtree + devapi + devotindex + devphylesystemapi
 Staging = nexttree (no curation; api and webapp on same server)
 
-Development is where we test new software, and nexttree is production software but with new synthesis (tree and underlying taxonomy)
+Development is where we test new software, and nexttree is production software but with new synthesis data (tree and underlying taxonomy)
 
-Tree + taxonomy servers = nexttree, tree, devtree
-Phylesystem servers = nexttree, phylesystemapi, devphylesystemapi
-Otindex servers
 
 ## Actions
 
 * build synthetic tree
 * deploy synthetic tree
 * deploy taxonomy
+
+## Germinator notes
+
+In install-otcetera script :
+
+```
+APPS=$HOME/Applications
+mkdir -p $APPS
+
+OPENTREE=$APPS/OpenTree
+mkdir -p $OPENTREE
+
+TAX_FILE=${TAX_URL##*/}
+TAX_DIR=${TAX_FILE%.*}
+OTT=$OPENTREE/$TAX_DIR
+mkdir -p $OTT
+
+SYNTHPARENT=$OPENTREE/synth-par
+mkdir -p $SYNTHPARENT
+
+mkdir -p $APPS/restbed
+cd $APPS/restbed
+git clone https://github.com/corvusoft/restbed.git
+
+mkdir -p $APPS/otcetera
+cd $APPS/otcetera
+git clone --recursive https://github.com/OpenTreeOfLife/otcetera
+```
+
+peyotl cloned in in `$HOME/repo/peyotl/` and ws_wrapper in `$HOME/repo/ws_wrapper`
+
+In install-web2py-apps script :
+
+```
+WEBAPP=opentree
+APPROOT=repo/$WEBAPP
+```
