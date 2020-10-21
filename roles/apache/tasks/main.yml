@@ -1,10 +1,25 @@
 ---
 # apache tasks
-- name: install apache2 modules that we rely on.
+- name: Install apache using apt
+  become: yes
+  apt:
+    name:
+      - apache2
+    state: present
+
+- name: Install mod-wsgi using apt
+  become: yes
+  apt:
+    name:
+      - libapache2-mod-wsgi
+    state: present
+
+- name: enable apache2 modules
   apache2_module:
     state: present
     name: "{{ item }}"
   with_items:
+    - wsgi
     - proxy
     - proxy_http
     - rewrite
@@ -59,7 +74,6 @@
   become_method: sudo
   notify:
     - restart apache2
-
 
 - name: disable the opentree ssl sites
   file:
