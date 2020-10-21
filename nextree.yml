@@ -60,12 +60,14 @@
       vars:
         install_location: "{{ ws_dir }}/repos"
 
-    #- apache
+    - name:
+      include_role:
+        name: apache
 
 
-  # handlers:
-  #   - name: restart apache
-  #     become: true
-  #     service: name=apache2 state=restarted
+  handlers:
+    - name: restart apache
+      become: true
+      service: name=apache2 state=restarted
   #   - name: restart otcetera webservices
   #     service:
