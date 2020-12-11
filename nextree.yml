@@ -54,19 +54,19 @@
       vars:
         install_location: "{{ ws_dir }}/repos"
 
-    - name:
+    - name: Install headless webapp
       include_role:
         name: webapp
       vars:
         install_location: "{{ ws_dir }}/repos"
 
-    - name:
+    - name: Install and configure apache
       include_role:
         name: apache
 
 
   handlers:
-    - name: restart apache
+    - name: restart apache2
       become: true
       service: name=apache2 state=restarted
   #   - name: restart otcetera webservices

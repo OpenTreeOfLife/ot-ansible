@@ -29,7 +29,7 @@
 
 - name: Edit ini file
   ini_file:
-    path: "{{ install_location }}/ws_wrapper/ws_wrapper.ini"
+    path: "{{ install_location }}/ws_wrapper/wswrapper.ini"
     section: "[app:main]"
     option: phylesystem-api.host
     value: "{{ study_api_endpoint }}"
