@@ -1,0 +1,14 @@
+#!/bin/bash
+source {{ venv_otcws }}/bin/activate || exit
+export CPPFLAGS="-DMINIMAL_NODE_NAVIGATION_PTRS"
+export CXX=$(which g++)
+export CC=$(which gcc)
+export CXXFLAGS="-fPIC -Waddress -Warray-bounds -Wc++11-compat -Wchar-subscripts -Wcomment -Wformat -Wmain -Wmaybe-uninitialized -Wmissing-braces -Wnonnull -Wopenmp-simd -Wparentheses -Wreorder -Wreturn-type -Wsequence-point -Wsign-compare -Wstrict-aliasing -Wstrict-overflow -Wswitch -Wtrigraphs -Wuninitialized -Wno-unknown-pragmas -Wunused-function -Wunused-label -Wunused-value -Wunused-variable -Wvolatile-register-var -Wno-pragmas -pedantic -O3 -std=c++17" \
+export OTROOT="{{ ws_dir }}"
+export CPPFLAGS="-I${OTROOT}/local/include $CPPFLAGS"
+export LDFLAGS="-L${OTROOT}/local/library"
+export LD_LIBRARY_PATH="${OTROOT}/local/library"
+echo "CPPFLAGS=${CPPFLAGS}"
+echo "LDFLAGS=${LDFLAGS}"
+echo "LD_LIBRARY_PATH=${LD_LIBRARY_PATH}"
+meson build ../source --prefix="${OTROOT}/local" -Dwebservices="{{ otcws }}"

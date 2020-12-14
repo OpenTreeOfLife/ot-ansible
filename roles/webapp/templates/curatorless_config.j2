@@ -1,0 +1,47 @@
+[security]
+secure_sessions_with_HTTPS = true
+
+[apis]
+# These values can be obtained by registering your instance as an
+# application with GitHub, at https://github.com/settings/applications/new
+github_client_id = YOUR_CLIENT_ID_HERE
+github_redirect_uri = YOUR_REDIRECT_URI_HERE
+# DON'T INCLUDE 'github_client_secret' value here. For better security, this is
+# loaded from a separate file and added to config data on-the-fly.
+
+
+# List public-facing base URL for treemachine and taxomachine services
+# (NOTE that these are used by both server- and client-side code)
+[domains]
+treemachine = {{ tree_of_life_endpoint }}
+taxomachine = {{ taxonomy_endpoint }}
+oti = {{ curator_endpoint }}
+opentree_api = {{ tree_of_life_endpoint }}
+collections_api_base_url = {{ curator_endpoint }}
+favorites_api_base_url = {{ curator_endpoint }}
+# Cached versions of some APIs will speed up repeated calls (see below).
+# These use a simple web2py cache implemented in phylesystem-api
+CACHED_treemachine = {{ tree_of_life_endpoint }}/cached
+CACHED_taxomachine = {{ tree_of_life_endpoint }}/cached
+CACHED_oti = {{ curator_endpoint }}/cached
+
+# Building on the URLs above, complete the public-facing URL for all methods
+# (again, these should work from both server- and client-side code)
+#
+# NOTE: In our example setup, all service methods are proxied through Apache as
+# URLs within the main opentree site. So we assume that partial paths '/db/data/'
+# are handled in the ProxyPass statement.
+[method_urls]
+getDraftTreeID_url = {{ tree_of_life_endpoint_cache }}/v3/tree_of_life/about
+getSyntheticTree_url = {{ tree_of_life_endpoint_cache }}/v3/tree_of_life/subtree
+getDraftSubtree_url = {{ tree_of_life_endpoint }}/v3/tree_of_life/subtree
+doTNRSForAutocomplete_url = {{ taxonomy_endpoint }}/v3/tnrs/autocomplete_name
+getContextsJSON_url = {{ taxonomy_endpoint_cache }}/v3/tnrs/contexts
+getSynthesisSourceList_url = {{ tree_of_life_endpoint_cache }}/v3/tree_of_life/about
+findAllStudies_url = {{ study_index_endpoint_cache }}/v3/studies/find_studies
+singlePropertySearchForStudies_url = {{ study_index_endpoint }}/v3/studies/find_studies
+singlePropertySearchForTrees_url = {{ curator_endpoint }}/v3/studies/find_trees
+getTaxonInfo_url = {{ taxonomy_endpoint }}/v3/taxonomy/taxon_info
+# Include one phylesystem-api method to download NexSON from Bibliographic References page
+API_load_study_GET_url = {{ study_api_endpoint }}/v3/study/{STUDY_ID}
+curator_url = {{ curator_endpoint }}

@@ -1,0 +1,74 @@
+---
+- name: clone web2py repo
+  git:
+    repo: "{{ web2py_git_remote }}"
+    dest: "{{ install_location }}/web2py"
+    version: "{{ web2py_version }}"
+    recursive: yes  # yes is default; being explicit because submodules
+    force: yes # avoid conflicts with locally modified patch files
+
+# Patch web2py's wsgihandler so that it does the equivalent of 'venv/activate'
+# when started by Apache.
+# See http://stackoverflow.com/questions/11758147/web2py-in-apache-mod-wsgi-with-virtualenv
+- name: Patch web2py wsgihandler.py
+  template:
+    src: templates/wsgihandler_py.j2
+    dest: "{{ install_location }}/web2py/wsgihandler.py"
+
+- name: Copy web2py rewrite patch file
+  copy:
+    src: web2py_patches/rewrite.py
+    dest: "{{ install_location }}/web2py/gluon/"
+
+- name: Copy web2py oauth patch file
+  copy:
+    src: web2py_patches/oauth20_account.py
+    dest: "{{ install_location }}/web2py/gluon/contrib/login_methods/"
+
+- name: remove welcome and examples applications
+  file:
+    path: "{{ install_location }}/web2py/applications/{{ item }}"
+    state: absent
+  loop:
+    - welcome
+    - examples
+
+- name: Clone opentree repo
+  git:
+    repo: "{{ opentree_git_remote }}"
+    dest: "{{ install_location }}/opentree"
+    version: "{{ opentree_branch }}"
+
+- name: Remove old session directories and contents
+  file:
+    path: "{{ install_location }}/opentree/{{ item }}/sessions"
+    state: absent
+  loop:
+    - curator
+    - webapp
+
+- name: Install peyotl in the virtualenv
+  include_role:
+    name: peyotl
+  vars:
+    peyotl_branch: "{{ peyotl_webapp_branch }}"
+    peyotl_install_location: "{{ install_location }}/repos"
+    configure_peyotl: False
+    venv_peyotl: "{{ venv_web2py }}"
+    virtualenv_python: "{{ python_version }}"
+
+- name: install opentree prerequisites into {{venv_web2py}}
+  pip:
+    virtualenv: "{{ venv_web2py }}"
+    virtualenv_python: "{{ python_version }}"
+    requirements: "{{ install_location }}/opentree/requirements.txt"
+
+- name: configure opentree webapp
+  template:
+    src: templates/{{ deploy_type }}_config.j2
+    dest: "{{ install_location }}/opentree/webapp/private/config"
+
+- name: configure opentree webapp
+  template:
+    src: templates/routes_py.j2
+    dest: "{{ install_location }}/web2py/routes.py"

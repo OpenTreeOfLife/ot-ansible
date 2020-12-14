@@ -1,0 +1,4 @@
+---
+restbed_git_tag: "4.6"
+restbed_git_remote: https://github.com/Corvusoft/restbed
+install_location: "{{ cpp_apps_dir }}"

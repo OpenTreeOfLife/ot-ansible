@@ -1,0 +1,37 @@
+---
+# Downloads and unpacks a version of OTT and copies into specified location
+
+- name: Create unpacked_dir
+  file:
+    path: "{{ unpacked_dir }}"
+    state: directory
+
+- name: Create downloads_dir
+  file:
+    path: "{{ downloads_dir }}"
+    state: directory
+
+- name: Create ott_destination_dir
+  file:
+    path: "{{ ott_destination_dir }}"
+    state: directory
+
+- name: Download copy of OTT from files server
+  get_url:
+    url: "{{ ott_url }}"
+    dest: "{{ downloads_dir }}"
+    force: yes
+
+- name: Uncompress OTT
+  unarchive:
+    src: "{{ downloads_dir }}/ott{{ ott_version }}.tgz"
+    dest: "{{ unpacked_dir }}"
+    #creates: "{{ unpacked_dir }}/ott{{ ott_version }}/taxonomy.tsv"
+    remote_src: yes
+
+- name: Copy OTT from unpacked_dir to destination dir
+  copy:
+    src: "{{ unpacked_dir }}/ott{{ ott_version }}"
+    dest: "{{ ott_destination_dir }}/"
+    remote_src: true
+    mode: preserve
