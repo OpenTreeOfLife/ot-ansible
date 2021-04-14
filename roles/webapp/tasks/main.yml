@@ -76,9 +76,10 @@
     state: link
   when: install_curator
 
+# TODO: create non curatorless config for dev / prod
 - name: configure opentree webapp
   template:
-    src: templates/{{ deploy_type }}_config.j2
+    src: templates/curatorless_config.j2
     dest: "{{ install_location }}/opentree/webapp/private/config"
 
 - name: configure opentree webapp
