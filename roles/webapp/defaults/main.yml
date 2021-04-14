@@ -6,3 +6,4 @@ peyotl_webapp_branch: master
 venv_web2py: venv_web2py
 python_version: python2.7
 install_location: "{{ repo_dir }}"
+install_curator: True

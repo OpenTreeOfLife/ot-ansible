@@ -63,6 +63,19 @@
     virtualenv_python: "{{ python_version }}"
     requirements: "{{ install_location }}/opentree/requirements.txt"
 
+- name: create link to opentree webapp in web2py applications dir
+  file:
+    src: "{{ install_location }}/opentree/webapp"
+    dest: "{{ install_location }}/web2py/applications/opentree"
+    state: link
+
+- name: create link to curator app in web2py applications dir
+  file:
+    src: "{{ install_location }}/opentree/curator"
+    dest: "{{ install_location }}/web2py/applications/curator"
+    state: link
+  when: install_curator
+
 - name: configure opentree webapp
   template:
     src: templates/{{ deploy_type }}_config.j2

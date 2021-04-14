@@ -21,8 +21,8 @@ study_index_endpoint_cache: https://otindex.opentreeoflife.org
 phylesystem_repo: phylesystem-1
 otcetera_synth_branch: master
 
-# if True, install the webapp with curation disabled
-deploy_type: curatorless
+# whether to install the curator app (False on nexttree)
+install_curator: False
 
 # all of the synthesis repos and data in synth_dir and all of the
 # web services repos and data in ws_dir
