@@ -38,6 +38,7 @@
     repo: "{{ opentree_git_remote }}"
     dest: "{{ install_location }}/opentree"
     version: "{{ opentree_branch }}"
+    force: yes
 
 - name: Remove old session directories and contents
   file:
@@ -55,7 +56,7 @@
     peyotl_install_location: "{{ install_location }}/repos"
     configure_peyotl: False
     venv_peyotl: "{{ venv_web2py }}"
-    virtualenv_python: "{{ python_version }}"
+    peyotl_python_version: "{{ python_version }}"
 
 - name: install opentree prerequisites into {{venv_web2py}}
   pip:
@@ -86,3 +87,9 @@
   template:
     src: templates/routes_py.j2
     dest: "{{ install_location }}/web2py/routes.py"
+
+- name: copy opentree api token from local machine
+  ansible.builtin.copy:
+    src: ~/.ssh/opentree/OPENTREEAPI_OAUTH_TOKEN
+    dest: /home/{{ ansibleuser }}/.ssh/OPENTREEAPI_OAUTH_TOKEN
+    mode: '0600'
