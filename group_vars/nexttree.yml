@@ -7,19 +7,25 @@ ott_version: 3.2
 web2py_version: 2.19.1
 
 # nexttree points to itself for tree and taxonomy
-tree_of_life_endpoint: https://nexttree.opentreeoflife.org
-tree_of_life_endpoint_cache: https://nexttree.opentreeoflife.org
-taxonomy_endpoint:  https://nexttree.opentreeoflife.org
-taxonomy_endpoint_cache:  https://nexttree.opentreeoflife.org
+subdomain: ot58 # in production, this would be nexttree
+tree_of_life_endpoint: https://{{ subdomain }}.opentreeoflife.org
+tree_of_life_endpoint_cache: https://{{ subdomain }}.opentreeoflife.org
+taxonomy_endpoint:  https://{{ subdomain }}.opentreeoflife.org
+taxonomy_endpoint_cache:  https://{{ subdomain }}.opentreeoflife.org
 
 # and to production for everything else
 curator_endpoint: https://tree.opentreeoflife.org/curator
 study_api_endpoint: https://phylesystemapi.opentreeoflife.org
 study_index_endpoint: https://otindex.opentreeoflife.org
 study_index_endpoint_cache: https://otindex.opentreeoflife.org
+github_app_id: 65862
+github_client_id: Iv1.8b8116ce58d092c4
+github_redirect_uri: "{{ curator_endpoint }}/user/login"
+github_app_installation_id: 8832719 
 
 phylesystem_repo: phylesystem-1
 otcetera_synth_branch: master
+opentree_branch: nexttree
 
 # whether to install the curator app (False on nexttree)
 install_curator: False

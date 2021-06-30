@@ -41,4 +41,4 @@ ws_wrapper_branch: master
 
 otc_ws_data: /home/{{ansibleuser}}/ws/otc_ws_data
 
-opentree_branch: nexttree
+#opentree_branch: nexttree
