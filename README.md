@@ -64,3 +64,15 @@ A very rough overview of deploying the synthetic tree looks like this:
 You can test any of the playbooks locally using Vagrant and VirtualBox (or other provider like VMWare, Hyper-V). Once you have vagrant and virtualbox installed, running `vagrant up` will start the virtual host and run the playbook `opentree.yml`. To run a different playbook, edit the `ansible.playbook` option in the Vagrantfile.
 
 See the [Ansible documentation on using Vagrant](https://docs.ansible.com/ansible/2.3/guide_vagrant.html) for more info.
+
+# Troubleshooting
+
+## Apache logs
+
+$ ssh ot58 'sudo tail /var/log/apache2/error.log'
+$ ssh ot58 'sudo tail /var/log/apache2/access.log'
+$ ssh ot58 'sudo tail /var/log/apache2/ssl_error.log'
+
+## Web2py tickets
+
+If you see the dreaded web2py Internal error, or a 500 server error, look in `/home/deploy/ws_dir/repos/opentree/webapp/errors` for logs.
