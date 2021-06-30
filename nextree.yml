@@ -54,7 +54,7 @@
       vars:
         install_location: "{{ ws_dir }}/repos"
 
-    - name: Install headless webapp
+    - name: Install curatorless webapp
       include_role:
         name: webapp
       vars:
