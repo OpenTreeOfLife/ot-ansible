@@ -36,10 +36,16 @@
 
 # Last two tasks launch ws_wrapper application
 
+- name: ensure log directory exists and is writable
+  file:
+      path: "{{ install_location }}/local/bin"
+      state: directory
+
+
 - name: write launch_ws_wrapper.sh script
   template:
     src: templates/launch_ws_wrapper_sh.j2
-    dest: "{{ script_location }}/local/bin/launch_ws_wrapper.sh"
+    dest: "{{ install_location }}/local/bin/launch_ws_wrapper.sh"
 
 - name: "launch ws_wrapper server via launch script"
-  command: "bash {{ script_location }}/local/bin/launch_ws_wrapper.sh"
+  command: "bash {{ install_location }}/local/bin/launch_ws_wrapper.sh"

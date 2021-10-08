@@ -24,7 +24,7 @@ downloads_dir: /home/{{ansibleuser}}/downloads
 unpacked_dir: /home/{{ansibleuser}}/unpacked
 
 peyotl_git_remote: https://github.com/OpenTreeOfLife/peyotl
-peyotl_webapp_branch: fix_anyjson
+peyotl_webapp_branch: master
 
 # Synthesis tree and open tree taxonomy download locations
 # Set versions in production.yml, development.yml, or nexttree.yml
@@ -37,7 +37,7 @@ ott_url: "{{ files_url }}/ott/ott{{ ott_version }}/ott{{ ott_version }}.tgz"
 # otcetera_ws_branch: no-fuzzy-match-db
 
 ws_wrapper_git_remote: https://github.com/OpenTreeOfLife/ws_wrapper
-ws_wrapper_branch: chronosynth
+ws_wrapper_branch: master
 
 otc_ws_data: /home/{{ansibleuser}}/ws/otc_ws_data
 
