@@ -26,6 +26,17 @@
   args:
     chdir: "{{ install_dir }}/chronosynth"
 
+
+- name: Create dir for chronosynth config file
+  file:
+    state: directory
+    path: "{{ chronosynth_config_location }}"
+
+- name: Create chronosynth config file from template
+  template:
+    src: templates/config.j2
+    dest: "{{ chronosynth_config_location }}/config.ini"
+
 - name: ensure log directory exists and is writable
   file:
       path: "{{ logfile_dir }}"
