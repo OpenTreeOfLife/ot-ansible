@@ -1,0 +1,47 @@
+---
+
+# Install and configure peyotl library
+# Not pip installable, so install from locally cloned repo
+# Assumes git, python3, pip, virtualenv already installed
+
+- name: Clone peyotl repo
+  git:
+    repo: "{{ peyotl_git_remote }}"
+    dest: "{{ install_location }}/peyotl"
+    version: "{{ peyotl_branch }}"
+
+- name: Create dir for peyotl config file
+  file:
+    state: directory
+    path: "{{ peyotl_config_location }}"
+  when: configure_peyotl
+
+- name: Create peyotl config file from template
+  template:
+    src: templates/config.j2
+    dest: "{{ peyotl_config_location }}/config.ini"
+  when: configure_peyotl
+
+# - name: "Create python 3 virtualenv if it does not already exist"
+#   command:
+#     cmd: python3 -m venv "{{ venv_peyotl }}"
+#     creates: /home/{{ ansibleuser }}/venv_peyotl
+
+- name: Install peyotl prerequisites into "{{venv_peyotl}}"
+  pip:
+    requirements: "{{ install_location }}/peyotl/requirements.txt"
+    virtualenv: "{{ venv_peyotl }}"
+    virtualenv_python: "{{ python_version }}"
+
+- name: Install peyotl into {{venv_peyotl}} as a link
+  pip:
+    name: "{{ install_location }}/peyotl"
+    extra_args: '-e'
+    virtualenv: "{{ venv_peyotl }}"
+    virtualenv_python: "{{ peyotl_python_version }}"
+
+- name: Install Chameleon into {{venv_peyotl}}
+  pip:
+    name: Chameleon
+    virtualenv: "{{ venv_peyotl }}"
+    virtualenv_python: "{{ python_version }}"

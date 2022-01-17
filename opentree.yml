@@ -1,0 +1,36 @@
+# Top-level playbook for opentree deployment 
+# Run with either production or development hosts file
+# Assumes deploy user with sudo access exists
+---
+- hosts: all
+  gather_facts: False
+
+  pre_tasks:
+    - name: Check Ansible version
+      assert:
+        that: '(ansible_version.major, ansible_version.minor, ansible_version.revision) >= (2, 5, 1)'
+        msg: 'Please install the recommended version 2.5.1+. You have Ansible {{ ansible_version.string }}.'
+      run_once: yes
+
+# Configure and deploy tree server
+- hosts: tree
+
+  roles:
+    - web2py
+    - opentree
+    - apache
+
+# Configure and deploy the api server
+- hosts: api
+
+  roles:
+    - apache
+    - ws_wrapper
+    - otcetera
+
+# Configure and deploy the phylesystem-api server
+- hosts: phylesystem
+
+  roles:
+    - phylesystem-api
+    - apache

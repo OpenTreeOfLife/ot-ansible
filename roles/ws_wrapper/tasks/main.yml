@@ -1,0 +1,45 @@
+---
+- name: Pull ws_wrapper repo
+  git:
+    repo: "{{ ws_wrapper_git_remote }}"
+    dest: "{{ install_location }}/ws_wrapper"
+    version: "{{ ws_wrapper_branch }}"
+
+# Simple clone + install rather than using full peyotl role because no
+# configuration required
+- name: Clone peyotl repo
+  git:
+    repo: "{{ peyotl_git_remote }}"
+    dest: "{{ install_location }}/peyotl"
+    version: "{{ peyotl_otc_ws_branch }}"
+
+- name: "install ws_wrapper and peyotl in {{ venv_otcws }}"
+  pip:
+    name:
+      - "{{ install_location }}/ws_wrapper"
+      - "{{ install_location }}/peyotl"
+    extra_args: '-e'   # link rather than copy
+    virtualenv: "{{ venv_otcws }}"
+
+- name: Copy ini file from template
+  copy:
+    src: "{{ install_location }}/ws_wrapper/template.ini"
+    dest: "{{ install_location }}/ws_wrapper/wswrapper.ini"
+    remote_src: yes
+
+- name: Edit ini file
+  ini_file:
+    path: "{{ install_location }}/ws_wrapper/wswrapper.ini"
+    section: "[app:main]"
+    option: phylesystem-api.host
+    value: "{{ study_api_endpoint }}"
+
+# Last two tasks launch ws_wrapper application
+
+- name: write launch_ws_wrapper.sh script
+  template:
+    src: templates/launch_ws_wrapper_sh.j2
+    dest: "{{ script_location }}/local/bin/launch_ws_wrapper.sh"
+
+- name: "launch ws_wrapper server via launch script"
+  command: "bash {{ script_location }}/local/bin/launch_ws_wrapper.sh"

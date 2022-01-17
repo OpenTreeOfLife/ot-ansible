@@ -1,0 +1,5 @@
+otcetera_git_remote: https://github.com/OpenTreeOfLife/otcetera
+otcetera_branch: master
+install_location: "{{ cpp_apps_dir }}"
+
+otcws: True # whether to build + install + launch the webservices

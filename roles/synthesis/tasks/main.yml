@@ -1,0 +1,38 @@
+# Role for building the synthetic tree
+# Wrapper that include many other roles
+
+- name: Create the synthesis directory
+  file:
+    state: directory
+    path: "{{ synth_dir }}"
+
+- include_role:
+    name: peyotl
+
+- name: Clone propinquity repo
+  git:
+    repo: "{{ propinquity_git_remote }}"
+    dest: "{{ synth_dir }}/propinquity"
+    version: "{{ propinquity_branch }}"
+
+- name: write global .opentree config file
+  template:
+    src: templates/dot_opentree.j2
+    dest: "{{ propinquity_config_location }}"
+
+- name: install a version of otcetera for synthesis
+  include_role:
+    name: otcetera
+  vars:
+    clone_location: "{{ synth_dir }}"
+    otcws: False
+    otcetera_branch: "{{ otcetera_synth_branch }}"
+
+- include_role:
+    name: fetch-synth-inputs
+
+- name: Clone germinator repo to get our monophyly tests
+  git:
+    repo: "{{ germinator_git_remote }}"
+    dest: "{{ synth_dir }}/germinator"
+    version: "{{ germinator_monophyly_branch }}"

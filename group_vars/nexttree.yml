@@ -1,0 +1,48 @@
+---
+# variables for nexttree server
+# Variables set here will override settings in role/*/defaults/main.yml
+
+synth_version: 12.3
+ott_version: 3.2
+web2py_version: 2.19.1
+
+# nexttree points to itself for tree and taxonomy
+subdomain: ot58 # in production, this would be nexttree
+tree_of_life_endpoint: https://{{ subdomain }}.opentreeoflife.org
+tree_of_life_endpoint_cache: https://{{ subdomain }}.opentreeoflife.org
+taxonomy_endpoint:  https://{{ subdomain }}.opentreeoflife.org
+taxonomy_endpoint_cache:  https://{{ subdomain }}.opentreeoflife.org
+
+# and to production for everything else
+curator_endpoint: https://tree.opentreeoflife.org/curator
+study_api_endpoint: https://phylesystemapi.opentreeoflife.org
+study_index_endpoint: https://otindex.opentreeoflife.org
+study_index_endpoint_cache: https://otindex.opentreeoflife.org
+github_app_id: 65862
+github_client_id: Iv1.8b8116ce58d092c4
+github_redirect_uri: "{{ curator_endpoint }}/user/login"
+github_app_installation_id: 8832719 
+
+phylesystem_repo: phylesystem-1
+otcetera_synth_branch: master
+opentree_branch: nexttree
+
+# whether to install the curator app (False on nexttree)
+install_curator: False
+
+# all of the synthesis repos and data in synth_dir and all of the
+# web services repos and data in ws_dir
+synth_dir: /home/{{ansibleuser}}/synthesis
+ws_dir: /home/{{ansibleuser}}/ws_dir
+cpp_apps_dir: "{{ ws_dir }}/cpp_apps"
+otc_ws_data: "{{ ws_dir }}/data"
+
+# virtualenv for various ws components
+venv_otcws: "{{ ws_dir }}/venv_otcws"
+
+# These next two control whether you are building a new synthetic tree
+# and (if you aren't building new) whether to copy the synthesis tree +
+# OTT from synth_dir or download them from files server. If build_synthesis
+# is True, ignores synthesis_local
+build_synthesis: False
+synthesis_local: False

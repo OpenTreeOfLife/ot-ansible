@@ -1,0 +1,12 @@
+#!/bin/bash
+if pgrep pserve >/dev/null ; then
+    pkill -F "{{ repo_dir }}/ws_wrapper/pid" pserve|| exit
+fi
+if test -f "{{ repo_dir }}/ws_wrapper/pid" ; then
+    rm "{{ repo_dir }}/ws_wrapper/pid" || exit
+fi
+
+/usr/sbin/daemonize \
+   -p "{{ repo_dir }}/ws_wrapper/pid" \
+     -c "{{ repo_dir }}/ws_wrapper" \
+      "{{ venv_otcws }}/bin/pserve wswrapper.ini"

@@ -1,0 +1,11 @@
+---
+- name: Create dir for ws data
+  file:
+    path: "{{ otc_ws_data }}"
+    state: directory
+
+- include_tasks: copy-local-ott-synth.yml
+  when: synthesis_local
+
+- include_tasks: download-ott-synth.yml
+  when: not synthesis_local
