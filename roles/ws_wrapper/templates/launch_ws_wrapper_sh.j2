@@ -6,4 +6,4 @@ if test -f "{{ install_location }}/ws_wrapper/pid" ; then
     rm "{{ install_location }}/ws_wrapper/pid" || exit
 fi
 
-/usr/sbin/daemonize -p "{{ install_location }}/ws_wrapper/pid" -c "{{ install_location }}/ws_wrapper" "{{ venv_otcws }}/bin/pserve" wswrapper.ini
+/usr/bin/daemonize -p "{{ install_location }}/ws_wrapper/pid" -c "{{ install_location }}/ws_wrapper" "{{ venv_otcws }}/bin/pserve" wswrapper.ini

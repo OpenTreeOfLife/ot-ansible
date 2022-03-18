@@ -8,7 +8,7 @@ fi
 
 echo -n "Starting otcetera web services (otc-tol-ws)... "
 export LD_LIBRARY_PATH="{{ install_location }}/local/library:${LD_LIBRARY_PATH}"
-/usr/sbin/daemonize \
+/usr/bin/daemonize \
     -c "{{ otc_ws_data }}" \
     "{{ install_location }}/local/bin/otc-tol-ws" \
     "{{ otc_ws_data }}/ott{{ ott_version }}" \
