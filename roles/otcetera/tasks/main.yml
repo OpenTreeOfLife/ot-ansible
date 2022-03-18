@@ -14,8 +14,8 @@
   become: yes
   apt:
     name:
-      - gcc-8
-      - g++-8
+      - gcc
+      - g++
       - ninja-build
       - libboost-all-dev
     state: present
@@ -30,17 +30,6 @@
       - daemonize
     state: present
   when: otcws
-
-- name: Make g++-8 and gcc-8 the defaults
-  alternatives:
-    name: "{{item}}"
-    link: "/usr/bin/{{item}}"
-    path: "/usr/bin/{{item}}-8"
-  with_items:
-    - gcc
-    - g++
-  become: true
-  become_method: sudo
 
 - name: Install restbed for otc webservices
   include_role:
