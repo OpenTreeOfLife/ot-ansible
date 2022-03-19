@@ -1,6 +1,6 @@
 ---
 # task vars
-chronosynth_branch: main
+chronosynth_branch: dev
 logfile_dir: /home/{{ansibleuser}}/logs
 chronosynth_logging_filepath: "{{ logfile_dir }}/chronosynth.log"
 install_dir: "/home/{{ansibleuser}}/repos"
