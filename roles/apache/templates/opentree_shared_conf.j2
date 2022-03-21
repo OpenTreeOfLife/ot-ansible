@@ -66,6 +66,14 @@
       ProxyPassReverse  http://localhost:1983/v3/conflict
     </Location>
 
+    # ws_wrapper for dates services
+    <Location /v4/dates>
+      Require all granted
+      ProxyPass  http://localhost:1983/v4/dates
+      ProxyPassReverse  http://localhost:1983/v4/dates
+    </Location>
+
+
 
     # web2py admin access
 

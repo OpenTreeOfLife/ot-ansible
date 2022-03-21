@@ -1,5 +1,6 @@
 # Dev notes
 
+
 ## Playbook inventory
 
 List of playbooks and their function, prior to Spring 2020 re-factoring. All playbook files have naming convention `playbk-*.yml`
@@ -120,6 +121,52 @@ Development is where we test new software, and nexttree is production software b
 * build synthetic tree
 * deploy synthetic tree
 * deploy taxonomy
+
+
+## Setting up a new AWS machine
+Everything other than “tinytree:
+Debian Buster
+m4. Large
+ADD 256 GB storage in AWS
+Use OpenTree security group
+EJM Used her personal keypair
+Login.
+Add Mark’s public key to authorized keys
+
+To add swap (following BenRI) run:
+
+sudo swapon --show
+sudo fallocate -l 16G /mnt/16GB-manually-added.swap
+sudo chmod 600 /mnt/16GB-manually-added.swap
+sudo mkswap /mnt/16GB-manually-added.swap
+sudo swapon /mnt/16GB-manually-added.swap
+sudo swapon --show
+sudo cp /etc/fstab /etc/fstab.bak
+echo '/mnt/16GB-manually-added.swap none swap sw 0 0' | sudo tee -a /etc/fstab
+Authkeys
+Copy from admin@ot50.opentreeoflife.org:~/.ssh/authorized_keys  to get the latest and greatest public keys
+
+
+
+Making deploy user:
+
+login as admin
+
+apt-get update
+sudo adduser deploy sudo
+sudo passwd -d deploy
+sudo visudo
+    add
+        deploy     ALL=(ALL) NOPASSWD:ALL
+
+sudo su deploy
+cd
+mkdir .ssh
+chmod 700 ~/.ssh
+sudo cp /home/admin/authorized_keys ./.ssh
+chmod 644 .ssh/authorized_keys
+
+
 
 ## Germinator notes
 

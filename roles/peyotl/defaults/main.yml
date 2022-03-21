@@ -18,5 +18,5 @@ phylesystem_parent: "{{ synth_dir }}"
 repo_nexml2json: 1.2.1
 ott_dir: "{{ synth_dir }}/ott"
 logging_level: debug
-peyotl_logging_filepath: "{{ synth_dir }}/peyotl.log"
+peyotl_logging_filepath: "{{ logfile_dir }}/peyotl.log"
 logging_formatter: rich

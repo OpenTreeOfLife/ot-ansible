@@ -2,9 +2,12 @@
 all:
   hosts:
   children:
-    nexttree:
+    dates:
       hosts:
-        ot58.opentreeoflife.org:
+        dates.opentreeoflife.org:
+    #nexttree:
+    #  hosts:
+    #    ot58.opentreeoflife.org:
     # fullstack:
     #   hosts:
     #     nexttree:
