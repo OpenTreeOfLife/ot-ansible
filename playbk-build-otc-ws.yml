@@ -1,7 +1,4 @@
 ---
-- hosts:
-    - fullstack
-  gather_facts: False
 - hosts: dates
   gather_facts: False
 
