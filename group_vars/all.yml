@@ -15,9 +15,10 @@ venv_web2py: /home/{{ansibleuser}}/venv_web2py
 
 # directories
 # these all get created in /home/{{ansibleuser}}
-repo_dir: repos
-cpp_apps_dir: cpp_apps
-#ws_dir: /home/{{ansibleuser}}/ws
+repo_dir: /home/{{ansibleuser}}/repos
+cpp_apps_dir: /home/{{ansibleuser}}/cpp_apps
+ws_dir: /home/{{ansibleuser}}/ws_dir
+otc_ws_data: "{{ ws_dir }}/otc_ws_data"
 #users_bin_dir: /home/{{ansibleuser}}/bin
 #web2py_dir: /home/{{ansibleuser}}/web2py
 downloads_dir: /home/{{ansibleuser}}/downloads
@@ -41,6 +42,5 @@ ott_url: "{{ files_url }}/ott/ott{{ ott_version }}/ott{{ ott_version }}.tgz"
 ws_wrapper_git_remote: https://github.com/OpenTreeOfLife/ws_wrapper
 ws_wrapper_branch: master
 
-otc_ws_data: /home/{{ansibleuser}}/ws/otc_ws_data
 
 #opentree_branch: nexttree

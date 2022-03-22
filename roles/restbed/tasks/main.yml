@@ -22,7 +22,7 @@
     group: "{{ ansibleuser }}"
 
 - name: create restbuild Makefile
-  command: "cmake ../source -G Ninja -DBUILD_SSL=NO -DBUILD_TESTS=NO -DCMAKE_INSTALL_PREFIX={{ ws_dir }}/local -DCMAKE_POSITION_INDEPENDENT_CODE=ON"
+  command: "cmake {{ install_location }}/restbed/source -G Ninja -DBUILD_SSL=NO -DBUILD_TESTS=NO -DCMAKE_INSTALL_PREFIX={{ ws_dir }}/local -DCMAKE_POSITION_INDEPENDENT_CODE=ON"
   args:
     chdir: "{{ install_location }}/restbed/build"
     creates: "{{ install_location }}/restbed/build/build.ninja"

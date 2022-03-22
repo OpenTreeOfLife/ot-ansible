@@ -98,7 +98,7 @@
       state: absent
 
   # BLOCK ENDS
-  when: otcetera_git.remote_url_changed
+#  when: otcetera_git.changed
 
   # final two steps configure and launch otc webservices
 
