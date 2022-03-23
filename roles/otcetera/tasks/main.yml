@@ -92,13 +92,13 @@
       chdir: "{{ install_location }}/otcetera/buildotc"
     #when: otcws
 
-  - name: Delete pid file so that we re-launch otcws
+  - name: Delete pid file so that we re-launch otcws ##his was leaving things inconsistent somehow so that the launch was failing...
     file:
       path: "{{ otc_ws_data }}/wspidfile.txt"
       state: absent
 
   # BLOCK ENDS
-#  when: otcetera_git.changed
+  when: otcetera_git.changed 
 
   # final two steps configure and launch otc webservices
 
