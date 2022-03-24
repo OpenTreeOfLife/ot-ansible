@@ -5,21 +5,16 @@
     dest: "{{ install_location }}/ws_wrapper"
     version: "{{ ws_wrapper_branch }}"
 
-# Simple clone + install rather than using full peyotl role because no
-# configuration required
-- name: Clone peyotl repo
-  git:
-    repo: "{{ peyotl_git_remote }}"
-    dest: "{{ install_location }}/peyotl"
-    version: "{{ peyotl_otc_ws_branch }}"
 
-- name: "install ws_wrapper and peyotl in {{ venv_otcws }}"
+
+- name: "install ws_wrapper {{ venv_otcws }}"
   pip:
     name:
       - "{{ install_location }}/ws_wrapper"
-      - "{{ install_location }}/peyotl"
     extra_args: '-e'   # link rather than copy
     virtualenv: "{{ venv_otcws }}"
+
+
 
 - name: Create config file from template
   template:
@@ -41,3 +36,5 @@
 
 - name: "launch ws_wrapper server via launch script"
   command: "bash {{ script_location }}/local/bin/launch_ws_wrapper.sh"
+
+  #TODO report if this fails

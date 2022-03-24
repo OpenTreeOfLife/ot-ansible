@@ -42,7 +42,7 @@
       include_role:
         name: ws_wrapper
       vars:
-        install_location: "{{ ws_dir }}/repos"
+        install_location: "{{ repo_dir }}"
 
     - name: Install and configure apache
       include_role:
