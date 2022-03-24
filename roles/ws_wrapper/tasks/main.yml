@@ -45,4 +45,5 @@
 - name: "launch ws_wrapper server via launch script"
   command: "bash {{ script_location }}/local/bin/launch_ws_wrapper.sh || exit"
 
+
   #TODO report if this fails
