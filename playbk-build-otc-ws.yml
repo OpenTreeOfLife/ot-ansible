@@ -1,5 +1,7 @@
 ---
-- hosts: dates
+- hosts:
+    - dates
+    - ot37
   gather_facts: False
 
   pre_tasks:
@@ -17,7 +19,7 @@
           - python3-pip
           - python3-venv
           - python-setuptools
-          - python-virtualenv
+          - virtualenv
           - unzip
           - daemonize
         state: present

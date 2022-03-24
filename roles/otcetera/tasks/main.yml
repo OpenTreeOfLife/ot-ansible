@@ -90,7 +90,7 @@
     command: bash run_test.sh
     args:
       chdir: "{{ install_location }}/otcetera/buildotc"
-    #when: otcws
+    when: not otcws
 
   - name: Delete pid file so that we re-launch otcws ##his was leaving things inconsistent somehow so that the launch was failing...
     file:

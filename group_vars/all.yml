@@ -39,7 +39,6 @@ ott_url: "{{ files_url }}/ott/ott{{ ott_version }}/ott{{ ott_version }}.tgz"
 # otcetera_synth_branch: bump_fossil_higher
 # otcetera_ws_branch: no-fuzzy-match-db
 
-ws_wrapper_git_remote: https://github.com/OpenTreeOfLife/ws_wrapper
 ws_wrapper_branch: master
 
 

@@ -5,7 +5,17 @@
     dest: "{{ install_location }}/ws_wrapper"
     version: "{{ ws_wrapper_branch }}"
 
+- name: Pull peyotl for ws_wrapper repo
+  git:
+    repo: "{{ peyotl_git_remote }}"
+    dest: "{{ install_location }}/peyotl_for_ws_wrapper"
+    version: "{{ peyotl_webapp_branch }}"
 
+- name: install peyotl into {{venv_otcws}} as a link
+  pip:
+    name: "{{ install_location }}/peyotl_for_ws_wrapper"
+    extra_args: '-e'
+    virtualenv: "{{ venv_otcws }}"
 
 - name: "install ws_wrapper {{ venv_otcws }}"
   pip:
@@ -13,8 +23,6 @@
       - "{{ install_location }}/ws_wrapper"
     extra_args: '-e'   # link rather than copy
     virtualenv: "{{ venv_otcws }}"
-
-
 
 - name: Create config file from template
   template:
@@ -35,6 +43,6 @@
     dest: "{{ script_location }}/local/bin/launch_ws_wrapper.sh"
 
 - name: "launch ws_wrapper server via launch script"
-  command: "bash {{ script_location }}/local/bin/launch_ws_wrapper.sh"
+  command: "bash {{ script_location }}/local/bin/launch_ws_wrapper.sh || exit"
 
   #TODO report if this fails
