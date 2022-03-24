@@ -1,7 +1,7 @@
 ---
 - hosts:
     - dates
-    - ot37
+    - nexttree
   gather_facts: False
 
   pre_tasks:

@@ -8,7 +8,7 @@
     name:
       - "requests"
       - "meson"
-  when: otcws
+
 
 - name: Install packages using apt
   become: yes
