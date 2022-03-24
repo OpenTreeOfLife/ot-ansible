@@ -1,6 +1,6 @@
 # Ansible for Open Tree configuration management
 
-## Installation
+## Local installation
 
     sudo apt install ansible
 
@@ -15,16 +15,17 @@ log into the server with this user using ssh keys, and that the user has
 sudo privileges.
 
 MTH has an `ot-private` repo that interacts with a fresh AWS instance to create an
-"admin" account with sudo privileges and the open tree keys (the SSH private keys are
-not in that repo, developers need to be given those). Other than the user account
-creation, the only initial steps applied to the OS (currently ubuntu 16.04) boil down
-to:
+"admin" account with sudo privileges and the open tree keys.
+Other the user account creation, the only initial steps applied to the 
+OS boil down to:
 
     apt update
-    apt upgrade
-    apt install python-dev
+    apt upgrade -y
+    apt install python-dev -y
 
 Then you have to add the hostname to the hosts file in this repo.
+
+## Usage
 
 # Thanks
 

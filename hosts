@@ -5,6 +5,10 @@ all:
     dates:
       hosts:
         dates.opentreeoflife.org:
+    fullstack:
+      hosts:
+        ot37:
+          ansible_host: ot37.opentreeoflife.org
     #nexttree:
     #  hosts:
     #    ot58.opentreeoflife.org:
