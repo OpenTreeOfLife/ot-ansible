@@ -113,8 +113,10 @@
     dest: "{{ install_location }}/local/bin/launch_otc_ws_app.sh"
   when: otcws
 
+
 - name: "launch otcws server via launch script"
   command: "bash {{ install_location }}/local/bin/launch_otc_ws_app.sh"
   args:
     creates: "{{ otc_ws_data }}/wspidfile.txt"
+
   when: otcws

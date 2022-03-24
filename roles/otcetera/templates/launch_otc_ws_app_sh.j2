@@ -13,6 +13,8 @@ fi
 
 echo -n "Starting otcetera web services (otc-tol-ws)... "
 export LD_LIBRARY_PATH="{{ ws_dir }}/local/library:${LD_LIBRARY_PATH}"
+export PATH="/usr/sbin:${PATH}"
+
 daemonize \
     -c "{{ otc_ws_data }}" \
     "{{ ws_dir }}/local/bin/otc-tol-ws" \
