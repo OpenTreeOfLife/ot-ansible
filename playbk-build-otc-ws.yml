@@ -23,6 +23,8 @@
           - unzip
           - daemonize
         state: present
+  vars:
+    install_location: "{{ cpp_apps_dir }}"
 
   tasks:
 

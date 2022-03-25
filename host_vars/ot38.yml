@@ -1,6 +1,7 @@
 ---
 # variables for development servers
 # Variables set here will override settings in roles/defaults
+deploy_custom_synth: true
 
 synth_version: 13.4
 ott_version: 3.3
