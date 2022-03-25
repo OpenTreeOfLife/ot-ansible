@@ -41,5 +41,5 @@ ott_url: "{{ files_url }}/ott/ott{{ ott_version }}/ott{{ ott_version }}.tgz"
 
 ws_wrapper_branch: master
 
-
+deploy_custom_synth: false
 #opentree_branch: nexttree

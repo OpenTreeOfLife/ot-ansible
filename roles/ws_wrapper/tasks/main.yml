@@ -24,10 +24,28 @@
     extra_args: '-e'   # link rather than copy
     virtualenv: "{{ venv_otcws }}"
 
-- name: Create config file from template
-  template:
-    src: templates/config.j2
+- name: Copy config templates
+  copy:
+    src: roles/ws_wrapper/templates/config/
+    dest: "{{ install_location }}/ws_wrapper/templates"
+
+#- name: Create config file from template
+#  template:
+#    src: templates/config.j2
+
+- name: Create config file from template except custom synth
+  assemble:
+    src: "{{ install_location }}/ws_wrapper/templates"
     dest: "{{ install_location }}/ws_wrapper/wswrapper.ini"
+    regexp: '^[^1]'
+  when: deploy_custom_synth == false
+
+
+- name: Create config file from template including custom synth
+  assemble:
+    src: "{{ install_location }}/ws_wrapper/templates"
+    dest: "{{ install_location }}/ws_wrapper/wswrapper.ini"
+  when: deploy_custom_synth == true
 
 # Last two tasks launch ws_wrapper application
 
