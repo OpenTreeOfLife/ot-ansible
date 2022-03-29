@@ -21,7 +21,6 @@ peyotl_otc_ws_branch: master
 ws_wrapper_branch: chronosynth
 ws_dir: /home/{{ansibleuser}}/ws_dir
 chronosynth_branch: dev
-venv_otcws: "/home/{{ ansibleuser }}/venv_otcws"
 
 synthesis_local: False
 

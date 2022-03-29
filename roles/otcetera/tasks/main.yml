@@ -78,13 +78,14 @@
     command: nice -n10 ninja -C build test
     args:
       chdir: "{{ install_location }}/otcetera/buildotc"
+    when: not otcws
 
   # Everything after this point is for webservices builds
   - name: Write run_test.sh script for webservices tests
     template:
       src: templates/run_test_sh.j2
       dest: "{{ install_location }}/otcetera/buildotc/run_test.sh"
-    #when: otcws
+    when: otcws
 
   - name: Perform otc tests using run_test.sh that sources the correct env
     command: bash run_test.sh

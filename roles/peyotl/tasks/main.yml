@@ -38,7 +38,7 @@
     name: "{{ install_location }}/peyotl"
     extra_args: '-e'
     virtualenv: "{{ venv_peyotl }}"
-    virtualenv_python: "{{ peyotl_python_version }}"
+    virtualenv_python: "{{ python_version }}"
 
 - name: Install Chameleon into {{venv_peyotl}}
   pip:

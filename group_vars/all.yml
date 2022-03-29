@@ -10,7 +10,8 @@ adminuser: admin
 #opentree_maven_dir: /home/{{ansibleuser}}/.m2/repository/org/opentree
 
 # python virtualenvs
-#venv_otcws: /home/{{ansibleuser}}/venv_otcws
+venv_otcws: /home/{{ansibleuser}}/venv_otcws
+venv_synth: /home/{{ansibleuser}}/venv_synth
 venv_web2py: /home/{{ansibleuser}}/venv_web2py
 
 # directories
