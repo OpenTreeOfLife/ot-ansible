@@ -4,13 +4,14 @@
 
 synth_version: 13.4
 ott_version: 3.3
-phylesystem_repo: phylesystem-1
+subdomain: ot37 # in production, this would be nexttree
+tree_of_life_endpoint: https://{{ subdomain }}.opentreeoflife.org
+tree_of_life_endpoint_cache: https://{{ subdomain }}.opentreeoflife.org
+taxonomy_endpoint:  https://{{ subdomain }}.opentreeoflife.org
+taxonomy_endpoint_cache:  https://{{ subdomain }}.opentreeoflife.org
 
+# and to production for everything else
 curator_endpoint: https://tree.opentreeoflife.org/curator
-taxonomy_endpoint:  https://api.opentreeoflife.org
-taxonomy_endpoint_cache:  https://api.opentreeoflife.org
-tree_of_life_endpoint:  https://api.opentreeoflife.org
-tree_of_life_endpoint_cache:  https://api.opentreeoflife.org
 study_api_endpoint: https://phylesystemapi.opentreeoflife.org
 study_index_endpoint: https://otindex.opentreeoflife.org
 study_index_endpoint_cache: https://otindex.opentreeoflife.org

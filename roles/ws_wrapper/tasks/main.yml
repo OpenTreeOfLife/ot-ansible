@@ -5,7 +5,17 @@
     dest: "{{ install_location }}/ws_wrapper"
     version: "{{ ws_wrapper_branch }}"
 
+- name: Pull peyotl for ws_wrapper repo
+  git:
+    repo: "{{ peyotl_git_remote }}"
+    dest: "{{ install_location }}/peyotl_for_ws_wrapper"
+    version: "{{ peyotl_webapp_branch }}"
 
+- name: install peyotl into {{venv_otcws}} as a link
+  pip:
+    name: "{{ install_location }}/peyotl_for_ws_wrapper"
+    extra_args: '-e'
+    virtualenv: "{{ venv_otcws }}"
 
 - name: "install ws_wrapper {{ venv_otcws }}"
   pip:
@@ -15,10 +25,19 @@
     virtualenv: "{{ venv_otcws }}"
 
 
+- name: compose possible config template lists
+  set_fact:
+    with_custom_synth_fns: ["0_config_app.j2", "1_config_custom.j2", "2_config_server.j2", "3_config_suffix.j2"]
+    sans_custom_synth_fns: ["0_config_app.j2", "2_config_server.j2", "3_config_suffix.j2"]
+
+- name: choose config template list
+  set_fact:
+    input_filepaths: "{{ with_custom_synth_fns if deploy_custom_synth else sans_custom_synth_fns }}"
+
 
 - name: Create config file from template
   template:
-    src: templates/config.j2
+    src: templates/ws_wrapper_ini.j2
     dest: "{{ install_location }}/ws_wrapper/wswrapper.ini"
 
 # Last two tasks launch ws_wrapper application
@@ -35,6 +54,7 @@
     dest: "{{ script_location }}/local/bin/launch_ws_wrapper.sh"
 
 - name: "launch ws_wrapper server via launch script"
-  command: "bash {{ script_location }}/local/bin/launch_ws_wrapper.sh"
+  command: "bash {{ script_location }}/local/bin/launch_ws_wrapper.sh || exit"
+
 
   #TODO report if this fails

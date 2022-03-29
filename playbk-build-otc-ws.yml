@@ -1,5 +1,7 @@
 ---
-- hosts: dates
+- hosts:
+    - dates
+    - nexttree
   gather_facts: False
 
   pre_tasks:
@@ -17,10 +19,12 @@
           - python3-pip
           - python3-venv
           - python-setuptools
-          - python-virtualenv
+          - virtualenv
           - unzip
           - daemonize
         state: present
+  vars:
+    install_location: "{{ cpp_apps_dir }}"
 
   tasks:
 

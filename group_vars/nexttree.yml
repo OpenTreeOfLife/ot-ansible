@@ -37,8 +37,6 @@ ws_dir: /home/{{ansibleuser}}/ws_dir
 cpp_apps_dir: "{{ ws_dir }}/cpp_apps"
 otc_ws_data: "{{ ws_dir }}/data"
 
-# virtualenv for various ws components
-venv_otcws: "{{ ws_dir }}/venv_otcws"
 
 # These next two control whether you are building a new synthetic tree
 # and (if you aren't building new) whether to copy the synthesis tree +

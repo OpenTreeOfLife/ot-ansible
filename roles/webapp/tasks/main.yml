@@ -56,7 +56,7 @@
     peyotl_install_location: "{{ install_location }}/repos"
     configure_peyotl: False
     venv_peyotl: "{{ venv_web2py }}"
-    peyotl_python_version: "{{ python_version }}"
+    python_version: "{{ python_version }}"
 
 - name: install opentree prerequisites into {{venv_web2py}}
   pip:

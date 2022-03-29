@@ -13,12 +13,6 @@ build-synth-pipeline
 - gets everything ready to build synth tree (otcetera CLI, propinquity, inputs) but does not actually build synth tree
 - roles: fetch-otcetera-cli, configure-otcetera-cli, build-otcetera-cli, fetch-peyotl-synth, fetch-monophyly-tests, fetch-propinquity, fetch-synth-inputs
 
-configure-apache
-- configures and restarts apache (single configure-apache role only)
-
-install-javadev
-- install and setup dir structure for neo4j / taxomachine
-
 install-web2py
  - downloads and installs web2py
  - role: unpack-web2py

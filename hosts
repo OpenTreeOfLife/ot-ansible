@@ -5,6 +5,16 @@ all:
     dates:
       hosts:
         dates.opentreeoflife.org:
+    nexttree:
+      hosts:
+        ot37:
+          host: ot37
+          ansible_host: ot37.opentreeoflife.org
+          otcetera_branch: development
+        ot38:
+          host: ot38
+          ansible_host: ot38.opentreeoflife.org
+          otcetera_branch: development
     #nexttree:
     #  hosts:
     #    ot58.opentreeoflife.org:
