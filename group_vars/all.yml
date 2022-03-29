@@ -9,6 +9,9 @@ ansibleuser: deploy
 adminuser: admin
 #opentree_maven_dir: /home/{{ansibleuser}}/.m2/repository/org/opentree
 
+# default python version
+python_version: python3.8
+
 # python virtualenvs
 venv_otcws: /home/{{ansibleuser}}/venv_otcws
 venv_synth: /home/{{ansibleuser}}/venv_synth

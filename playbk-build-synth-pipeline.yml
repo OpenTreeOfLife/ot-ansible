@@ -27,6 +27,7 @@
     peyotl_install_location: "{{ cpp_apps_dir }}/synth"
     otc_prefix: "{{ cpp_apps_dir }}/synth/local"
     venv_peyotl: "{{ venv_synth }}"
+    venv_propinquity: "{{ venv_synth }}"
     configure_peyotl: True
     peyotl_config_location: "{{ cpp_apps_dir }}/synth/dot_peyotl"
 
@@ -55,7 +56,7 @@
       include_role:
         name: peyotl
 
-    - name: install propinquity
+    - name: Install propinquity
       include_role:
-        name: fetch-propinquity
+        name: propinquity
 

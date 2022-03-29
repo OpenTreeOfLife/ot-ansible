@@ -1,0 +1,20 @@
+---
+
+- name: Clone propinquity repo
+  git:
+    repo: "{{ propinquity_git_remote }}"
+    dest: "{{ install_location }}/propinquity"
+    version: "{{ propinquity_branch }}"
+
+- name: Install propinquity prerequisites into "{{venv_propinquity}}"
+  pip:
+    requirements: "{{ install_location }}/propinquity/requirements.txt"
+    virtualenv: "{{ venv_propinquity }}"
+    virtualenv_python: "{{ python_version }}"
+
+- name: Install propinquity into {{venv_propinquity}} as a link
+  pip:
+    name: "{{ install_location }}/propinquity"
+    extra_args: '-e'
+    virtualenv: "{{ venv_propinquity }}"
+    virtualenv_python: "{{ python_version }}"
