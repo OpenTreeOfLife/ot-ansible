@@ -18,3 +18,19 @@
     extra_args: '-e'
     virtualenv: "{{ venv_propinquity }}"
     virtualenv_python: "{{ python_version }}"
+
+
+- name: Create custom synthesis scratch dir
+  file:
+    state: directory
+    path: "{{ install_location }}/custom_synth_scratch"
+    owner: "{{ ansibleuser }}"
+    group: "{{ ansibleuser }}"
+
+- name: Create custom synthesis config dir
+  file:
+    state: directory
+    path: "{{ install_location }}/custom_config"
+    owner: "{{ ansibleuser }}"
+    group: "{{ ansibleuser }}"
+
