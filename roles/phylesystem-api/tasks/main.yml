@@ -1,0 +1,55 @@
+---
+- name: Install peyotl
+      include_role:
+        name: peyotl
+      vars:
+        install_location: "{{ repo_dir }}"
+        virtualenv: "{{ venv_phylesystem_api }}"
+
+
+- name: Clone phylesystem-api repo
+  git:
+    repo: https://github.com/OpenTreeOfLife/phylesystem-api.git
+    dest: "{{ install_dir }}/phylesystem-api"
+    version: "{{ phylesystem-api_branch }}"
+
+- name: Install phylesystem-api python requirements
+  pip:
+    requirements: "{{ install_dir }}/phylesystem-api/requirements.txt"
+    virtualenv: "{{ venv_phylesystem_api }}"
+
+- name: install the package, force upgrade
+  pip: 
+    name: setuptools
+    version: <58
+    virtualenv: "{{ venv_phylesystem_api  }}"
+
+
+- name: Install phylesystem-api
+  command: $VENV/bin/python setup.py develop
+  environment:
+    VENV: "{{ venv_phylesystem_api }}"
+  args:
+    chdir: "{{ install_dir }}/phylesystem-api"
+
+
+- name: Create dir for phylesystem-api config file
+  file:
+    state: directory
+    path: "{{ phylesystem_api_config_location }}"
+
+- name: Create phylesystem-api config file from template
+  template:
+    src: templates/config.j2
+    dest: "{{ phylesystem_api_config_location }}/config.ini"
+
+- name: ensure log directory exists and is writable
+  file:
+      path: "{{ logfile_dir }}"
+      state: directory
+
+- name: ensure phylesystem-api log file exists and is writable
+  copy:
+    content: ""
+    dest: "{{ phylesystem_api_logging_filepath }}"
+    force: no
