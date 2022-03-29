@@ -3,5 +3,5 @@
 - name: Clone propinquity repo
   git:
     repo: "{{ propinquity_git_remote }}"
-    dest: "{{ install_location }}/ropinquity"
+    dest: "{{ install_location }}/propinquity"
     version: "{{ propinquity_branch }}"
