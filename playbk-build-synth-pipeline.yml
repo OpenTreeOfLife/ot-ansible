@@ -25,6 +25,7 @@
     otcws: False
     peyotl_branch: allow-subtree-of-taxonomy
     peyotl_install_location: "{{ cpp_apps_dir }}/synth"
+    otc_prefix: "{{ cpp_apps_dir }}/synth/local"
     venv_peyotl: "{{ venv_synth }}"
     configure_peyotl: True
     peyotl_config_location: "{{ cpp_apps_dir }}/synth/dot_peyotl"
@@ -36,6 +37,7 @@
     logging_level: debug
     peyotl_logging_filepath: "{{ cpp_apps_dir }}/synth/peyotl.log"
     logging_formatter: rich
+
 
   tasks:
 
@@ -53,7 +55,7 @@
       include_role:
         name: peyotl
 
-#    - name: install propinquity
-#      include_role:
-#        name: fetch-propinquity
+    - name: install propinquity
+      include_role:
+        name: fetch-propinquity
 

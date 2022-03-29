@@ -14,7 +14,6 @@ taxonomy_endpoint:  https://{{ subdomain }}.opentreeoflife.org
 taxonomy_endpoint_cache:  https://{{ subdomain }}.opentreeoflife.org
 
 # and to production for everything else
-curator_endpoint: https://tree.opentreeoflife.org/curator
 study_api_endpoint: https://phylesystemapi.opentreeoflife.org
 study_index_endpoint: https://otindex.opentreeoflife.org
 study_index_endpoint_cache: https://otindex.opentreeoflife.org
@@ -36,11 +35,3 @@ synth_dir: /home/{{ansibleuser}}/synthesis
 ws_dir: /home/{{ansibleuser}}/ws_dir
 cpp_apps_dir: "{{ ws_dir }}/cpp_apps"
 otc_ws_data: "{{ ws_dir }}/data"
-
-
-# These next two control whether you are building a new synthetic tree
-# and (if you aren't building new) whether to copy the synthesis tree +
-# OTT from synth_dir or download them from files server. If build_synthesis
-# is True, ignores synthesis_local
-build_synthesis: False
-synthesis_local: False

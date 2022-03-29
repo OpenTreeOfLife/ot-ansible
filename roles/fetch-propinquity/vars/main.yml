@@ -1,4 +1,3 @@
 ---
-propinquity_branch: bump_fossil_higher
+propinquity_branch: "trying-to-deploy-custom-synth"
 propinquity_git_remote: https://github.com/OpenTreeOfLife/propinquity
-ansible_user: opentree
