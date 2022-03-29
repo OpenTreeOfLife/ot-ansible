@@ -34,3 +34,7 @@
     owner: "{{ ansibleuser }}"
     group: "{{ ansibleuser }}"
 
+- name: Write propinq_ws_env.sh script
+  template:
+    src: templates/propinq_ws_env_sh.j2
+    dest: "{{ install_location }}/custom_config/propinq_ws_env.sh"
