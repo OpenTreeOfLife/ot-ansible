@@ -1,8 +1,8 @@
 #!/bin/bash
 source {{ venv_otcws }}/bin/activate || exit
 export CPPFLAGS="-DMINIMAL_NODE_NAVIGATION_PTRS"
-export OTROOT="{{ ws_dir }}"
+export OTROOT="{{ otc_prefix }}"
 echo "CPPFLAGS=${CPPFLAGS}"
 echo "CXXFLAGS=${CXXFLAGS}"
 echo "LDFLAGS=${LDFLAGS}"
-meson build {{ install_location }}/otcetera/source --prefix="${OTROOT}/local" -Dwebservices="{{ otcws }}" -Drestbed_dir="${OTROOT}/local" -Dbuildtype=release
+meson build {{ install_location }}/otcetera/source --prefix="${OTROOT}" -Dwebservices="{{ otcws }}" -Drestbed_dir="${OTROOT}" -Dbuildtype=release

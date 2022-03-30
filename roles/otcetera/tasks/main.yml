@@ -34,6 +34,8 @@
 - name: Install restbed for otc webservices
   include_role:
     name: restbed
+  vars:
+    install_location: "{{ repo_dir }}"
   when: otcws
 
 - name: Create otcetera dir
@@ -91,7 +93,7 @@
     command: bash run_test.sh
     args:
       chdir: "{{ install_location }}/otcetera/buildotc"
-    when: not otcws
+    when: otcws
 
   - name: Delete pid file so that we re-launch otcws ##his was leaving things inconsistent somehow so that the launch was failing...
     file:

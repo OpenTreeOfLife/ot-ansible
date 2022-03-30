@@ -5,7 +5,6 @@
 peyotl_git_remote: https://github.com/OpenTreeOfLife/peyotl
 peyotl_branch: master
 venv_peyotl: venv_peyotl
-python_version: python3
 peyotl_install_location: "{{ repo_dir }}"
 #venv_synth: /home/{{ ansibleuser }}/venv_synth
 

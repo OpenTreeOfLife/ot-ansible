@@ -46,7 +46,9 @@
     - name: Install and configure otcetera
       include_role:
         name: otcetera
-
+      vars:
+        install_location: "{{ cpp_apps_dir }}"
+        otc_prefix: "{{ synth_dir }}/local"
 
     - name: Install ws_wrapper
       include_role:

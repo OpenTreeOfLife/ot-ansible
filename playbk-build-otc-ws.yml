@@ -25,6 +25,7 @@
         state: present
   vars:
     install_location: "{{ cpp_apps_dir }}"
+    otc_prefix: "{{ ws_dir }}/local"
 
   tasks:
 
