@@ -20,7 +20,7 @@
   vars:
     ott_destination_dir: "{{ otc_ws_data }}"
 
-- name: Check for OTT tar-ball
+- name: Check for synthesis tar-ball
   stat:
     path: "{{ downloads_dir }}/opentree{{ synth_version }}.tgz"
   register: has_synth_tarball

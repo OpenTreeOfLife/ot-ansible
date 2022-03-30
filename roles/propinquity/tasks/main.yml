@@ -38,3 +38,41 @@
   template:
     src: templates/propinq_ws_env_sh.j2
     dest: "{{ install_location }}/custom_config/propinq_ws_env.sh"
+
+- name: Download OTT
+  include_role:
+    name: taxonomy
+  vars:
+    ott_destination_dir: "{{ install_location }}/ott"
+
+- name: "Create {{ install_location }}/phylesystem/shards for phylesystem and collections data"
+  file:
+    state: directory
+    path: "{{ install_location }}/phylesystem/shards"
+    owner: "{{ ansibleuser }}"
+    group: "{{ ansibleuser }}"
+
+- name: "Clone studies repo from {{ phylesystem_remote }}"
+  git:
+    repo: "{{ phylesystem_remote }}"
+    dest: "{{ install_location }}/phylesystem/shards/{{ phylesystem_repo }}"
+    version: master
+
+
+- name: "Clone collections repo from {{ collections_remote }}"
+  git:
+    repo: "{{ collections_remote }}"
+    dest: "{{ install_location }}/phylesystem/shards/{{ collections_repo }}"
+    version: master
+
+
+- name: "Clone script-managed-trees repo"
+  git:
+    repo: "https://github.com/OpenTreeOfLife/script-managed-trees"
+    dest: "{{ install_location }}/script-managed-trees"
+    version: master
+
+- name: Write propinq_ws_env.sh script
+  template:
+    src: templates/propinq_config_json.j2
+    dest: "{{ install_location }}/custom_config/propinq_config.json"

@@ -34,9 +34,15 @@
     creates: "{{ unpacked_dir }}/ott{{ ott_version }}/taxonomy.tsv"
     remote_src: yes
 
+- name: "Check for copy of OTT in {{ ott_destination_dir }}//ott{{ ott_version }}"
+  stat:
+    path: "{{ ott_destination_dir }}//ott{{ ott_version }}"
+  register: has_copied_ott
+
 - name: Copy OTT from unpacked_dir to destination dir
   copy:
     src: "{{ unpacked_dir }}/ott{{ ott_version }}"
     dest: "{{ ott_destination_dir }}/"
     remote_src: true
     mode: preserve
+  when: not has_copied_ott.stat.exists

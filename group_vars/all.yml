@@ -7,7 +7,11 @@
 # we assume the ansibleuser exists and has sudo access
 ansibleuser: deploy
 adminuser: admin
+synthesis_local: False
+
 #opentree_maven_dir: /home/{{ansibleuser}}/.m2/repository/org/opentree
+phylesystem_repo: phylesystem-1
+collections_repo: collections-1
 
 # default python version
 python_version: python3.8
@@ -23,8 +27,7 @@ repo_dir: /home/{{ansibleuser}}/repos
 cpp_apps_dir: /home/{{ansibleuser}}/cpp_apps
 ws_dir: /home/{{ansibleuser}}/ws_dir
 otc_ws_data: "{{ ws_dir }}/otc_ws_data"
-#users_bin_dir: /home/{{ansibleuser}}/bin
-#web2py_dir: /home/{{ansibleuser}}/web2py
+synth_dir: /home/{{ansibleuser}}/synth
 downloads_dir: /home/{{ansibleuser}}/downloads
 unpacked_dir: /home/{{ansibleuser}}/unpacked
 logfile_dir: /home/{{ansibleuser}}/logs
@@ -44,6 +47,7 @@ ott_url: "{{ files_url }}/ott/ott{{ ott_version }}/ott{{ ott_version }}.tgz"
 # otcetera_ws_branch: no-fuzzy-match-db
 
 ws_wrapper_branch: master
+
 
 deploy_custom_synth: false
 #opentree_branch: nexttree
