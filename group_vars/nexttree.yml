@@ -13,7 +13,6 @@ taxonomy_endpoint:  https://{{ subdomain }}.opentreeoflife.org
 taxonomy_endpoint_cache:  https://{{ subdomain }}.opentreeoflife.org
 
 # and to production for everything else
-study_api_endpoint: https://phylesystemapi.opentreeoflife.org
 study_index_endpoint: https://otindex.opentreeoflife.org
 study_index_endpoint_cache: https://otindex.opentreeoflife.org
 github_app_id: 65862

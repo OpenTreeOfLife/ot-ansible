@@ -54,6 +54,6 @@ deploy_custom_synth: false
 
 # By default, curation on tree
 curator_endpoint: https://tree.opentreeoflife.org/curator
-study_api_endpoint: https://phylesystemapi.opentreeoflife.org
+study_api_endpoint: https://api.opentreeoflife.org
 study_index_endpoint: https://otindex.opentreeoflife.org
 study_index_endpoint_cache: https://otindex.opentreeoflife.org
