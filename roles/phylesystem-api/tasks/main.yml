@@ -1,11 +1,4 @@
 ---
-- name: Install peyotl
-      include_role:
-        name: peyotl
-      vars:
-        install_location: "{{ repo_dir }}"
-        virtualenv: "{{ venv_phylesystem_api }}"
-
 
 - name: Clone phylesystem-api repo
   git:
