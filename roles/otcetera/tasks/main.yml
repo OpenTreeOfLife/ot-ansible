@@ -34,6 +34,8 @@
 - name: Install restbed for otc webservices
   include_role:
     name: restbed
+  vars:
+    install_location: "{{ repo_dir }}"
   when: otcws
 
 - name: Create otcetera dir
