@@ -6,4 +6,5 @@ phylesystem_api_logging_filepath: "{{ logfile_dir }}/phylesystem_api.log"
 install_dir: "/home/{{ansibleuser}}/repos"
 phylesystem_api_config_location: "/home/{{ansibleuser}}/.phylesystem_api"
 phylesystem_parent: /home/{{ansibleuser}}/repo/phylesystem_par/
-venv_phylesystem_api: /home/{{ansibleuser}}/phylesystem_api
+venv_phylesystem_api: /home/{{ansibleuser}}/venv_phylesystem_api
+script_location: "{{ ws_dir }}"

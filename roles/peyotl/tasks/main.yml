@@ -22,15 +22,15 @@
     dest: "{{ peyotl_config_location }}/config.ini"
   when: configure_peyotl
 
-# - name: "Create python 3 virtualenv if it does not already exist"
-#   command:
-#     cmd: python3 -m venv "{{ venv_peyotl }}"
-#     creates: /home/{{ ansibleuser }}/venv_peyotl
+- name: "Create python 3 virtualenv if it does not already exist"
+  command:
+    cmd: virtualenv -p python3 "{{ venv_peyotl }}"
+    creates: /home/{{ ansibleuser }}/venv_peyotl
 
 - name: Install peyotl prerequisites into "{{venv_peyotl}}"
   pip:
     requirements: "{{ install_location }}/peyotl/requirements.txt"
-    virtualenv: "{{ venv_peyotl }}"
+    virtualenv: "/home/{{ ansibleuser }}/venv_peyotl"
     virtualenv_python: "{{ python_version }}"
 
 - name: Install peyotl into {{venv_peyotl}} as a link
