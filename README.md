@@ -14,8 +14,8 @@ Ansible connects and runs using the `ansibleuser` set in
 log into the server with this user using ssh keys, and that the user has
 sudo privileges.
 
-MTH has an `ot-private` repo that interacts with a fresh AWS instance to create an
-"admin" account with sudo privileges and the open tree keys.
+MTH has an `ot-private` repo on bitbucket that interacts with a fresh AWS instance to create an
+"deploy" account with sudo privileges and the open tree keys.
 Other the user account creation, the only initial steps applied to the 
 OS boil down to:
 
@@ -26,6 +26,14 @@ OS boil down to:
 Then you have to add the hostname to the hosts file in this repo.
 
 ## Usage
+Not all of the playbooks have been tested recently.
+Below are the commands that have been used recently.
+
+### Installing custom synthesis on ot38
+
+    ansible-playbook -v --limit=ot38 playbk-build-synth-pipeline.yml
+    ansible-playbook -v --limit=ot38 playbk-build-otc-ws.yml
+
 
 # Thanks
 
