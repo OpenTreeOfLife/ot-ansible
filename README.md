@@ -53,21 +53,6 @@ specific for a playbook / another role). See the
 [ansible docs on variable priority](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable) for the gory details on how
 variable priority works.
 
-# Deploying the synthetic tree
-
-A very rough overview of deploying the synthetic tree looks like this:
-
-1. To download a new copy of OTT:
-    * `ansible-playbook --limit=nexttree playbk-refresh-synth-runtime.yml`
-    * This is downloaded to `~/synth/ott/ott<version>/`
-2. To build the synth tree:
-    * `ansible-playbook --limit=nexttree playbk-rebuild-synth-tree.yml`
-    * This is built in `~/synth/in_progress_tree_builds/` and is copied to `~/synth/tree_builds/`
-3. To start serving the synth tree
-    * `ansible-playbook --limit=nexttree playbk-serve-next-tree.yml`
-    * This involves copying the tree and taxonomy to `~/ws/otc_ws_data`
-    * The webservices are run using an instance of otcetera in `~/ws/local/bin/`
-
 # Local testing with Vagrant
 
 You can test any of the playbooks locally using Vagrant and VirtualBox (or other provider like VMWare, Hyper-V). Once you have vagrant and virtualbox installed, running `vagrant up` will start the virtual host and run the playbook `opentree.yml`. To run a different playbook, edit the `ansible.playbook` option in the Vagrantfile.
