@@ -25,11 +25,22 @@
     requirements: "{{ install_dir }}/phylesystem-api/requirements.in"
     virtualenv: "{{ venv_phylesystem_api }}"
 
+- name: Install phylesystem-api
+  pip:
+    name: "{{ install_location }}/phylesystem-api/phylesystem_api"
+    extra_args: '-e'
+    virtualenv: "{{ venv_phylesystem_api }}"
 
 - name: Create dir for phylesystem-api config file
   file:
     state: directory
     path: "{{ phylesystem_api_config_location }}"
+
+
+
+## Get phylesystem data
+
+## Get collections data
 
 
 - name: Create phylesystem-api config file from template
@@ -54,6 +65,6 @@
     src: templates/launch_phylesystem_api_sh.j2
     dest: "{{ script_location }}/local/bin/launch_phylesystem_api.sh"
 
-- name: "launch ws_wrapper server via launch script"
+- name: "launch launch_phylesystem_api via launch script"
   command: "bash {{ script_location }}/local/bin/launch_phylesystem_api.sh || exit"
 
