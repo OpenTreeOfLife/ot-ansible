@@ -39,15 +39,6 @@
       vars:
         install_location: "{{ repo_dir }}"
 
-    - name: load data for otcetera
-      include_role:
-        name: ws_data
-
-    - name: Install and configure otcetera
-      include_role:
-        name: otcetera
-
-
     - name: Install ws_wrapper
       include_role:
         name: ws_wrapper
@@ -57,7 +48,6 @@
     - name: Install and configure apache
       include_role:
         name: apache
-
 
   handlers:
     - name: restart apache2

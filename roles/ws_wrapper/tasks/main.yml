@@ -54,7 +54,7 @@
     dest: "{{ script_location }}/local/bin/launch_ws_wrapper.sh"
 
 - name: "launch ws_wrapper server via launch script"
-  command: "bash {{ script_location }}/local/bin/launch_ws_wrapper.sh || exit"
+  command: "bash {{ script_location }}/local/bin/launch_ws_wrapper.sh"
 
 
   #TODO report if this fails
