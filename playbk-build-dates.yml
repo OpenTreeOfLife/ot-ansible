@@ -20,7 +20,7 @@
           - python3-pip
           - python3-venv
           - python-setuptools
-          - python-virtualenv
+          - virtualenv
           - unzip
           - daemonize
         state: present
