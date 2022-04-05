@@ -119,7 +119,7 @@ Development is where we test new software, and nexttree is production software b
 
 ## Setting up a new AWS machine
 Everything other than “tinytree:
-Debian Buster
+Ubuntu
 m4. Large
 ADD 256 GB storage in AWS
 Use OpenTree security group
@@ -146,7 +146,7 @@ Making deploy user:
 
 login as admin
 
-apt-get update
+sudo apt-get update
 sudo adduser deploy sudo
 sudo passwd -d deploy
 sudo visudo
