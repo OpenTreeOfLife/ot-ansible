@@ -22,7 +22,7 @@
 
 - name: Install phylesystem-api python requirements
   pip:
-    requirements: "{{ install_dir }}/phylesystem-api/requirements.in"
+    requirements: "{{ install_dir }}/phylesystem-api/requirements.txt"
     virtualenv: "{{ venv_phylesystem_api }}"
 
 - name: Install phylesystem-api
