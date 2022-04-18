@@ -16,4 +16,5 @@ ws_wrapper_branch: chronosynth
 ws_dir: /home/{{ansibleuser}}/ws_dir
 chronosynth_branch: dev
 
+otcetera_branch: solve-can-emit-dd
 otcetera_git_remote: https://github.com/OpenTreeOfLife/otcetera
