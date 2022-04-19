@@ -4,6 +4,7 @@ opentree_git_remote: https://github.com/OpenTreeOfLife/opentree
 opentree_branch: master
 peyotl_webapp_branch: master
 venv_web2py: venv_web2py
-python_version: python2.7
+web2py_python_version: python2.7
 install_location: "{{ repo_dir }}"
 install_curator: True
+web2py_version: 2.19.1

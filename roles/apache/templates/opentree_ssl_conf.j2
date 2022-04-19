@@ -27,9 +27,9 @@
     #   https://github.com/OpenTreeOfLife/opentree/issues/804
     WSGIDaemonProcess web2py user={{ ansibleuser }} group={{ ansibleuser }} display-name=%{GROUP}
     WSGIProcessGroup web2py
-    WSGIScriptAlias / {{ ws_dir }}/repos/web2py/wsgihandler.py
+    WSGIScriptAlias / {{ repo_dir }}/web2py/wsgihandler.py
 
-    <Directory {{ ws_dir }}/repos/web2py>
+    <Directory {{ repo_dir }}/web2py>
       AllowOverride None
       Require all denied
       <Files wsgihandler.py>
@@ -37,8 +37,8 @@
       </Files>
     </Directory>
 
-    AliasMatch ^/([^/]+)/static/(.*)            {{ ws_dir }}/repos/web2py/applications/$1/static/$2
-    <Directory {{ ws_dir }}/repos/web2py/applications/*/static/>
+    AliasMatch ^/([^/]+)/static/(.*)            {{ repo_dir }}/web2py/applications/$1/static/$2
+    <Directory {{ repo_dir }}/web2py/applications/*/static/>
       Require all granted
     </Directory>
 

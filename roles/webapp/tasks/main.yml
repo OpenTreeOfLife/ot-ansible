@@ -1,4 +1,9 @@
 ---
+- name: "Create python 2.7 virtualenv if it does not already exist"
+  command:
+    cmd: virtualenv -p python2.7 "{{ venv_web2py }}"
+    creates: "{{ venv_web2py }}"
+
 - name: clone web2py repo
   git:
     repo: "{{ web2py_git_remote }}"
@@ -56,12 +61,12 @@
     peyotl_install_location: "{{ install_location }}/repos"
     configure_peyotl: False
     venv_peyotl: "{{ venv_web2py }}"
-    python_version: "{{ python_version }}"
+    python_version: "{{ web2py_python_version }}"
 
 - name: install opentree prerequisites into {{venv_web2py}}
   pip:
     virtualenv: "{{ venv_web2py }}"
-    virtualenv_python: "{{ python_version }}"
+    virtualenv_python: "{{ web2py_python_version }}"
     requirements: "{{ install_location }}/opentree/requirements.txt"
 
 - name: create link to opentree webapp in web2py applications dir
@@ -88,8 +93,8 @@
     src: templates/routes_py.j2
     dest: "{{ install_location }}/web2py/routes.py"
 
-- name: copy opentree api token from local machine
-  ansible.builtin.copy:
-    src: ~/.ssh/opentree/OPENTREEAPI_OAUTH_TOKEN
-    dest: /home/{{ ansibleuser }}/.ssh/OPENTREEAPI_OAUTH_TOKEN
-    mode: '0600'
+#- name: copy opentree api token from local machine
+#  ansible.builtin.copy:
+#    src: ~/.ssh/opentree/OPENTREEAPI_OAUTH_TOKEN
+#    dest: /home/{{ ansibleuser }}/.ssh/OPENTREEAPI_OAUTH_TOKEN
+#    mode: '0600'
