@@ -1,6 +1,6 @@
 web2py_git_remote: https://github.com/web2py/web2py.git
 opentree_git_remote: https://github.com/OpenTreeOfLife/opentree
-opentree_branch: master
+opentree_branch: pinned-jwcrypto-v
 peyotl_webapp_branch: master
 venv_web2py: venv_web2py
 web2py_python_version: python2.7

@@ -21,7 +21,6 @@ github_redirect_uri: "{{ curator_endpoint }}/user/login"
 github_app_installation_id: 8832719 
 
 otcetera_synth_branch: solve-can-emit-dd
-opentree_branch: nexttree
 
 # whether to install the curator app (False on nexttree)
 install_curator: False
