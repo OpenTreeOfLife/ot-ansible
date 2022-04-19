@@ -25,9 +25,9 @@
     # Moving all WSGI configuration here, so we only run one instance of web2py on HTTPS.
     # This should prevent our broken session problem as documented here:
     #   https://github.com/OpenTreeOfLife/opentree/issues/804
-    WSGIDaemonProcess web2py user={{ ansibleuser }} group={{ ansibleuser }} display-name=%{GROUP}
+    WSGIDaemonProcess web2py user={{ opentree_user }} group={{ opentree_user }} display-name=%{GROUP}
     WSGIProcessGroup web2py
-    WSGIScriptAlias / {{ repo_dir }}/web2py/wsgihandler.py
+    WSGIScriptAlias / {{ ot_repo_dir }}/web2py/wsgihandler.py
 
     <Directory {{ repo_dir }}/web2py>
       AllowOverride None
@@ -38,7 +38,7 @@
     </Directory>
 
     AliasMatch ^/([^/]+)/static/(.*)            {{ repo_dir }}/web2py/applications/$1/static/$2
-    <Directory {{ repo_dir }}/web2py/applications/*/static/>
+    <Directory {{ ot_repo_dir }}/web2py/applications/*/static/>
       Require all granted
     </Directory>
 

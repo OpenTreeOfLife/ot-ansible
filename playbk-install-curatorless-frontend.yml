@@ -10,6 +10,21 @@
         msg: 'Please install the recommended version 2.5.1+. You have Ansible {{ ansible_version.string }}.'
       run_once: yes
 
-  roles:
-    - webapp
-    - apache
+  vars:
+    new_user: "{{ opentree_user }}"
+
+
+  tasks:
+    - name: Check for authorized_keys
+      become: True
+      stat:
+        path: "/home/{{ new_user }}/.ssh/authorized_keys"
+      register: pre_auth_keys
+
+    - name: Add {{ opentree_user }} if needed
+      import_tasks: "roles/adduser/tasks/main.yml"
+      when: not pre_auth_keys.stat.exists
+
+
+#    - webapp
+#    - apache

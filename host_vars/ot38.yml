@@ -2,6 +2,7 @@
 # variables for development servers
 # Variables set here will override settings in roles/defaults
 deploy_custom_synth: true
+opentree_user: opentree
 synth_version: 13.4
 ott_version: 3.3
 
@@ -14,6 +15,7 @@ taxonomy_endpoint_cache:  https://{{ subdomain }}.opentreeoflife.org
 peyotl_otc_ws_branch: master
 ws_wrapper_branch: chronosynth
 ws_dir: /home/{{ansibleuser}}/ws_dir
+ot_repo_dir: /home/{{opentree_user}}/repos
 chronosynth_branch: dev
 
 otcetera_branch: solve-can-emit-dd

@@ -1,0 +1,27 @@
+- name: Create {{new_user}} user
+  become: True
+  ansible.builtin.user:
+    name: "{{ new_user }}"
+    home: "/home/{{ new_user }}"
+    shell: /bin/bash
+  when: new_user != "deploy"
+
+- name: Check for authorized_keys
+  become: True
+  stat:
+    path: "/home/{{ new_user }}/.ssh/authorized_keys"
+  register: auth_keys
+
+- name: Read {{ansibleuser}} authorized_keys
+  slurp:
+    src: "/home/{{ ansibleuser }}/.ssh/authorized_keys"
+  register: ot_pub_keys
+  when: not auth_keys.stat.exists
+
+- name: set up authorized keys
+  become: True
+  ansible.posix.authorized_key:
+    user: "{{ new_user }}"
+    state: present
+    key: "{{ ot_pub_keys['content'] | b64decode }}"
+  when: not auth_keys.stat.exists
