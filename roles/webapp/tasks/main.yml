@@ -96,5 +96,5 @@
 #- name: copy opentree api token from local machine
 #  ansible.builtin.copy:
 #    src: ~/.ssh/opentree/OPENTREEAPI_OAUTH_TOKEN
-#    dest: /home/{{ ansibleuser }}/.ssh/OPENTREEAPI_OAUTH_TOKEN
+#    dest: /home/{{ opentree_user }}/.ssh/OPENTREEAPI_OAUTH_TOKEN
 #    mode: '0600'

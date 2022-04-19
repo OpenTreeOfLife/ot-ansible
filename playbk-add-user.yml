@@ -2,7 +2,6 @@
 - hosts:
     - nexttree
   gather_facts: False
-  remote_user: "{{ opentree_user }}"
 
   pre_tasks:
     - name: Check Ansible version
@@ -14,7 +13,13 @@
   vars:
     new_user: "{{ opentree_user }}"
 
+  tasks:
+    - name: Check for authorized_keys
+      become: True
+      stat:
+        path: "/home/{{ new_user }}/.ssh/authorized_keys"
+      register: pre_auth_keys
 
-  roles:
-    - webapp
-    - apache
+    - name: Add {{ opentree_user }} if needed
+      import_tasks: "roles/adduser/tasks/main.yml"
+      when: not pre_auth_keys.stat.exists

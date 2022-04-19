@@ -29,7 +29,7 @@
     WSGIProcessGroup web2py
     WSGIScriptAlias / {{ ot_repo_dir }}/web2py/wsgihandler.py
 
-    <Directory {{ repo_dir }}/web2py>
+    <Directory {{ ot_repo_dir }}/web2py>
       AllowOverride None
       Require all denied
       <Files wsgihandler.py>
@@ -37,7 +37,7 @@
       </Files>
     </Directory>
 
-    AliasMatch ^/([^/]+)/static/(.*)            {{ repo_dir }}/web2py/applications/$1/static/$2
+    AliasMatch ^/([^/]+)/static/(.*)            {{ ot_repo_dir }}/web2py/applications/$1/static/$2
     <Directory {{ ot_repo_dir }}/web2py/applications/*/static/>
       Require all granted
     </Directory>
