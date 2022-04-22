@@ -5,6 +5,14 @@ all:
     dates:
       hosts:
         dates.opentreeoflife.org:
+    devphylesystemapi:
+      hosts:
+        devphylesystemapi.opentreeoflife.org:
+        ot62:  # pre-deployment system
+          host: ot62
+          ansible_host: ot62.opentreeoflife.org
+          # any branches to specify here?
+          # otcetera_branch: development
     nexttree:
       hosts:
         ot37:

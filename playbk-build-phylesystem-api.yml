@@ -2,7 +2,7 @@
 
 # assumes deploy user with sudo access exists
 ---
-- hosts: dates
+- hosts: ot62
   gather_facts: False
 
   pre_tasks:
@@ -28,7 +28,7 @@
   tasks:
 
     - name: Ensure a locale exists
-      locale_gen:
+      community.general.locale_gen:
         name: en_US.UTF-8
         state: present
       become: yes
