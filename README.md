@@ -6,6 +6,11 @@
 
 or see http://docs.ansible.com/ansible/latest/installation_guide
 
+If you've installed a minimal version of Ansible (eg, `python3 -m pip install
+ansible-core`), you should add our required Ansible modules thusly:
+
+    ansible-galaxy install -r requirements.yml
+
 
 ## new host prep
 
