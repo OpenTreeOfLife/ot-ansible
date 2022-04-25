@@ -71,5 +71,5 @@
     dest: "{{ script_location }}/local/bin/launch_phylesystem_api.sh"
 
 - name: "launch launch_phylesystem_api via launch script"
-  command: "bash {{ script_location }}/local/bin/launch_phylesystem_api.sh || exit"
+  command: ". {{ script_location }}/local/bin/launch_phylesystem_api.sh || exit"
 
