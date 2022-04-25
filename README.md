@@ -75,9 +75,14 @@ See the [Ansible documentation on using Vagrant](https://docs.ansible.com/ansibl
 
 ## Apache logs
 
+```
 $ ssh ot58 'sudo tail /var/log/apache2/error.log'
 $ ssh ot58 'sudo tail /var/log/apache2/access.log'
 $ ssh ot58 'sudo tail /var/log/apache2/ssl_error.log'
+```
+or, alternately
+
+`$ ssh ot58 'sudo tail -f /var/log/apache2/*.log'`
 
 ## Web2py tickets
 

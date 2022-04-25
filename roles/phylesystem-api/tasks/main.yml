@@ -59,6 +59,11 @@
     dest: "{{ phylesystem_api_logging_filepath }}"
     force: no
 
+- name: create script directory if not found
+  ansible.builtin.file:
+    path: "{{ script_location }}/local/bin"
+    state: directory
+    mode: u=rwx,g=r,o=r
 
 - name: write launch_phylesystem_api.sh script
   template:
