@@ -1,0 +1,24 @@
+###
+# app configuration
+# https://docs.pylonsproject.org/projects/pyramid/en/latest/narr/environment.html
+###
+
+[app:main]
+use = egg:ws_wrapper
+
+pyramid.reload_templates = true
+pyramid.debug_authorization = false
+pyramid.debug_notfound = false
+pyramid.debug_routematch = false
+pyramid.default_locale_name = en
+# pyramid.includes = pyramid_beaker
+# pyramid.includes = pyramid_debugtoolbar
+
+phylesystem-api.host={{ study_api_endpoint }}
+#phylesystem-api.port=
+phylesystem-api.prefix=v3
+
+otc.host=http://localhost
+otc.port=1984
+otc.prefix=v3
+

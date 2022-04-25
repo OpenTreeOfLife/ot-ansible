@@ -16,18 +16,28 @@
     path: "{{ ott_destination_dir }}"
     state: directory
 
+- name: Check for OTT tar-ball
+  stat:
+    path: "{{ downloads_dir }}/ott{{ ott_version }}.tgz"
+  register: has_ott_tarball
+
 - name: Download copy of OTT from files server
   get_url:
     url: "{{ ott_url }}"
     dest: "{{ downloads_dir }}"
-    force: yes
+  when: not has_ott_tarball.stat.exists
 
 - name: Uncompress OTT
   unarchive:
     src: "{{ downloads_dir }}/ott{{ ott_version }}.tgz"
     dest: "{{ unpacked_dir }}"
-    #creates: "{{ unpacked_dir }}/ott{{ ott_version }}/taxonomy.tsv"
+    creates: "{{ unpacked_dir }}/ott{{ ott_version }}/taxonomy.tsv"
     remote_src: yes
+
+- name: "Check for copy of OTT in {{ ott_destination_dir }}//ott{{ ott_version }}"
+  stat:
+    path: "{{ ott_destination_dir }}//ott{{ ott_version }}"
+  register: has_copied_ott
 
 - name: Copy OTT from unpacked_dir to destination dir
   copy:
@@ -35,3 +45,4 @@
     dest: "{{ ott_destination_dir }}/"
     remote_src: true
     mode: preserve
+  when: not has_copied_ott.stat.exists

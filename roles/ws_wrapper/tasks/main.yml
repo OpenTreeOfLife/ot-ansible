@@ -5,36 +5,48 @@
     dest: "{{ install_location }}/ws_wrapper"
     version: "{{ ws_wrapper_branch }}"
 
-# Simple clone + install rather than using full peyotl role because no
-# configuration required
-- name: Clone peyotl repo
+- name: Pull peyotl for ws_wrapper repo
   git:
     repo: "{{ peyotl_git_remote }}"
-    dest: "{{ install_location }}/peyotl"
-    version: "{{ peyotl_otc_ws_branch }}"
+    dest: "{{ install_location }}/peyotl_for_ws_wrapper"
+    version: "{{ peyotl_webapp_branch }}"
 
-- name: "install ws_wrapper and peyotl in {{ venv_otcws }}"
+- name: install peyotl into {{venv_otcws}} as a link
+  pip:
+    name: "{{ install_location }}/peyotl_for_ws_wrapper"
+    extra_args: '-e'
+    virtualenv: "{{ venv_otcws }}"
+
+- name: "install ws_wrapper {{ venv_otcws }}"
   pip:
     name:
       - "{{ install_location }}/ws_wrapper"
-      - "{{ install_location }}/peyotl"
     extra_args: '-e'   # link rather than copy
     virtualenv: "{{ venv_otcws }}"
 
-- name: Copy ini file from template
-  copy:
-    src: "{{ install_location }}/ws_wrapper/template.ini"
-    dest: "{{ install_location }}/ws_wrapper/wswrapper.ini"
-    remote_src: yes
 
-- name: Edit ini file
-  ini_file:
-    path: "{{ install_location }}/ws_wrapper/wswrapper.ini"
-    section: "[app:main]"
-    option: phylesystem-api.host
-    value: "{{ study_api_endpoint }}"
+- name: compose possible config template lists
+  set_fact:
+    with_custom_synth_fns: ["0_config_app.j2", "1_config_custom.j2", "2_config_server.j2", "3_config_suffix.j2"]
+    sans_custom_synth_fns: ["0_config_app.j2", "2_config_server.j2", "3_config_suffix.j2"]
+
+- name: choose config template list
+  set_fact:
+    input_filepaths: "{{ with_custom_synth_fns if deploy_custom_synth else sans_custom_synth_fns }}"
+
+
+- name: Create config file from template
+  template:
+    src: templates/ws_wrapper_ini.j2
+    dest: "{{ install_location }}/ws_wrapper/wswrapper.ini"
 
 # Last two tasks launch ws_wrapper application
+
+- name: cpp apps dir exists and is writable
+  file:
+      path: "{{ script_location }}/local/bin"
+      state: directory
+
 
 - name: write launch_ws_wrapper.sh script
   template:
@@ -43,3 +55,6 @@
 
 - name: "launch ws_wrapper server via launch script"
   command: "bash {{ script_location }}/local/bin/launch_ws_wrapper.sh"
+
+
+  #TODO report if this fails

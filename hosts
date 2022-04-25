@@ -2,47 +2,16 @@
 all:
   hosts:
   children:
+    dates:
+      hosts:
+        dates.opentreeoflife.org:
     nexttree:
       hosts:
-        ot58.opentreeoflife.org:
-    # fullstack:
-    #   hosts:
-    #     nexttree:
-    #       host: nexttree
-    #       deploy_type: curatorless
-    #       ansible_ssh_private_key_file: ~/.ssh/opentree/production.pem
-    #       ansible_host: ot37.opentreeoflife.org
-    #       curator_endpoint: https://tree.opentreeoflife.org/curator
-    #       taxonomy_endpoint:  https://ot37.opentreeoflife.org
-    #       taxonomy_endpoint_cache:  https://ot37.opentreeoflife.org
-    #       tree_of_life_endpoint:  https://ot37.opentreeoflife.org
-    #       tree_of_life_endpoint_cache:  https://ot37.opentreeoflife.org
-    #       study_api_endpoint: https://api.opentreeoflife.org
-    #       study_index_endpoint: https://api.opentreeoflife.org
-    #       study_index_endpoint_cache: https://api.opentreeoflife.org
-    #     ot38:
-    #       host: ot38
-    #       deploy_type: curatorless
-    #       ansible_ssh_private_key_file: ~/.ssh/opentree/production.pem
-    #       ansible_host: ot38.opentreeoflife.org
-    #       curator_endpoint: https://tree.opentreeoflife.org/curator
-    #       taxonomy_endpoint:  https://ot38.opentreeoflife.org
-    #       taxonomy_endpoint_cache:  https://ot38.opentreeoflife.org
-    #       tree_of_life_endpoint:  https://ot38.opentreeoflife.org
-    #       tree_of_life_endpoint_cache:  https://ot38.opentreeoflife.org
-    #       study_api_endpoint: https://ot41.opentreeoflife.org
-    #       study_index_endpoint: https://ot41.opentreeoflife.org
-    #       study_index_endpoint_cache: https://ot41.opentreeoflife.org
-    #     ot40:
-    #       host: ot40
-    #       deploy_type: curatorless
-    #       ansible_ssh_private_key_file: ~/.ssh/opentree/opentree.pem
-    #       ansible_host: ot40.opentreeoflife.org
-    #       curator_endpoint: https://tree.opentreeoflife.org/curator
-    #       taxonomy_endpoint:  https://ot40.opentreeoflife.org
-    #       taxonomy_endpoint_cache:  https://ot40.opentreeoflife.org
-    #       tree_of_life_endpoint:  https://ot40.opentreeoflife.org
-    #       tree_of_life_endpoint_cache:  https://ot40.opentreeoflife.org
-    #       study_api_endpoint: https://ot41.opentreeoflife.org
-    #       study_index_endpoint: https://ot41.opentreeoflife.org
-    #       study_index_endpoint_cache: https://ot41.opentreeoflife.org
+        ot37:
+          host: ot37
+          ansible_host: ot37.opentreeoflife.org
+          otcetera_branch: development
+        ot38:
+          host: ot38
+          ansible_host: ot38.opentreeoflife.org
+          otcetera_branch: development

@@ -1,6 +1,7 @@
 ---
 - hosts:
-    - fullstack
+    - dates
+    - nexttree
   gather_facts: False
 
   pre_tasks:
@@ -10,11 +11,54 @@
         msg: 'Please install the recommended version 2.5.1+. You have Ansible {{ ansible_version.string }}.'
       run_once: yes
 
-  roles:
-    - fetch-otcetera-cli
-    - configure-otcetera-cli
-    - build-otcetera-cli
-    - fetch-peyotl-synth
-    - fetch-monophyly-tests
-    - fetch-propinquity
-    - fetch-synth-inputs
+    - name: Install basic libraries and tools using apt
+      become: yes
+      apt:
+        name:
+          - git-core
+          - python3-pip
+          - python3-venv
+          - unzip
+        state: present
+  vars:
+    install_location: "{{ synth_dir }}"
+    otcws: False
+    otcetera_branch: solve-can-emit-dd
+    peyotl_branch: allow-subtree-of-taxonomy
+    peyotl_install_location: "{{ synth_dir }}"
+    otc_prefix: "{{ synth_dir }}/local"
+    venv_peyotl: "{{ venv_synth }}"
+    venv_propinquity: "{{ venv_synth }}"
+    configure_peyotl: True
+    peyotl_config_location: "{{ synth_dir }}/dot_peyotl"
+    phylesystem_remote: "https://github.com/OpenTreeOfLife/{{ phylesystem_repo }}"
+    collections_remote: "https://github.com/OpenTreeOfLife/{{ collections_repo }}"
+    # template vars (used to create peyotl config)
+    phylesystem_parent: "{{ synth_dir }}"
+    repo_nexml2json: 1.2.1
+    ott_dir: "{{ synth_dir }}/ott"
+    logging_level: debug
+    peyotl_logging_filepath: "{{ synth_dir }}/peyotl.log"
+    logging_formatter: rich
+
+
+  tasks:
+
+    - name: Ensure a locale exists
+      locale_gen:
+        name: en_US.UTF-8
+        state: present
+      become: yes
+
+    - name: Install and configure otcetera
+      include_role:
+        name: otcetera
+
+    - name: Install peyotl for synth
+      include_role:
+        name: peyotl
+
+    - name: Install propinquity
+      include_role:
+        name: propinquity
+

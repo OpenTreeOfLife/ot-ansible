@@ -1,7 +1,0 @@
----
-
-- name: Clone propinquity repo
-  git:
-    repo: "{{ propinquity_git_remote }}"
-    dest: "{{ synth_dir }}/propinquity"
-    version: "{{ propinquity_branch }}"

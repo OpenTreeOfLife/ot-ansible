@@ -1,21 +1,28 @@
 #!/bin/bash
 if pgrep otc-tol-ws >/dev/null ; then
-    pkill -F "{{ otc_ws_data }}/wspidfile.txt" --signal=9 otc-tol-ws || exit
+    if test -f "{{ otc_ws_data }}/wspidfile.txt" ; then
+        pkill -F "{{ otc_ws_data }}/wspidfile.txt" --signal=9 otc-tol-ws || exit
+    else
+        pgrep otc-tol-ws > "{{ otc_ws_data }}/wspidfile.txt"
+        pkill -F "{{ otc_ws_data }}/wspidfile.txt" --signal=9 otc-tol-ws || exit
+    fi
 fi
 if test -f "{{ otc_ws_data }}/wspidfile.txt" ; then
     rm "{{ otc_ws_data }}/wspidfile.txt" || exit
 fi
 
 echo -n "Starting otcetera web services (otc-tol-ws)... "
-export LD_LIBRARY_PATH="{{ install_location }}/local/library:${LD_LIBRARY_PATH}"
-/usr/sbin/daemonize \
+export LD_LIBRARY_PATH="{{ ws_dir }}/local/library:${LD_LIBRARY_PATH}"
+export PATH="/usr/sbin:${PATH}"
+
+daemonize \
     -c "{{ otc_ws_data }}" \
-    "{{ install_location }}/local/bin/otc-tol-ws" \
+    "{{ ws_dir }}/local/bin/otc-tol-ws" \
     "{{ otc_ws_data }}/ott{{ ott_version }}" \
     "-D{{ otc_ws_data }}/synth_trees" \
     "-p{{ otc_ws_data }}/wspidfile.txt" \
     -P1984 \
-    --num-threads=4
+    --num-threads=4 || exit
 
 nt=0
 while true ; do

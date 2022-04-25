@@ -20,12 +20,17 @@
   vars:
     ott_destination_dir: "{{ otc_ws_data }}"
 
+- name: Check for synthesis tar-ball
+  stat:
+    path: "{{ downloads_dir }}/opentree{{ synth_version }}.tgz"
+  register: has_synth_tarball
+
 ## download, unpack, and copy synthesis tree
 - name: Download copy of synth tree from files server
   get_url:
     url: "{{ synth_tree_url }}"
     dest: "{{ downloads_dir }}"
-    #creates: "{{ downloads_dir }}/opentree{{ synth_version }}.tgz"
+  when: not has_synth_tarball.stat.exists
 
 - name: Uncompress synth tree
   unarchive:

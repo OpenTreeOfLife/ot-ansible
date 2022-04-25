@@ -5,8 +5,7 @@
 peyotl_git_remote: https://github.com/OpenTreeOfLife/peyotl
 peyotl_branch: master
 venv_peyotl: venv_peyotl
-peyotl_python_version: python3.6
-peyotl_install_location: "{{ synth_dir }}"
+peyotl_install_location: "{{ repo_dir }}"
 #venv_synth: /home/{{ ansibleuser }}/venv_synth
 
 # don't need to do all of the configuration for many use cases
@@ -18,5 +17,5 @@ phylesystem_parent: "{{ synth_dir }}"
 repo_nexml2json: 1.2.1
 ott_dir: "{{ synth_dir }}/ott"
 logging_level: debug
-peyotl_logging_filepath: "{{ synth_dir }}/peyotl.log"
+peyotl_logging_filepath: "{{ logfile_dir }}/peyotl.log"
 logging_formatter: rich

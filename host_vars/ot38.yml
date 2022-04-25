@@ -1,0 +1,19 @@
+---
+# variables for development servers
+# Variables set here will override settings in roles/defaults
+deploy_custom_synth: true
+synth_version: 13.4
+ott_version: 3.3
+
+subdomain: ot38 # in production, this would be nexttree
+tree_of_life_endpoint: https://{{ subdomain }}.opentreeoflife.org
+tree_of_life_endpoint_cache: https://{{ subdomain }}.opentreeoflife.org
+taxonomy_endpoint:  https://{{ subdomain }}.opentreeoflife.org
+taxonomy_endpoint_cache:  https://{{ subdomain }}.opentreeoflife.org
+
+peyotl_otc_ws_branch: master
+ws_wrapper_branch: chronosynth
+ws_dir: /home/{{ansibleuser}}/ws_dir
+chronosynth_branch: dev
+
+otcetera_git_remote: https://github.com/OpenTreeOfLife/otcetera
