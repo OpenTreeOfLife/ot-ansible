@@ -1,2 +1,6 @@
 ---
+# variables for nexttree server
+# Variables set here will override settings in role/*/defaults/main.yml
+
+synth_version: 13.4
 ott_version: 3.3
