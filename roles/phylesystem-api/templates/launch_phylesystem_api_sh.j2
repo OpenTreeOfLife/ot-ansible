@@ -4,14 +4,14 @@ PID_FILE="{{ install_location }}/phylesystem-api/pserve.pid"
 
 echo -n "Searching for running process using this pattern: $PROC_PATTERN"
 if pgrep -laf $PROC_PATTERN >/dev/null ; then
-    echo -n "Process is already running!"
+    echo -n "Process is already running! Looking for PID file: $PID_FILE"
     if test -f "$PID_FILE" ; then
         echo -n "PID file found, killing its process."
-        pkill -F "$PID_FILE" "$PROC_PATTERN" || exit
+        pkill -F "$PID_FILE" -f "$PROC_PATTERN" || exit
     else
         echo -n "Creating PID file, then killing its process."
         pgrep "$PROC_PATTERN" > "$PID_FILE"
-        pkill -F "$PID_FILE" "$PROC_PATTERN" || exit
+        pkill -F "$PID_FILE" -f "$PROC_PATTERN" || exit
     fi
 else
     echo -n "No matching process found."
