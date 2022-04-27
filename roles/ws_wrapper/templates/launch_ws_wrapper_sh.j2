@@ -1,19 +1,31 @@
 #!/bin/bash
-if pgrep pserve >/dev/null ; then
-    if test -f "{{ install_location }}/ws_wrapper/pid" ; then
-        pkill -F "{{ install_location }}/ws_wrapper/pid" pserve|| exit
+PROC_PATTERN="{{ venv_otcws }}.*pserve"
+PID_FILE="{{ install_location }}/ws_wrapper/pid"
+
+echo -n "Searching for running process using this pattern: $PROC_PATTERN"
+if pgrep -laf $PROC_PATTERN >/dev/null ; then
+    echo -n "Process is already running!"
+    if test -f "$PID_FILE" ; then
+        echo -n "PID file found, killing its process."
+        pkill -F "$PID_FILE" "$PROC_PATTERN" || exit
     else
-        pgrep pserve > "{{ install_location }}/ws_wrapper/pid"
-        pkill -F "{{ install_location }}/ws_wrapper/pid" pserve|| exit
+        echo -n "Creating PID file, then killing its process."
+        pgrep pserve > "$PID_FILE"
+        pkill -F "$PID_FILE" "$PROC_PATTERN" || exit
     fi
+else
+    echo -n "No matching process found."
 fi
-if test -f "{{ install_location }}/ws_wrapper/pid" ; then
-    rm "{{ install_location }}/ws_wrapper/pid" || exit
+
+echo -n "Searching for lingering PID file: $PID_FILE"
+if test -f $PID_FILE ; then
+    echo -n "Lingering PID file found! Removing it now."
+    rm $PID_FILE || exit
 fi
 
 export PATH="/usr/sbin:${PATH}"
 
-daemonize -p "{{ install_location }}/ws_wrapper/pid" \
+daemonize -p "$PID_FILE" \
           -c "{{ install_location }}/ws_wrapper" \
           "{{ venv_otcws }}/bin/pserve" wswrapper.ini || exit
 
