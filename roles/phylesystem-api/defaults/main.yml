@@ -74,4 +74,4 @@ following_repo_url: https://github.com/OpenTreeOfLife/following-0
 # API logging levels
 open_tree_api_logging_level: info
 open_tree_api_logging_formatter: rich
-open_tree_api_logging_filepath: "/home/{{ ansibleuser }}/log/api.log"
+open_tree_api_logging_filepath: "/home/{{ ansibleuser }}/logs/api.log"
