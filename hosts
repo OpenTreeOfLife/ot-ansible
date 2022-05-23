@@ -11,8 +11,7 @@ all:
         ot62:  # pre-deployment system
           host: ot62
           ansible_host: ot62.opentreeoflife.org
-          # any branches to specify here?
-          # otcetera_branch: development
+          # for more settings, see roles/phylesystem-api/defaults/*.yml
     nexttree:
       hosts:
         ot37:
