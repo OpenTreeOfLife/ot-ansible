@@ -2,30 +2,30 @@
 PROC_PATTERN="{{ venv_phylesystem_api }}.*pserve"
 PID_FILE="{{ install_location }}/phylesystem-api/pserve.pid"
 
-echo -n "Searching for running process using this pattern: $PROC_PATTERN"
+echo "Searching for running process using this pattern: $PROC_PATTERN"
 if pgrep -laf $PROC_PATTERN >/dev/null ; then
-    echo -n "Process is already running! Looking for PID file: $PID_FILE"
+    echo "Process is already running! Looking for PID file: $PID_FILE"
     if test -f "$PID_FILE" ; then
-        echo -n "PID file found, killing its process."
+        echo "PID file found, killing its process."
         pkill -F "$PID_FILE" -f "$PROC_PATTERN" || exit
     else
-        echo -n "Creating PID file, then killing its process."
+        echo "Creating PID file, then killing its process."
         pgrep "$PROC_PATTERN" > "$PID_FILE"
         pkill -F "$PID_FILE" -f "$PROC_PATTERN" || exit
     fi
 else
-    echo -n "No matching process found."
+    echo "No matching process found."
 fi
 
-echo -n "Searching for lingering PID file: $PID_FILE"
+echo "Searching for lingering PID file: $PID_FILE"
 if test -f $PID_FILE ; then
-    echo -n "Lingering PID file found! Removing it now."
+    echo "Lingering PID file found! Removing it now."
     rm $PID_FILE || exit
 fi
 
 # export PATH="/usr/sbin:${PATH}"
 
-echo -n "(Re)launching pserve."
+echo "(Re)launching pserve."
 daemonize -p "$PID_FILE" \
           -c "{{ install_dir }}/phylesystem-api/phylesystem_api" \
           "{{ venv_phylesystem_api }}/bin/pserve" "{{ phylesystem_api_config_location }}/config.ini" || exit
