@@ -15,3 +15,9 @@ all:
           host: ot38
           ansible_host: ot38.opentreeoflife.org
           otcetera_branch: development
+    devtreealt:
+      hosts:
+        ot63:
+          host: ot63
+          ansible_host: ot63.opentreeoflife.org
+          otcetera_branch: development

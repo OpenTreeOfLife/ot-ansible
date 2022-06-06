@@ -1,0 +1,35 @@
+---
+# variables for nexttree server
+# Variables set here will override settings in role/*/defaults/main.yml
+
+synth_version: 13.4
+ott_version: 3.3
+
+# devtree points to itself for tree and taxonomy
+subdomain: ot63 # in production, this would be nexttree
+tree_of_life_endpoint: https://{{ subdomain }}.opentreeoflife.org
+tree_of_life_endpoint_cache: https://{{ subdomain }}.opentreeoflife.org
+taxonomy_endpoint:  https://{{ subdomain }}.opentreeoflife.org
+taxonomy_endpoint_cache:  https://{{ subdomain }}.opentreeoflife.org
+
+
+
+# and to production for everything else
+study_index_endpoint: https://otindex.opentreeoflife.org
+study_index_endpoint_cache: https://otindex.opentreeoflife.org
+github_app_id: 58654
+github_client_id: Iv1.fd0b03dad89fc10c
+github_redirect_uri: "{{ curator_endpoint }}/user/login"
+github_app_installation_id: 7917657
+
+otcetera_synth_branch: solve-can-emit-dd
+
+# whether to install the curator app (False on nexttree)
+install_curator: True
+
+# all of the synthesis repos and data in synth_dir and all of the
+# web services repos and data in ws_dir
+synth_dir: /home/{{ansibleuser}}/synthesis
+ws_dir: /home/{{ansibleuser}}/ws_dir
+cpp_apps_dir: "{{ ws_dir }}/cpp_apps"
+otc_ws_data: "{{ ws_dir }}/data"
