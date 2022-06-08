@@ -25,12 +25,12 @@
 - name: "Create python 3 virtualenv if it does not already exist"
   command:
     cmd: virtualenv -p python3 "{{ venv_peyotl }}"
-    creates: /home/{{ ansibleuser }}/venv_peyotl
+    creates: "{{ venv_peyotl }}"
 
 - name: Install peyotl prerequisites into "{{venv_peyotl}}"
   pip:
     requirements: "{{ install_location }}/peyotl/requirements.txt"
-    virtualenv: "/home/{{ ansibleuser }}/venv_peyotl"
+    virtualenv: "{{ venv_peyotl }}"
     virtualenv_python: "{{ python_version }}"
 
 - name: Install peyotl into {{venv_peyotl}} as a link

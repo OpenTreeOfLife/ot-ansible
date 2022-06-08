@@ -40,6 +40,29 @@ Below are the commands that have been used recently.
     ansible-playbook -v --limit=ot38 playbk-build-otc-ws.yml
 
 
+### Deploying the webapp on ot38
+The first time you do it, you need to start with:
+
+    ansible-playbook -v --limit=ot38 playbk-add-user.yml
+    
+to create an opentree user. Then anytime you want to refresh the webapp code:
+
+    ansible-playbook -v --limit=ot38 playbk-install-curatorless-frontend.yml
+
+
+### Deploying a custom-synth on ot38
+
+You need the custom-synth ID. It'll prompt you for it, but 
+you can also use the `--extra-vars "custom_synth_id=` syntax to pass 
+the ID in from the command line. So, if you wanted to deploy `snacktavish_aves_81461_tmp520utw8e`, you could use:
+
+    ansible-playbook -v --limit=ot38 --extra-vars "custom_synth_id=snacktavish_aves_81461_tmp520utw8e" playbk-deploy-custom-synth.yml
+
+You might need to run:
+
+    ansible-playbook -v --limit=ot38 playbk-install-curatorless-frontend.yml
+
+to refresh the web app cache.
 # Thanks
 
 Some links that were helpful:

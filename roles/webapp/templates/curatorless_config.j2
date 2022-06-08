@@ -24,8 +24,8 @@ collections_api_base_url = {{ curator_endpoint }}
 favorites_api_base_url = {{ curator_endpoint }}
 # Cached versions of some APIs will speed up repeated calls (see below).
 # These use a simple web2py cache implemented in phylesystem-api
-CACHED_treemachine = {{ tree_of_life_endpoint }}/cached
-CACHED_taxomachine = {{ tree_of_life_endpoint }}/cached
+CACHED_treemachine = {{ tree_of_life_endpoint }}
+CACHED_taxomachine = {{ tree_of_life_endpoint }}
 CACHED_oti = {{ curator_endpoint }}/cached
 
 # Building on the URLs above, complete the public-facing URL for all methods

@@ -72,7 +72,7 @@
     dest: "{{ install_location }}/script-managed-trees"
     version: master
 
-- name: Write propinq_ws_env.sh script
+- name: Write propinq_config.json script
   template:
     src: templates/propinq_config_json.j2
     dest: "{{ install_location }}/custom_config/propinq_config.json"
