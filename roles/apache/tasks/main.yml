@@ -75,7 +75,7 @@
   notify:
     - restart apache2
 
-- name: disable the opentree ssl sites
+- name: disable the default apache site (remove symlink)
   file:
     dest: /etc/apache2/sites-enabled/000-default.conf
     state: absent

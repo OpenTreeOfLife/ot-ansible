@@ -4,7 +4,7 @@
 
 peyotl_git_remote: https://github.com/OpenTreeOfLife/peyotl
 peyotl_branch: master
-venv_peyotl: venv_peyotl
+venv_peyotl: /home/{{ ansibleuser }}/venv_peyotl
 peyotl_install_location: "{{ repo_dir }}"
 #venv_synth: /home/{{ ansibleuser }}/venv_synth
 
@@ -19,3 +19,4 @@ ott_dir: "{{ synth_dir }}/ott"
 logging_level: debug
 peyotl_logging_filepath: "{{ logfile_dir }}/peyotl.log"
 logging_formatter: rich
+synth_dir: "/home/{{ ansibleuser }}/synth"

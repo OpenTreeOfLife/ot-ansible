@@ -5,6 +5,13 @@ all:
     dates:
       hosts:
         dates.opentreeoflife.org:
+    devphylesystemapi:
+      hosts:
+        devphylesystemapi.opentreeoflife.org:
+        ot62:  # pre-deployment system
+          host: ot62
+          ansible_host: ot62.opentreeoflife.org
+          # for more settings, see roles/phylesystem-api/defaults/*.yml
     nexttree:
       hosts:
         ot37:

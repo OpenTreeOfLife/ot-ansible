@@ -14,7 +14,7 @@ phylesystem_repo: phylesystem-1
 collections_repo: collections-1
 
 # default python version
-python_version: python3.8
+python_version: python3.7
 
 # python virtualenvs
 venv_otcws: /home/{{ansibleuser}}/venv_otcws

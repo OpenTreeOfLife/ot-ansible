@@ -84,7 +84,7 @@ take-server-out-of-maintenance-mode
 
 - otcetera : (C++) serves synthetic tree, taxonomy, taxonomic name resolution
 - otindex : (python Pyramid) serves indexed studies; has own ansible deployment
-- phylesystem-api : (python web2py) serves studies and collections
+- phylesystem-api : (python Pyramid) serves studies and collections
 - opentree : (python web2py) front-end tree browser and study curator
 - ws_wrapper : (python Pyramid) routes api calls to correct place
 

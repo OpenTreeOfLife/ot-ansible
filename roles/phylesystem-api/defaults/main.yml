@@ -1,0 +1,77 @@
+---
+# NOTE that we'll default to save (dev) values here to avoid disasters on
+# production. For staging, production, or other situations, override at the
+# host level by creating '{host}.yml` (for example `phylesystemapi.yml`,
+# `production.yml`, ...)
+
+# deployed branch for each subsystem/repo
+phylesystem_api_branch: pyramid-migration
+peyotl_branch: pyramid-adjacent-changes
+
+install_dir: "/home/{{ansibleuser}}/repos"
+# NB - variables in ALL_CAPS_FORM are used on only within this file!
+SHARED_DOCSTORE_PARENT: "{{ install_dir }}/docstore/"
+
+canonical_host: devphylesystemapi.opentreeoflife.org
+logfile_dir: "/home/{{ ansibleuser }}/logs"
+phylesystem_api_logging_filepath: "{{ logfile_dir }}/phylesystem_api.log"
+phylesystem_api_config_location: "/home/{{ansibleuser}}/.phylesystem_api"
+phylesystem_parent: "{{ SHARED_DOCSTORE_PARENT }}"
+  # TODO remove this in favor of phylesystem_repo_parent below?
+venv_phylesystem_api: "/home/{{ ansibleuser }}/venv_phylesystem_api"
+script_location: "{{ ws_dir }}"
+
+# configuration for the phylesystem-api Pyramid app
+# NB that to avoid disaster, we default to safe values and a dev environment!
+read_only_mode: true
+
+# the full path to where a local phylesystem.git can be found
+phylesystem_repo_parent: "{{ SHARED_DOCSTORE_PARENT }}"
+phylesystem_repo_path: "{{ SHARED_DOCSTORE_PARENT }}phylesystem-0"
+# prefix for new study ids. should be of the form [a-z][a-z]_
+# new_study_prefix = zz_
+
+# local paths for minor repos
+collections_repo_parent: "{{ SHARED_DOCSTORE_PARENT }}"
+collections_repo_path: "{{ SHARED_DOCSTORE_PARENT }}collections-0"
+amendments_repo_parent: "{{ SHARED_DOCSTORE_PARENT }}"
+amendments_repo_path: "{{ SHARED_DOCSTORE_PARENT }}amendments-0"
+following_repo_parent: "{{ SHARED_DOCSTORE_PARENT }}"
+following_repo_path: "{{ SHARED_DOCSTORE_PARENT }}following-0"
+
+# the remote to push changes to
+# This will usually be "origin" on a local dev machine where phylesystem.git
+# was cloned via SSH (git@github.com:...)
+# On deployed servers, which use anonymous git:// protocol, we add a new
+# remote "originssh" which can be pushed to
+phylesystem_repo_remote: originssh
+
+# remotes for minor repos
+collections_repo_remote: originssh 
+amendments_repo_remote: originssh
+following_repo_remote: originssh
+
+# these allow us to specify the SSH keys that git pushes
+# will use. Leave the config keys in this config file,
+# without any values assigned, to not use this feature
+git_ssh: "{{ install_dir }}/phylesystem-api/bin/git.sh"
+git_private_key: "/home/{{ ansibleuser }}/.ssh/opentree"
+
+# other API endpoints
+DEFAULT_API_BASE_URL: "https://{{ canonical_host }}/"
+oti_base_url: "{{ DEFAULT_API_BASE_URL }}"
+collections_api_base_url: "{{ DEFAULT_API_BASE_URL }}"
+amendments_api_base_url: "{{ DEFAULT_API_BASE_URL }}"
+favorites_api_base_url: "{{ DEFAULT_API_BASE_URL }}"
+otindex_base_url: "https://devotindex.opentreeoflife.org"
+
+# URLs for all docstore repos
+opentree_docstore_url: https://github.com/OpenTreeOfLife/phylesystem-0
+collections_repo_url: https://github.com/OpenTreeOfLife/collections-0
+amendments_repo_url: https://github.com/OpenTreeOfLife/amendments-0
+following_repo_url: https://github.com/OpenTreeOfLife/following-0
+
+# API logging levels
+open_tree_api_logging_level: info
+open_tree_api_logging_formatter: rich
+open_tree_api_logging_filepath: "/home/{{ ansibleuser }}/logs/api.log"
