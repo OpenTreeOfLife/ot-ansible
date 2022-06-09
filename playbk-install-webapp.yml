@@ -25,5 +25,7 @@
 
  
   roles:
+    - ws_data
+    - taxonomy
     - webapp
     - apache

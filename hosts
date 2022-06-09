@@ -17,7 +17,7 @@ all:
           otcetera_branch: development
     devtreealt:
       hosts:
-        ot63:
-          host: ot63
-          ansible_host: ot63.opentreeoflife.org
+        ot65:
+          host: ot65
+          ansible_host: ot65.opentreeoflife.org
           otcetera_branch: development
