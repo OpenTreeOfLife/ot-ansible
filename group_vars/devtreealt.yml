@@ -1,12 +1,12 @@
 ---
-# variables for nexttree server
+# variables for devtree server
 # Variables set here will override settings in role/*/defaults/main.yml
 
 synth_version: 13.4
 ott_version: 3.3
 
 # devtree points to itself for tree and taxonomy
-subdomain: ot65 # in production, this would be nexttree
+subdomain: devapi # in production, this would be api
 tree_of_life_endpoint: https://{{ subdomain }}.opentreeoflife.org
 tree_of_life_endpoint_cache: https://{{ subdomain }}.opentreeoflife.org
 taxonomy_endpoint:  https://{{ subdomain }}.opentreeoflife.org
