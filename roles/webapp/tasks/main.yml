@@ -78,7 +78,7 @@
 - name: copy private key for github app to web2py applications dir
   copy:
     src: "secrets/open-tree-tree-explorer-dev.2022-06-09.private-key.pem"
-    dest: "{{ install_location }}/web2py/applications/opentree/private/GITHUB_APP_PRIVATE_KEY_PEM"
+    dest: "{{ install_location }}/opentree/webapp/private/GITHUB_APP_PRIVATE_KEY_PEM"
     mode: 400
 
 - name: create link to curator app in web2py applications dir
@@ -88,11 +88,26 @@
     state: link
   when: install_curator
 
+
+- name: copy private key for github app to web2py applications dir
+  copy:
+    src: "secrets/open-tree-curation-tool-dev.2022-06-10.private-key.pem"
+    dest: "{{ install_location }}/opentree/curator/private/GITHUB_APP_PRIVATE_KEY_PEM"
+    mode: 400
+  when: install_curator
+
+
 # TODO: create non curatorless config for dev / prod
 - name: configure opentree webapp
   template:
     src: templates/curatorless_config.j2
     dest: "{{ install_location }}/opentree/webapp/private/config"
+
+- name: configure curator webapp
+  template:
+    src: templates/curatorful_config.j2
+    dest: "{{ install_location }}/opentree/curator/private/config"
+  when: install_curator
 
 - name: configure opentree webapp
   template:
