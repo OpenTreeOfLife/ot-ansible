@@ -1,6 +1,6 @@
 ---
 - hosts:
-    - devtreealt
+    - devtree
   gather_facts: False
 
   pre_tasks:

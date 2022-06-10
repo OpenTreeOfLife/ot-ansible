@@ -92,7 +92,7 @@
 - name: copy private key for github app to web2py applications dir
   copy:
     src: "secrets/open-tree-curation-tool-dev.2022-06-10.private-key.pem"
-    dest: "{{ install_location }}/opentree/curator/private/GITHUB_APP_PRIVATE_KEY_PEM"
+    dest: "{{ install_location }}/opentree/curator/private/GITHUB_CLIENT_SECRET"
     mode: 400
   when: install_curator
 
