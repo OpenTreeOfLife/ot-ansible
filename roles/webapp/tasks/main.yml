@@ -75,6 +75,12 @@
     dest: "{{ install_location }}/web2py/applications/opentree"
     state: link
 
+- name: copy private key for github app to web2py applications dir
+  copy:
+    src: "secrets/open-tree-tree-explorer-dev.2022-06-09.private-key.pem"
+    dest: "{{ install_location }}/web2py/applications/opentree/private/GITHUB_APP_PRIVATE_KEY_PEM"
+    mode: 400
+
 - name: create link to curator app in web2py applications dir
   file:
     src: "{{ install_location }}/opentree/curator"

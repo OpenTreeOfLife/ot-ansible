@@ -1,12 +1,12 @@
 ---
-# variables for nexttree server
+# variables for devtree server
 # Variables set here will override settings in role/*/defaults/main.yml
 
 synth_version: 13.4
 ott_version: 3.3
 
 # devtree points to itself for tree and taxonomy
-subdomain: ot63 # in production, this would be nexttree
+subdomain: devapi # in production, this would be api
 tree_of_life_endpoint: https://{{ subdomain }}.opentreeoflife.org
 tree_of_life_endpoint_cache: https://{{ subdomain }}.opentreeoflife.org
 taxonomy_endpoint:  https://{{ subdomain }}.opentreeoflife.org
@@ -25,7 +25,7 @@ github_app_installation_id: 7917657
 otcetera_synth_branch: solve-can-emit-dd
 
 # whether to install the curator app (False on nexttree)
-install_curator: True
+install_curator: False
 
 # all of the synthesis repos and data in synth_dir and all of the
 # web services repos and data in ws_dir
