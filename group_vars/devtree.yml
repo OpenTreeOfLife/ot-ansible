@@ -13,7 +13,7 @@ taxonomy_endpoint:  https://{{ subdomain }}.opentreeoflife.org
 taxonomy_endpoint_cache:  https://{{ subdomain }}.opentreeoflife.org
 otindex_endpoint:  https://{{ subdomain }}.opentreeoflife.org
 
-curator_endpoint: https://ot65.opentreeoflife.org/curator
+curator_endpoint: https://devtree.opentreeoflife.org/curator
 
 
 # and to production for everything else
