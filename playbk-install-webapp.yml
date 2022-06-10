@@ -10,6 +10,13 @@
         msg: 'Please install the recommended version 2.5.1+. You have Ansible {{ ansible_version.string }}.'
       run_once: yes
 
+    - name: Update and upgrade apt packages
+      become: true
+      apt:
+        upgrade: yes
+        update_cache: yes
+        cache_valid_time: 86400 #One day
+
     - name: Install basic libraries and tools using apt
       become: yes
       apt:

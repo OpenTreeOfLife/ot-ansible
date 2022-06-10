@@ -79,9 +79,24 @@
 
     # Restrict web2py admin pages to admin users on localhost (SSH tunnel)
     # TODO: Should this apply to the HTTPS VirtualHost as well?
+<<<<<<< Updated upstream
     <Location /admin>
       Require ip 127.0.0.1
     </Location>
     <LocationMatch ^/([^/]+)/appadmin>
       Require ip 127.0.0.1
     </LocationMatch>
+=======
+#    <Location /admin>
+#      Require ip 127.0.0.1
+#    </Location>
+#    <LocationMatch ^/([^/]+)/appadmin>
+##      Require ip 127.0.0.1
+ #   </LocationMatch>
+
+ #   <Location />
+ #     Require all granted
+ #     ProxyPass  http://localhost:6543/
+ #     ProxyPassReverse  http://localhost:6543/
+ #   </Location>
+>>>>>>> Stashed changes
