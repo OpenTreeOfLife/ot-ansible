@@ -83,9 +83,10 @@
     <LocationMatch ^/([^/]+)/appadmin>
       Require ip 127.0.0.1
     </LocationMatch>
-
-    <Location />
-      Require all granted
-      ProxyPass  http://localhost:6543/
-      ProxyPassReverse  http://localhost:6543/
-    </Location>
+  
+# Needed for pyramid but conflicts with web2py?
+#    <Location />
+#      Require all granted
+#      ProxyPass  http://localhost:6543/
+#      ProxyPassReverse  http://localhost:6543/
+#    </Location>
