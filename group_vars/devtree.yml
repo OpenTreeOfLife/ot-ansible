@@ -20,14 +20,12 @@ curator_endpoint: https://devtree.opentreeoflife.org/curator
 study_index_endpoint: https://otindex.opentreeoflife.org
 study_index_endpoint_cache: https://otindex.opentreeoflife.org
 
-## Hmmm this is thre treeview app
 treeview_github_app_id:  59461
 treeview_github_client_id: Iv1.226d54b87d23855d
 treeview_github_redirect_uri: "https://devtree.opentreeoflife.org/opentree/user/login"
 treeview_github_app_installation_id: 8832719
 
 
-## Hmmm this is thre treeview app
 curator_github_app_id: 58654
 curator_github_client_id: Iv1.fd0b03dad89fc10c
 curator_github_redirect_uri: "https://devtree.opentreeoflife.org/curator/user/login"
