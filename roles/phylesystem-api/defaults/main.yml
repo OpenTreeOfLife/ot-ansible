@@ -6,7 +6,7 @@
 
 # deployed branch for each subsystem/repo
 phylesystem_api_branch: pyramid-migration
-peyotl_branch: pyramid-adjacent-changes
+peyotl_phylesystemapi_branch: pyramid-adjacent-changes
 
 install_dir: "/home/{{ansibleuser}}/repos"
 # NB - variables in ALL_CAPS_FORM are used on only within this file!
