@@ -27,6 +27,8 @@ fi
 
 echo "(Re)launching pserve."
 daemonize -p "$PID_FILE" \
+          -e "{{ phylesystem_api_logging_filepath }}" \
+          -o "{{ phylesystem_api_logging_filepath }}" \
           -c "{{ install_dir }}/phylesystem-api/phylesystem_api" \
           "{{ venv_phylesystem_api }}/bin/pserve" "{{ phylesystem_api_config_location }}/config.ini" || exit
 
