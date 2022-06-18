@@ -12,6 +12,12 @@ pyramid.debug_notfound = false
 pyramid.debug_routematch = false
 pyramid.default_locale_name = en
 
+# point to this file once it's installed
+config_file_path="{{ phylesystem_api_config_location }}/config.ini"
+# OR consider a more robust version?
+#config_file_path="%(here)s/config.ini"
+
+
 ###
 # wsgi server configuration
 ###
