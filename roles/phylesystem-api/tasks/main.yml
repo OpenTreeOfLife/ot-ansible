@@ -51,7 +51,7 @@
 
 - name: Clone/update studies repo
   loop:
-    - {{ phylesystem_repo_path }}
+    - "{{ phylesystem_repo_path }}"
     - "{{ phylesystem_repo_parent }}mirror"
   command: echo "...cloning/updating into '{{ item }}'..."
   git:
@@ -65,7 +65,7 @@
 
 - name: Clone/update collections repo
   loop:
-    - {{ collections_repo_path }}
+    - "{{ collections_repo_path }}"
     - "{{ collections_repo_parent }}mirror"
   command: echo "...cloning/updating into '{{ item }}'..."
   git:
@@ -79,7 +79,7 @@
 
 - name: Clone amendments repo
   loop:
-    - {{ amendments_repo_path }}
+    - "{{ amendments_repo_path }}"
     - "{{ amendments_repo_parent }}mirror"
   command: echo "...cloning/updating into '{{ item }}'..."
   git:
