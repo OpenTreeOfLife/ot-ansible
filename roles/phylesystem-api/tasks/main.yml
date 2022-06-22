@@ -49,11 +49,10 @@
       path: "{{ SHARED_DOCSTORE_PARENT }}mirror/"
       state: directory
 
-- name: Clone/update studies repo
+- name: Clone/update studies repo into '{{ item }}'
   loop:
     - "{{ phylesystem_repo_path }}"
     - "{{ phylesystem_repo_parent }}mirror"
-  command: echo "...cloning/updating into '{{ item }}'..."
   git:
     repo: "{{ opentree_docstore_url }}"
     accept_newhostkey: yes      # good for occasionally changing host key
@@ -63,11 +62,10 @@
     recursive: yes              # yes is default; being explicit because submodules
     force: yes                  # clobber any locally modified patch files
 
-- name: Clone/update collections repo
+- name: Clone/update collections repo into '{{ item }}'
   loop:
     - "{{ collections_repo_path }}"
     - "{{ collections_repo_parent }}mirror"
-  command: echo "...cloning/updating into '{{ item }}'..."
   git:
     repo: "{{ collections_repo_url }}"
     accept_newhostkey: yes      # good for occasionally changing host key
@@ -77,11 +75,10 @@
     recursive: yes              # yes is default; being explicit because submodules
     force: yes                  # clobber any locally modified patch files
 
-- name: Clone amendments repo
+- name: Clone amendments repo into '{{ item }}'
   loop:
     - "{{ amendments_repo_path }}"
     - "{{ amendments_repo_parent }}mirror"
-  command: echo "...cloning/updating into '{{ item }}'..."
   git:
     repo: "{{ amendments_repo_url }}"
     accept_newhostkey: yes      # good for occasionally changing host key
