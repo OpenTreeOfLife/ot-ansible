@@ -38,56 +38,41 @@
 
 
 ## Get phylesystem data (studies and minor doc-types)
-# NB - We clone each repo twice, once into a designated "docstore parent"
-# directory and again into its mirror/ subdirectory.
+# NB - We clone each repo from Github into a designated "docstore parent".
+# We will trust peyotl to clone these "canonical" local repos into
+# its mirror/ subdirectory as needed.
 
-- name: ensure shared docstore-parent dir exists, and ./mirror
-  file:
-      path: "{{ SHARED_DOCSTORE_PARENT }}"
-      state: directory
+- name: ensure shared docstore-parent dir exists, and its ./mirror
   file:
       path: "{{ SHARED_DOCSTORE_PARENT }}mirror/"
       state: directory
 
-- name: Clone/update studies repo into '{{ item }}'
-  loop:
-    - "{{ phylesystem_repo_path }}"
-    - "{{ phylesystem_repo_parent }}mirror"
+- name: Clone/update local "canonical" docstore repos
+  loop: "{{ repo_paths }}"
   git:
-    repo: "{{ opentree_docstore_url }}"
+    repo: "{{ item.github_url }}"
     accept_newhostkey: yes      # good for occasionally changing host key
     ssh_opts: "-o StrictHostKeyChecking=accept-new"
     remote: "origin"            # default is 'origin'
-    dest: "{{ item }}"
+    dest: "{{ item.local_path }}"
     recursive: yes              # yes is default; being explicit because submodules
     force: yes                  # clobber any locally modified patch files
 
-- name: Clone/update collections repo into '{{ item }}'
-  loop:
-    - "{{ collections_repo_path }}"
-    - "{{ collections_repo_parent }}mirror"
-  git:
-    repo: "{{ collections_repo_url }}"
-    accept_newhostkey: yes      # good for occasionally changing host key
-    ssh_opts: "-o StrictHostKeyChecking=accept-new"
-    remote: "origin"            # default is 'origin'
-    dest: "{{ item }}"
-    recursive: yes              # yes is default; being explicit because submodules
-    force: yes                  # clobber any locally modified patch files
+- name: Configure docstore repos (remote.originssh.url)
+  loop: "{{ repo_paths }}"
+  git_config:
+    scope: local
+    repo: "{{ item.local_path }}"
+    name: remote.originssh.url
+    value: "{{ item.remote_url }}"
 
-- name: Clone amendments repo into '{{ item }}'
-  loop:
-    - "{{ amendments_repo_path }}"
-    - "{{ amendments_repo_parent }}mirror"
-  git:
-    repo: "{{ amendments_repo_url }}"
-    accept_newhostkey: yes      # good for occasionally changing host key
-    ssh_opts: "-o StrictHostKeyChecking=accept-new"
-    remote: "origin"            # default is 'origin'
-    dest: "{{ item }}"
-    recursive: yes              # yes is default; being explicit because submodules
-    force: yes                  # clobber any locally modified patch files
-
+- name: Configure docstore repos (remote.originssh.fetch)
+  loop: "{{ repo_paths }}"
+  git_config:
+    scope: local
+    repo: "{{ item.local_path }}"
+    name: remote.originssh.fetch
+    value: +refs/heads/*:refs/remotes/originssh/*
 
 - name: Create phylesystem-api config file from template
   template:

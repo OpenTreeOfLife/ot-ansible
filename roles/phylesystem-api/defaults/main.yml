@@ -65,11 +65,36 @@ amendments_api_base_url: "{{ DEFAULT_API_BASE_URL }}"
 favorites_api_base_url: "{{ DEFAULT_API_BASE_URL }}"
 otindex_base_url: "https://devotindex.opentreeoflife.org"
 
-# URLs for all docstore repos
-opentree_docstore_url: https://github.com/OpenTreeOfLife/phylesystem-0
-collections_repo_url: https://github.com/OpenTreeOfLife/collections-0
-amendments_repo_url: https://github.com/OpenTreeOfLife/amendments-0
-following_repo_url: https://github.com/OpenTreeOfLife/following-0
+# Github repo org+name for each docstore repo
+#
+STUDIES_GITHUB_NAME: OpenTreeOfLife/phylesystem-0
+COLLECTIONS_GITHUB_NAME: OpenTreeOfLife/collections-0
+AMENDMENTS_GITHUB_NAME: OpenTreeOfLife/amendments-0
+FOLLOWING__GITHUB_NAME: OpenTreeOfLife/following-0
+
+# URLs for each docstore repo
+opentree_docstore_url: https://github.com/{{ STUDIES_GITHUB_NAME }}
+collections_repo_url: https://github.com/{{ COLLECTIONS_GITHUB_NAME }}
+amendments_repo_url: https://github.com/{{ AMENDMENTS_GITHUB_NAME }}
+following_repo_url: https://github.com/{{ FOLLOWING__GITHUB_NAME }}
+
+# git-config 'remote.url' for each docstore repo
+opentree_docstore_remote_url: git@github.com:{{ STUDIES_GITHUB_NAME }}.git
+collections_repo_remote_url: git@github.com:{{ COLLECTIONS_GITHUB_NAME }}.git
+amendments_repo_remote_url: git@github.com:{{ AMENDMENTS_GITHUB_NAME }}.git
+following_repo_remote_url: git@github.com:{{ FOLLOWING__GITHUB_NAME }}.git
+
+# we'll loop over docstore repos in tasks/main
+repo_paths:
+  - { github_url: "{{ opentree_docstore_url }}",
+      local_path: "{{ phylesystem_repo_path }}",
+      remote_url: "{{ opentree_docstore_remote_url }}" }
+  - { github_url: "{{ collections_repo_url }}",
+      local_path: "{{ collections_repo_path }}",
+      remote_url: "{{ collections_repo_remote_url }}" }
+  - { github_url: "{{ amendments_repo_url }}",
+      local_path: "{{ amendments_repo_path }}",
+      remote_url: "{{ amendments_repo_remote_url }}" }
 
 # API logging levels
 open_tree_api_logging_level: info
