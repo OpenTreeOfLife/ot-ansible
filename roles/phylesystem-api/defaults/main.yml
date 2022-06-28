@@ -36,8 +36,6 @@ collections_repo_parent: "{{ SHARED_DOCSTORE_PARENT }}"
 collections_repo_path: "{{ SHARED_DOCSTORE_PARENT }}collections-0"
 amendments_repo_parent: "{{ SHARED_DOCSTORE_PARENT }}"
 amendments_repo_path: "{{ SHARED_DOCSTORE_PARENT }}amendments-0"
-following_repo_parent: "{{ SHARED_DOCSTORE_PARENT }}"
-following_repo_path: "{{ SHARED_DOCSTORE_PARENT }}following-0"
 
 # the remote to push changes to
 # This will usually be "origin" on a local dev machine where phylesystem.git
@@ -49,7 +47,6 @@ phylesystem_repo_remote: originssh
 # remotes for minor repos
 collections_repo_remote: originssh 
 amendments_repo_remote: originssh
-following_repo_remote: originssh
 
 # these allow us to specify the SSH keys that git pushes
 # will use. Leave the config keys in this config file,
@@ -70,19 +67,16 @@ otindex_base_url: "https://devotindex.opentreeoflife.org"
 STUDIES_GITHUB_NAME: OpenTreeOfLife/phylesystem-0
 COLLECTIONS_GITHUB_NAME: OpenTreeOfLife/collections-0
 AMENDMENTS_GITHUB_NAME: OpenTreeOfLife/amendments-0
-FOLLOWING__GITHUB_NAME: OpenTreeOfLife/following-0
 
 # URLs for each docstore repo
 opentree_docstore_url: https://github.com/{{ STUDIES_GITHUB_NAME }}
 collections_repo_url: https://github.com/{{ COLLECTIONS_GITHUB_NAME }}
 amendments_repo_url: https://github.com/{{ AMENDMENTS_GITHUB_NAME }}
-following_repo_url: https://github.com/{{ FOLLOWING__GITHUB_NAME }}
 
 # git-config 'remote.url' for each docstore repo
 opentree_docstore_remote_url: git@github.com:{{ STUDIES_GITHUB_NAME }}.git
 collections_repo_remote_url: git@github.com:{{ COLLECTIONS_GITHUB_NAME }}.git
 amendments_repo_remote_url: git@github.com:{{ AMENDMENTS_GITHUB_NAME }}.git
-following_repo_remote_url: git@github.com:{{ FOLLOWING__GITHUB_NAME }}.git
 
 # we'll loop over docstore repos in tasks/main
 repo_paths:
