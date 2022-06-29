@@ -77,13 +77,13 @@
 
 - name: copy client secret for github treeview app to web2py applications dir
   copy:
-    src: "secrets/dev_treeview_client_secret"
+    src: "{{ tree_explorer_client_secret }}"
     dest: "{{ install_location }}/opentree/webapp/private/GITHUB_CLIENT_SECRET"
     mode: 400
 
 - name: copy private key for github app to web2py applications dir
   copy:
-    src: "secrets/open-tree-tree-explorer-dev.2022-06-09.private-key.pem"
+    src: "{{ tree_explorer_pem_path }}"
     dest: "{{ install_location }}/opentree/webapp/private/GITHUB_APP_PRIVATE_KEY_PEM"
     mode: 400
 
@@ -97,7 +97,7 @@
 
 - name: copy client secret for github curator app to web2py applications dir
   copy:
-    src: "secrets/dev_curator_client_secret"
+    src: "{{ curator_client_secret }}"
     dest: "{{ install_location }}/opentree/curator/private/GITHUB_CLIENT_SECRET"
     mode: 400
   when: install_curator
@@ -105,7 +105,7 @@
 
 - name: copy private key for github app to web2py applications dir
   copy:
-    src: "secrets/open-tree-curation-tool-dev.2022-06-10.private-key.pem"
+    src: "{{ curator_pem_path }}"
     dest: "{{ install_location }}/opentree/curator/private/GITHUB_APP_PRIVATE_KEY_PEM"
     mode: 400
   when: install_curator

@@ -41,3 +41,9 @@ synth_dir: /home/{{ansibleuser}}/synthesis
 ws_dir: /home/{{ansibleuser}}/ws_dir
 cpp_apps_dir: "{{ ws_dir }}/cpp_apps"
 otc_ws_data: "{{ ws_dir }}/data"
+
+#GitHub app secrets and keys, set in https://github.com/organizations/OpenTreeOfLife/settings/apps/
+tree_explorer_pem_path: secrets/open-tree-tree-explorer-dev.private-key.pem
+tree_explorer_client_secret: secrets/dev_treeview_client_secret
+curator_pem_path: secrets/open-tree-curation-tool-dev.private-key.pem 
+curator_client_secret: secrets/dev_curator_client_secret

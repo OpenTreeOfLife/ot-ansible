@@ -68,7 +68,7 @@ to refresh the web app cache.
 
 ### Deploying the webapps on devtree
 
-ansible-playbook playbk-install-webapp.yml -i hosts --limit devtree
+    ansible-playbook playbk-install-webapp.yml -i hosts --limit devtree
 
 
 
