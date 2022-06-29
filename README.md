@@ -63,6 +63,15 @@ You might need to run:
     ansible-playbook -v --limit=ot38 playbk-install-curatorless-frontend.yml
 
 to refresh the web app cache.
+
+
+
+### Deploying the webapps on devtree
+
+ansible-playbook playbk-install-webapp.yml -i hosts --limit devtree
+
+
+
 # Thanks
 
 Some links that were helpful:
