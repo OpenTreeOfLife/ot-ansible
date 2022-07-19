@@ -1,12 +1,12 @@
 ---
-- name: Install peyotl
+- name: Install peyotl ({{ peyotl_phylesystemapi_branch }})
   include_role:
     name: peyotl
   vars: 
     install_location: "{{ repo_dir }}"
     python_version: python3
     venv_peyotl: "{{ venv_phylesystem_api }}"
-
+    peyotl_branch: "{{ peyotl_phylesystemapi_branch }}"
 
 - name: Clone phylesystem-api repo
   git:
@@ -37,11 +37,42 @@
     path: "{{ phylesystem_api_config_location }}"
 
 
+## Get phylesystem data (studies and minor doc-types)
+# NB - We clone each repo from Github into a designated "docstore parent".
+# We will trust peyotl to clone these "canonical" local repos into
+# its mirror/ subdirectory as needed.
 
-## Get phylesystem data
+- name: ensure shared docstore-parent dir exists, and its ./mirror
+  file:
+      path: "{{ SHARED_DOCSTORE_PARENT }}mirror/"
+      state: directory
 
-## Get collections data
+- name: Clone/update local "canonical" docstore repos
+  loop: "{{ repo_paths }}"
+  git:
+    repo: "{{ item.github_url }}"
+    accept_newhostkey: yes      # good for occasionally changing host key
+    ssh_opts: "-o StrictHostKeyChecking=accept-new"
+    remote: "origin"            # default is 'origin'
+    dest: "{{ item.local_path }}"
+    recursive: yes              # yes is default; being explicit because submodules
+    force: yes                  # clobber any locally modified patch files
 
+- name: Configure docstore repos (remote.originssh.url)
+  loop: "{{ repo_paths }}"
+  git_config:
+    scope: local
+    repo: "{{ item.local_path }}"
+    name: remote.originssh.url
+    value: "{{ item.remote_url }}"
+
+- name: Configure docstore repos (remote.originssh.fetch)
+  loop: "{{ repo_paths }}"
+  git_config:
+    scope: local
+    repo: "{{ item.local_path }}"
+    name: remote.originssh.fetch
+    value: +refs/heads/*:refs/remotes/originssh/*
 
 - name: Create phylesystem-api config file from template
   template:

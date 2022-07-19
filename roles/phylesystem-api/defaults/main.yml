@@ -6,7 +6,7 @@
 
 # deployed branch for each subsystem/repo
 phylesystem_api_branch: pyramid-migration
-peyotl_branch: pyramid-adjacent-changes
+peyotl_phylesystemapi_branch: pyramid-adjacent-changes
 
 install_dir: "/home/{{ansibleuser}}/repos"
 # NB - variables in ALL_CAPS_FORM are used on only within this file!
@@ -36,8 +36,6 @@ collections_repo_parent: "{{ SHARED_DOCSTORE_PARENT }}"
 collections_repo_path: "{{ SHARED_DOCSTORE_PARENT }}collections-0"
 amendments_repo_parent: "{{ SHARED_DOCSTORE_PARENT }}"
 amendments_repo_path: "{{ SHARED_DOCSTORE_PARENT }}amendments-0"
-following_repo_parent: "{{ SHARED_DOCSTORE_PARENT }}"
-following_repo_path: "{{ SHARED_DOCSTORE_PARENT }}following-0"
 
 # the remote to push changes to
 # This will usually be "origin" on a local dev machine where phylesystem.git
@@ -49,7 +47,6 @@ phylesystem_repo_remote: originssh
 # remotes for minor repos
 collections_repo_remote: originssh 
 amendments_repo_remote: originssh
-following_repo_remote: originssh
 
 # these allow us to specify the SSH keys that git pushes
 # will use. Leave the config keys in this config file,
@@ -65,11 +62,33 @@ amendments_api_base_url: "https://{{ canonical_host }}/"
 favorites_api_base_url: "https://{{ canonical_host }}/"
 otindex_base_url: "https://devotindex.opentreeoflife.org"
 
-# URLs for all docstore repos
-opentree_docstore_url: https://github.com/OpenTreeOfLife/phylesystem-0
-collections_repo_url: https://github.com/OpenTreeOfLife/collections-0
-amendments_repo_url: https://github.com/OpenTreeOfLife/amendments-0
-following_repo_url: https://github.com/OpenTreeOfLife/following-0
+# Github repo org+name for each docstore repo
+#
+STUDIES_GITHUB_NAME: OpenTreeOfLife/phylesystem-0
+COLLECTIONS_GITHUB_NAME: OpenTreeOfLife/collections-0
+AMENDMENTS_GITHUB_NAME: OpenTreeOfLife/amendments-0
+
+# URLs for each docstore repo
+opentree_docstore_url: https://github.com/{{ STUDIES_GITHUB_NAME }}
+collections_repo_url: https://github.com/{{ COLLECTIONS_GITHUB_NAME }}
+amendments_repo_url: https://github.com/{{ AMENDMENTS_GITHUB_NAME }}
+
+# git-config 'remote.url' for each docstore repo
+opentree_docstore_remote_url: git@github.com:{{ STUDIES_GITHUB_NAME }}.git
+collections_repo_remote_url: git@github.com:{{ COLLECTIONS_GITHUB_NAME }}.git
+amendments_repo_remote_url: git@github.com:{{ AMENDMENTS_GITHUB_NAME }}.git
+
+# we'll loop over docstore repos in tasks/main
+repo_paths:
+  - { github_url: "{{ opentree_docstore_url }}",
+      local_path: "{{ phylesystem_repo_path }}",
+      remote_url: "{{ opentree_docstore_remote_url }}" }
+  - { github_url: "{{ collections_repo_url }}",
+      local_path: "{{ collections_repo_path }}",
+      remote_url: "{{ collections_repo_remote_url }}" }
+  - { github_url: "{{ amendments_repo_url }}",
+      local_path: "{{ amendments_repo_path }}",
+      remote_url: "{{ amendments_repo_remote_url }}" }
 
 # API logging levels
 open_tree_api_logging_level: info

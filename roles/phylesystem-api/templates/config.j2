@@ -1,4 +1,64 @@
-# Pass the completed filepath to pserve/waitress
+###
+# app configuration
+# https://docs.pylonsproject.org/projects/pyramid/en/latest/narr/environment.html
+###
+
+[app:main]
+use = egg:phylesystem_api
+
+pyramid.reload_templates = false
+pyramid.debug_authorization = false
+pyramid.debug_notfound = false
+pyramid.debug_routematch = false
+pyramid.default_locale_name = en
+
+# point to this file once it's installed
+config_file_path = {{ phylesystem_api_config_location }}/config.ini
+# OR consider a more robust version?
+#config_file_path="%(here)s/config.ini"
+
+
+###
+# wsgi server configuration
+###
+
+[server:main]
+use = egg:waitress#main
+listen = localhost:6543
+
+###
+# logging configuration
+# https://docs.pylonsproject.org/projects/pyramid/en/latest/narr/logging.html
+###
+
+[loggers]
+keys = root, phylesystem_api
+
+[handlers]
+keys = console
+
+[formatters]
+keys = generic
+
+[logger_root]
+level = INFO
+handlers = console
+
+[logger_phylesystem_api]
+level = DEBUG
+handlers =
+qualname = phylesystem_api
+
+[handler_console]
+class = StreamHandler
+args = (sys.stderr,)
+level = NOTSET
+formatter = generic
+
+[formatter_generic]
+format = %(asctime)s %(levelname)-5.5s [%(name)s:%(lineno)s][%(threadName)s] %(message)s
+
+###
 
 [apis]
 api_version = 3
@@ -17,8 +77,6 @@ collections_repo_path   = {{ collections_repo_path }}
 collections_repo_parent = {{ collections_repo_parent }}
 amendments_repo_path    = {{ amendments_repo_path }}
 amendments_repo_parent  = {{ amendments_repo_parent }}
-following_repo_path     = {{ following_repo_path }}
-following_repo_parent   = {{ following_repo_parent }}
 
 # the remote to push changes to
 # This will usually be "origin" on a local dev machine where phylesystem.git
@@ -30,7 +88,6 @@ repo_remote = {{ phylesystem_repo_remote }}
 # remotes for minor repos
 collections_repo_remote = {{ collections_repo_remote }}
 amendments_repo_remote  = {{ amendments_repo_remote }}
-following_repo_remote   = {{ following_repo_remote }}
 
 # these allow us to specify the SSH keys that git pushes
 # will use. Leave the config keys in this config file,
@@ -51,7 +108,6 @@ opentree_docstore_url = {{ opentree_docstore_url }}
 # URLs for minor repos
 collections_repo_url = {{ collections_repo_url }}
 amendments_repo_url = {{ amendments_repo_url }}
-following_repo_url   = {{ following_repo_url }}
 
 # prefix for the GitHubRemote used in the push mirror
 #   default is git@github.com:OpenTreeOfLife
