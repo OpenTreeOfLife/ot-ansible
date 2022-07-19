@@ -58,11 +58,11 @@ git_ssh: "{{ install_dir }}/phylesystem-api/bin/git.sh"
 git_private_key: "/home/{{ ansibleuser }}/.ssh/opentree"
 
 # other API endpoints
-DEFAULT_API_BASE_URL: "https://{{ canonical_host }}/"
+DEFAULT_API_BASE_URL: "https://devapi.opentreeoflife.org"
 oti_base_url: "{{ DEFAULT_API_BASE_URL }}"
-collections_api_base_url: "{{ DEFAULT_API_BASE_URL }}"
-amendments_api_base_url: "{{ DEFAULT_API_BASE_URL }}"
-favorites_api_base_url: "{{ DEFAULT_API_BASE_URL }}"
+collections_api_base_url: "https://{{ canonical_host }}/"
+amendments_api_base_url: "https://{{ canonical_host }}/"
+favorites_api_base_url: "https://{{ canonical_host }}/"
 otindex_base_url: "https://devotindex.opentreeoflife.org"
 
 # URLs for all docstore repos
