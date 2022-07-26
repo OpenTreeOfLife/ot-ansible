@@ -11,6 +11,17 @@ pyramid.debug_authorization = false
 pyramid.debug_notfound = false
 pyramid.debug_routematch = false
 pyramid.default_locale_name = en
+pyramid.includes =
+    pyramid_beaker
+    # pyramid_debugtoolbar
+
+cache.regions = short_term, long_term
+cache.type = memory
+# cache more dynamic stuff (e.g. main phylo tree) for just 10 minutes
+cache.short_term.expire = 600
+# store most data for 24 hrs, or until a restart
+cache.long_term.expire = 86400
+#cache.long_term.expire = never
 
 # point to this file once it's installed
 config_file_path = {{ phylesystem_api_config_location }}/config.ini
