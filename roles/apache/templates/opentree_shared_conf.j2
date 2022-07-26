@@ -83,10 +83,14 @@
     <LocationMatch ^/([^/]+)/appadmin>
       Require ip 127.0.0.1
     </LocationMatch>
-  
-# Needed for pyramid but conflicts with web2py?
-#    <Location />
-#      Require all granted
-#      ProxyPass  http://localhost:6543/
-#      ProxyPassReverse  http://localhost:6543/
-#    </Location>
+
+{{ if default_web_listener == 'phylesystem-api' }}
+    # 6544 = default port for phylesytem-api (Pyramid)
+    <Location />
+      Require all granted
+      ProxyPass  http://localhost:6544/
+      ProxyPassReverse  http://localhost:6544/
+    </Location>
+{{ elif default_web_listener == 'TBD' }}
+    # Add another option here for default web listener/proxy
+{{ endif }}
