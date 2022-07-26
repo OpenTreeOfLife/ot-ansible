@@ -85,11 +85,11 @@
     </LocationMatch>
 
 {{ if default_web_listener == 'phylesystem-api' }}
-    # 6543 = default port for phylesytem-api (Pyramid)
+    # 6544 = default port for phylesytem-api (Pyramid)
     <Location />
       Require all granted
-      ProxyPass  http://localhost:6543/
-      ProxyPassReverse  http://localhost:6543/
+      ProxyPass  http://localhost:6544/
+      ProxyPassReverse  http://localhost:6544/
     </Location>
 {{ elif default_web_listener == 'TBD' }}
     # Add another option here for default web listener/proxy
