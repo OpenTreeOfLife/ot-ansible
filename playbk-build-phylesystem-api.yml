@@ -25,6 +25,9 @@
           - daemonize
         state: present
 
+  vars:
+    default_web_listener: phylesystem-api
+
   tasks:
 
     - name: Ensure a locale exists
