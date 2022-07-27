@@ -84,13 +84,13 @@
       Require ip 127.0.0.1
     </LocationMatch>
 
-{% if default_web_listener == 'phylesystem-api' %}
+{% if apache_default_web_destination == 'phylesystem-api' %}
     # 6544 = default port for phylesytem-api (Pyramid)
     <Location />
       Require all granted
       ProxyPass  http://localhost:6544/
       ProxyPassReverse  http://localhost:6544/
     </Location>
-{% elif default_web_listener == 'TBD' %}
+{% elif apache_default_web_destination == 'TBD' %}
     # Add another option here for default web listener/proxy
 {% endif %}

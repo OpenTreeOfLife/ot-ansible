@@ -26,7 +26,7 @@
         state: present
 
   vars:
-    default_web_listener: phylesystem-api
+    apache_default_web_destination: phylesystem-api
 
   tasks:
 
