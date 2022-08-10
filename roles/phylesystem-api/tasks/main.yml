@@ -48,6 +48,7 @@
       state: directory
 
 - name: Clone/update local "canonical" docstore repos
+  # TODO: switch to main/master first? to avoid problems if we're on a WIP branch
   loop: "{{ repo_paths }}"
   git:
     repo: "{{ item.github_url }}"
