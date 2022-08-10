@@ -77,6 +77,22 @@
     name: remote.originssh.fetch
     value: +refs/heads/*:refs/remotes/originssh/*
 
+- name: Configure docstore repos (user.name)
+  loop: "{{ repo_paths }}"
+  git_config:
+    scope: local
+    repo: "{{ item.local_path }}"
+    name: user.name
+    value: "OpenTree API"
+
+- name: Configure docstore repos (user.email)
+  loop: "{{ repo_paths }}"
+  git_config:
+    scope: local
+    repo: "{{ item.local_path }}"
+    name: user.email
+    value: api@opentreeoflife.org
+
 - name: Create phylesystem-api config file from template
   template:
     src: templates/config.j2
