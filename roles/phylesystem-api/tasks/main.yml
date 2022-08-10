@@ -1,19 +1,20 @@
 ---
-- name: Install peyotl ({{ peyotl_phylesystemapi_branch }})
-  include_role:
-    name: peyotl
-  vars: 
-    # install "captive" peyotl in phylesystem-api venv
-    install_location: "{{ venv_phylesystem_api }}/src"
-    python_version: python3
-    venv_peyotl: "{{ venv_phylesystem_api }}"
-    peyotl_branch: "{{ peyotl_phylesystemapi_branch }}"
-    # customize its peyotl configuration
-    configure_peyotl: True
-    peyotl_config_location: "{{ venv_phylesystem_api }}/.peyotl"
-    logging_level: debug
-    peyotl_logging_filepath: "{{ venv_phylesystem_api }}/peyotl.log"
-    logging_formatter: rich
+## Defer to peyotl's own intall in requirements.in/.txt
+#- name: Install peyotl ({{ peyotl_phylesystemapi_branch }})
+#  include_role:
+#    name: peyotl
+#  vars: 
+#    # install "captive" peyotl in phylesystem-api venv
+#    install_location: "{{ venv_phylesystem_api }}/src"
+#    python_version: python3
+#    venv_peyotl: "{{ venv_phylesystem_api }}"
+#    peyotl_branch: "{{ peyotl_phylesystemapi_branch }}"
+#    # customize its peyotl configuration
+#    configure_peyotl: True
+#    peyotl_config_location: "{{ venv_phylesystem_api }}/.peyotl"
+#    logging_level: debug
+#    peyotl_logging_filepath: "{{ venv_phylesystem_api }}/peyotl.log"
+#    logging_formatter: rich
 
 - name: Clone phylesystem-api repo
   git:
@@ -55,9 +56,11 @@
       state: directory
 
 - name: Clone/update local "canonical" docstore repos
+  # TODO: switch to main/master first? to avoid problems if we're on a WIP branch
   loop: "{{ repo_paths }}"
   git:
     repo: "{{ item.github_url }}"
+    version: master             # specified branch, in case we're deploying over a WIP branch
     accept_newhostkey: yes      # good for occasionally changing host key
     ssh_opts: "-o StrictHostKeyChecking=accept-new"
     remote: "origin"            # default is 'origin'
@@ -80,6 +83,22 @@
     repo: "{{ item.local_path }}"
     name: remote.originssh.fetch
     value: +refs/heads/*:refs/remotes/originssh/*
+
+- name: Configure docstore repos (user.name)
+  loop: "{{ repo_paths }}"
+  git_config:
+    scope: local
+    repo: "{{ item.local_path }}"
+    name: user.name
+    value: "OpenTree API"
+
+- name: Configure docstore repos (user.email)
+  loop: "{{ repo_paths }}"
+  git_config:
+    scope: local
+    repo: "{{ item.local_path }}"
+    name: user.email
+    value: api@opentreeoflife.org
 
 - name: Create phylesystem-api config file from template
   template:
