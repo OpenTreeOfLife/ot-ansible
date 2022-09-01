@@ -11,6 +11,7 @@ tree_of_life_endpoint: https://{{ subdomain }}.opentreeoflife.org
 tree_of_life_endpoint_cache: https://{{ subdomain }}.opentreeoflife.org
 taxonomy_endpoint:  https://{{ subdomain }}.opentreeoflife.org
 taxonomy_endpoint_cache:  https://{{ subdomain }}.opentreeoflife.org
+conflict_endpoint:  https://{{ subdomain }}.opentreeoflife.org
 
 # and to production for everything else
 study_index_endpoint: https://otindex.opentreeoflife.org
