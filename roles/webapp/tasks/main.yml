@@ -120,12 +120,16 @@
   template:
     src: templates/curatorful_config.j2
     dest: "{{ install_location }}/opentree/curator/private/config"
+  notify:
+    - restart apache2
   when: install_curator
 
 - name: configure opentree webapp
   template:
     src: templates/routes_py.j2
     dest: "{{ install_location }}/web2py/routes.py"
+  notify:
+    - restart apache2
 
 #- name: copy opentree api token from local machine
 #  ansible.builtin.copy:
