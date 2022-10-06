@@ -54,7 +54,7 @@
   git:
     repo: "{{ item.github_url }}"
     version: master             # specified branch, in case we're deploying over a WIP branch
-    accept_newhostkey: yes      # good for occasionally changing host key
+    accept_hostkey: yes      # good for occasionally changing host key
     ssh_opts: "-o StrictHostKeyChecking=accept-new"
     remote: "origin"            # default is 'origin'
     dest: "{{ item.local_path }}"
