@@ -5,6 +5,7 @@
     name: peyotl
   vars: 
     install_location: "{{ repo_dir }}"
+    configure_peyotl: True
     python_version: python3
     venv_peyotl: "{{ venv_phylesystem_api }}"
     peyotl_branch: "{{ peyotl_phylesystemapi_branch }}"
