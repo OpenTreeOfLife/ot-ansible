@@ -27,6 +27,8 @@
 
   vars:
     apache_default_web_destination: phylesystem-api
+    phylesystem_api_branch: celery-replacement
+
 
   tasks:
 
