@@ -19,7 +19,7 @@
 - name: Create peyotl config file from template
   template:
     src: templates/config.j2
-    dest: "{{ peyotl_config_location }}/config.ini"
+    dest: "{{ peyotl_config_location }}/config"
   when: configure_peyotl
 
 - name: "Create python 3 virtualenv if it does not already exist"

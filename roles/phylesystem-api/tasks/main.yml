@@ -1,13 +1,13 @@
 ---
-## Defer to peyotl's own intall in requirements.in/.txt
-#- name: Install peyotl ({{ peyotl_phylesystemapi_branch }})
-#  include_role:
-#    name: peyotl
-#  vars: 
-#    install_location: "{{ repo_dir }}"
-#    python_version: python3
-#    venv_peyotl: "{{ venv_phylesystem_api }}"
-#    peyotl_branch: "{{ peyotl_phylesystemapi_branch }}"
+## Install and configure peyotl
+- name: Install peyotl ({{ peyotl_phylesystemapi_branch }})
+  include_role:
+    name: peyotl
+  vars: 
+    install_location: "{{ repo_dir }}"
+    python_version: python3
+    venv_peyotl: "{{ venv_phylesystem_api }}"
+    peyotl_branch: "{{ peyotl_phylesystemapi_branch }}"
 
 - name: Clone phylesystem-api repo
   git:
