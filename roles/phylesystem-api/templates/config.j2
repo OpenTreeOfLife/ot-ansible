@@ -37,28 +37,34 @@ config_file_path = {{ phylesystem_api_config_location }}/config.ini
 use = egg:waitress#main
 listen = localhost:6544
 
+
 ###
 # logging configuration
 # https://docs.pylonsproject.org/projects/pyramid/en/latest/narr/logging.html
 ###
 
 [loggers]
-keys = root, phylesystem_api
+keys = root, phylesystem_api, peyotl
 
 [handlers]
-keys = console
+keys = console, file_phyapi, file_pey
 
 [formatters]
 keys = generic
 
 [logger_root]
-level = DEBUG
+level = ERROR
 handlers = console
 
 [logger_phylesystem_api]
 level = DEBUG
-handlers =
+handlers = console, file_phyapi
 qualname = phylesystem_api
+
+[logger_peyotl]
+level = ERROR
+handlers = console, file_pey
+qualname = peyotl
 
 [handler_console]
 class = StreamHandler
@@ -66,8 +72,21 @@ args = (sys.stderr,)
 level = NOTSET
 formatter = generic
 
+[handler_file_phyapi]
+class=FileHandler
+formatter=generic
+level=DEBUG
+args=('{{ logfile_dir }}/phylesystem_api.log',)
+
+[handler_file_pey]
+class=FileHandler
+formatter=generic
+level=DEBUG
+args=('{{ logfile_dir }}/peyotl_phy_api.log',)
+
 [formatter_generic]
-format = %(asctime)s %(levelname)-5.5s [%(name)s:%(lineno)s][%(threadName)s] %(message)s
+format =  %(asctime)s %(levelname)-5.5s [%(name)s:%(lineno)s] %(message)s
+
 
 ###
 
@@ -123,13 +142,3 @@ amendments_repo_url = {{ amendments_repo_url }}
 # prefix for the GitHubRemote used in the push mirror
 #   default is git@github.com:OpenTreeOfLife
 # git_hub_remote = git@github.com:OpenTreeOfLife
-
-[logging]
-level = {{ open_tree_api_logging_level }}
-formatter = {{ open_tree_api_logging_formatter }}
-filepath = {{ open_tree_api_logging_filepath }}
-
-[filesize]
-#overrides for peyotl config values in case no peyotl config exists
-peyotl_max_file_size = 20000000
-validation_max_num_trees = 65
