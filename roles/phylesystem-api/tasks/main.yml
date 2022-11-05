@@ -81,7 +81,7 @@
 - name: Configure docstore repos (user.name)
   loop: "{{ repo_paths }}"
   git_config:
-    scope: local
+    scope: global
     repo: "{{ item.local_path }}"
     name: user.name
     value: "OpenTree API"
@@ -89,7 +89,7 @@
 - name: Configure docstore repos (user.email)
   loop: "{{ repo_paths }}"
   git_config:
-    scope: local
+    scope: global
     repo: "{{ item.local_path }}"
     name: user.email
     value: api@opentreeoflife.org

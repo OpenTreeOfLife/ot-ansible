@@ -10,7 +10,7 @@ if pgrep -laf $PROC_PATTERN >/dev/null ; then
         pkill -F "$PID_FILE" -f "$PROC_PATTERN" || exit
     else
         echo "Creating PID file, then killing its process."
-        pgrep "$PROC_PATTERN" > "$PID_FILE"
+        pgrep -laf "$PROC_PATTERN" > "$PID_FILE"
         pkill -F "$PID_FILE" -f "$PROC_PATTERN" || exit
     fi
 else
