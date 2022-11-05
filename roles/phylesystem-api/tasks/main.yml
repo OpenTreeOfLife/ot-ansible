@@ -1,4 +1,10 @@
 ---
+
+## TODO: Create deploy key?? Set it in config.
+## At least check that it is there?
+## pkey        = {{ git_private_key }}
+
+
 ## Install and configure peyotl
 - name: Install peyotl ({{ peyotl_phylesystemapi_branch }})
   include_role:
