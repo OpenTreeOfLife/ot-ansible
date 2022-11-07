@@ -51,8 +51,10 @@ amendments_repo_remote: originssh
 # these allow us to specify the SSH keys that git pushes
 # will use. Leave the config keys in this config file,
 # without any values assigned, to not use this feature
+## Need to generate key on server, 
+## and set in GitHub as deploy key for appropriate app.
 git_ssh: "{{ install_dir }}/phylesystem-api/bin/git.sh"
-git_private_key: "/home/{{ ansibleuser }}/.ssh/opentree"
+git_private_key: "/home/{{ ansibleuser }}/.ssh/id_ed25519"
 
 # other API endpoints
 DEFAULT_API_BASE_URL: "https://devapi.opentreeoflife.org"
