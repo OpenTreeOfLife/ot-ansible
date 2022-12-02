@@ -54,7 +54,7 @@ amendments_repo_remote: originssh
 ## Need to generate key on server, 
 ## and set in GitHub as deploy key for appropriate app.
 git_ssh: "{{ install_dir }}/phylesystem-api/bin/git.sh"
-git_private_key: "/home/{{ ansibleuser }}/.ssh/id_ed25519"
+git_private_key: "/home/{{ ansibleuser }}/.ssh/id_ed25519_shared"
 
 # other API endpoints
 DEFAULT_API_BASE_URL: "https://devapi.opentreeoflife.org"
