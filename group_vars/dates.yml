@@ -7,6 +7,7 @@ ott_version: 3.3
 phylesystem_repo: phylesystem-1
 
 taxonomy_endpoint:  https://api.opentreeoflife.org
+conflict_endpoint:  https://api.opentreeoflife.org
 taxonomy_endpoint_cache:  https://api.opentreeoflife.org
 tree_of_life_endpoint:  https://api.opentreeoflife.org
 tree_of_life_endpoint_cache:  https://api.opentreeoflife.org

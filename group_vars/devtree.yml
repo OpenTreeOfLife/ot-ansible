@@ -1,0 +1,50 @@
+---
+# variables for devtree server
+# Variables set here will override settings in role/*/defaults/main.yml
+
+synth_version: 13.4
+ott_version: 3.3
+
+# devtree points to itself for tree and taxonomy
+subdomain: devapi # in production, this would be api
+tree_of_life_endpoint: https://{{ subdomain }}.opentreeoflife.org
+tree_of_life_endpoint_cache: https://{{ subdomain }}.opentreeoflife.org
+taxonomy_endpoint:  https://{{ subdomain }}.opentreeoflife.org
+taxonomy_endpoint_cache:  https://{{ subdomain }}.opentreeoflife.org
+conflict_endpoint:  https://{{ subdomain }}.opentreeoflife.org
+otindex_endpoint:  https://{{ subdomain }}.opentreeoflife.org
+
+curator_endpoint: https://devtree.opentreeoflife.org/curator
+
+
+# and to production for everything else
+study_index_endpoint: https://otindex.opentreeoflife.org
+study_index_endpoint_cache: https://otindex.opentreeoflife.org
+
+treeview_github_app_id:  59461
+treeview_github_client_id: Iv1.226d54b87d23855d
+treeview_github_redirect_uri: "https://devtree.opentreeoflife.org/opentree/user/login"
+treeview_github_app_installation_id: 8832719
+
+
+curator_github_app_id: 58654
+curator_github_client_id: Iv1.fd0b03dad89fc10c
+curator_github_redirect_uri: "https://devtree.opentreeoflife.org/curator/user/login"
+curator_github_app_installation_id: 7917657
+
+# whether to install the curator app (False on nexttree)
+install_curator: True
+
+
+# all of the synthesis repos and data in synth_dir and all of the
+# web services repos and data in ws_dir
+synth_dir: /home/{{ansibleuser}}/synthesis
+ws_dir: /home/{{ansibleuser}}/ws_dir
+cpp_apps_dir: "{{ ws_dir }}/cpp_apps"
+otc_ws_data: "{{ ws_dir }}/data"
+
+#GitHub app secrets and keys, set in https://github.com/organizations/OpenTreeOfLife/settings/apps/
+tree_explorer_pem_path: secrets/open-tree-tree-explorer-dev.private-key.pem
+tree_explorer_client_secret: secrets/dev_treeview_client_secret
+curator_pem_path: secrets/open-tree-curation-tool-dev.private-key.pem 
+curator_client_secret: secrets/dev_curator_client_secret

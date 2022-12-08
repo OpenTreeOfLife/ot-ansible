@@ -1,6 +1,4 @@
----
-
-## TODO: Create deploy key?? Set it in config.
+## TODO: Double check setting key to push to docstores in config.
 ## At least check that it is there?
 ## pkey        = {{ git_private_key }}
 
@@ -15,6 +13,7 @@
     python_version: python3
     venv_peyotl: "{{ venv_phylesystem_api }}"
     peyotl_branch: "{{ peyotl_phylesystemapi_branch }}"
+
 
 - name: Clone phylesystem-api repo
   git:

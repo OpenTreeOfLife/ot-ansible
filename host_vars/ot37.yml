@@ -9,6 +9,7 @@ tree_of_life_endpoint: https://{{ subdomain }}.opentreeoflife.org
 tree_of_life_endpoint_cache: https://{{ subdomain }}.opentreeoflife.org
 taxonomy_endpoint:  https://{{ subdomain }}.opentreeoflife.org
 taxonomy_endpoint_cache:  https://{{ subdomain }}.opentreeoflife.org
+conflict_endpoint:  https://{{ subdomain }}.opentreeoflife.org
 
 
 peyotl_otc_ws_branch: master
