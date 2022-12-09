@@ -8,9 +8,9 @@
     # TEMPORARY REDIRECT to maintenance page
     #RedirectMatch 302 ^(.*)$ http://opentreeoflife.github.io/maintenance.html
 
-    Alias "/taxonomy/browse" "/home/opentree/repo/opentree/taxonomy/cgi-bin/browse.py"
+    Alias "/taxonomy/browse" "{{ repo_dir }}/opentree/taxonomy/cgi-bin/browse.py"
 
-    <Directory "/home/opentree/repo/opentree/taxonomy/cgi-bin">
+    <Directory "{{ repo_dir }}/opentree/taxonomy/cgi-bin">
       Require all granted
       Options +ExecCGI
       AddHandler cgi-script .py
