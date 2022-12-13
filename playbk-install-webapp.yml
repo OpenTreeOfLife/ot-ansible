@@ -1,6 +1,6 @@
 ---
 - hosts:
-    - fullstack
+    - devtree
   gather_facts: False
 
   pre_tasks:
@@ -10,6 +10,28 @@
         msg: 'Please install the recommended version 2.5.1+. You have Ansible {{ ansible_version.string }}.'
       run_once: yes
 
+    - name: Update and upgrade apt packages
+      become: true
+      apt:
+        upgrade: yes
+        update_cache: yes
+        cache_valid_time: 86400 #One day
+
+    - name: Install basic libraries and tools using apt
+      become: yes
+      apt:
+        name:
+          - git-core
+          - python3-pip
+          - python3-venv
+          - python-setuptools
+          - virtualenv
+          - unzip
+          - daemonize
+          - python3-requests  # for taxonomy browser (browse.py)
+        state: present
+
+ 
   roles:
-    - refresh-opentree
-    - restart-apache
+    - webapp
+    - apache

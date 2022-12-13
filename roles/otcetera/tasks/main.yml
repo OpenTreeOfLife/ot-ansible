@@ -110,6 +110,11 @@
     path: "{{ install_location }}/local/bin"
     state: directory
 
+
+- name: compose possible config template lists
+  set_fact:
+    launch_input_filepaths: ["01-launch-pref.j2", "02-launch-standard.j2", "03-launch-suffix.j2"]
+
 - name: write launch_otc_ws_app.sh script
   template:
     src: templates/launch_otc_ws_app_sh.j2
@@ -121,5 +126,4 @@
   command: "bash {{ install_location }}/local/bin/launch_otc_ws_app.sh"
   args:
     creates: "{{ otc_ws_data }}/wspidfile.txt"
-
   when: otcws

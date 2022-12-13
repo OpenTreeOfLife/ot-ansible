@@ -2,6 +2,7 @@
 # apache tasks
 - name: Install apache using apt
   become: yes
+  remote_user: deploy
   apt:
     name:
       - apache2
@@ -9,6 +10,7 @@
 
 - name: Install mod-wsgi using apt
   become: yes
+  remote_user: deploy
   apt:
     name:
       - libapache2-mod-wsgi
@@ -26,6 +28,7 @@
     - ssl
     - cgid
   become: true
+  remote_user: deploy
   become_method: sudo
 
 - name: write /etc/apache2/sites-available/opentree.conf
@@ -33,6 +36,7 @@
     src: templates/opentree_conf.j2
     dest: "/etc/apache2/sites-available/opentree.conf"
   become: true
+  remote_user: deploy
   become_method: sudo
   notify:
     - restart apache2
@@ -42,6 +46,7 @@
     src: templates/opentree_ssl_conf.j2
     dest: "/etc/apache2/sites-available/opentree-ssl.conf"
   become: true
+  remote_user: deploy
   become_method: sudo
   notify:
     - restart apache2
@@ -51,6 +56,7 @@
     src: templates/opentree_shared_conf.j2
     dest: "/etc/apache2/opentree-shared.conf"
   become: true
+  remote_user: deploy
   become_method: sudo
   notify:
     - restart apache2
@@ -61,6 +67,7 @@
     dest: /etc/apache2/sites-enabled/000-opentree.conf
     state: link
   become: true
+  remote_user: deploy
   become_method: sudo
   notify:
     - restart apache2
@@ -71,15 +78,17 @@
     dest: /etc/apache2/sites-enabled/001-opentree-ssl.conf
     state: link
   become: true
+  remote_user: deploy
   become_method: sudo
   notify:
     - restart apache2
 
-- name: disable the opentree ssl sites
+- name: disable the default apache site (remove symlink)
   file:
     dest: /etc/apache2/sites-enabled/000-default.conf
     state: absent
   become: true
+  remote_user: deploy
   become_method: sudo
   notify:
     - restart apache2

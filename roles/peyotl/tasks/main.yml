@@ -19,13 +19,13 @@
 - name: Create peyotl config file from template
   template:
     src: templates/config.j2
-    dest: "{{ peyotl_config_location }}/config.ini"
+    dest: "{{ peyotl_config_location }}/config"
   when: configure_peyotl
 
-# - name: "Create python 3 virtualenv if it does not already exist"
-#   command:
-#     cmd: python3 -m venv "{{ venv_peyotl }}"
-#     creates: /home/{{ ansibleuser }}/venv_peyotl
+- name: "Create python 3 virtualenv if it does not already exist"
+  command:
+    cmd: virtualenv -p python3 "{{ venv_peyotl }}"
+    creates: "{{ venv_peyotl }}"
 
 - name: Install peyotl prerequisites into "{{venv_peyotl}}"
   pip:

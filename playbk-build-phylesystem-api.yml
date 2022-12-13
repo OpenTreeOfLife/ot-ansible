@@ -1,0 +1,59 @@
+# top-level playbook for dates
+
+# assumes deploy user with sudo access exists
+---
+- hosts: ot62
+  gather_facts: False
+
+  pre_tasks:
+    - name: Check Ansible version
+      assert:
+        that: '(ansible_version.major, ansible_version.minor, ansible_version.revision) >= (2, 5, 1)'
+        msg: 'Please install the recommended version 2.5.1+. You have Ansible {{ ansible_version.string }}.'
+      run_once: yes
+
+    - name: Install basic libraries and tools using apt
+      become: yes
+      apt:
+        name:
+          - git-core
+          - python3-pip
+          - python3-venv
+          - python-setuptools
+          - python3-virtualenv
+          - unzip
+          - daemonize
+        state: present
+
+  vars:
+    apache_default_web_destination: phylesystem-api
+
+  tasks:
+
+    - name: Ensure a locale exists
+      community.general.locale_gen:
+        name: en_US.UTF-8
+        state: present
+      become: yes
+
+    - name: Install phylesystem-api
+      include_role:
+        name: phylesystem-api
+      vars:
+        install_location: "{{ repo_dir }}"
+
+    - name: load data for phylesystem-api
+      include_role:
+        name: ws_data
+
+    - name: Install and configure apache
+      include_role:
+        name: apache
+
+
+  handlers:
+    - name: restart apache2
+      become: true
+      service: name=apache2 state=restarted
+  #   - name: restart otcetera webservices
+  #     service:

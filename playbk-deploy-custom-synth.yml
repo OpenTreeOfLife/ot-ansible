@@ -1,0 +1,52 @@
+---
+- hosts:
+    - dates
+    - nexttree
+  gather_facts: False
+
+  pre_tasks:
+    - name: Check Ansible version
+      assert:
+        that: '(ansible_version.major, ansible_version.minor, ansible_version.revision) >= (2, 5, 1)'
+        msg: 'Please install the recommended version 2.5.1+. You have Ansible {{ ansible_version.string }}.'
+      run_once: yes
+
+  vars:
+    otc_ws_data: "{{ ws_dir }}/data"
+    custom_to_serve_par: "{{ otc_ws_data }}/custom"
+    custom_synth_wrapper_dir: "{{ synth_dir }}/custom_synth_scratch/wrappers"
+
+  vars_prompt:
+    - name: custom_synth_id
+      prompt: What is the ID of the custom synth run that you want to deploy?
+      private: no
+
+  tasks:
+    - name: Create directory to hold custom synths for serving
+      file:
+        path: "{{ custom_to_serve_par }}"
+        state: directory
+
+    - name: Create directory to hold custom synths for serving
+      file:
+        path: "{{ custom_to_serve_par }}/{{ custom_synth_id }}"
+        state: directory
+
+    - name: Uncompress custom synth
+      unarchive:
+        src: "{{ custom_synth_wrapper_dir }}/{{ custom_synth_id }}/{{ custom_synth_id }}.tar.gz"
+        dest: "{{ custom_to_serve_par }}/{{ custom_synth_id }}"
+        creates: "{{ custom_to_serve_par }}/{{ custom_synth_id }}/{{ custom_synth_id }}/index.html"
+        remote_src: yes
+
+    - name: compose possible config template lists
+      set_fact:
+        launch_input_filepaths: ["01-launch-pref.j2", "02-launch-custom.j2", "03-launch-suffix.j2"]
+
+    - name: write "launch_otc_ws_{{custom_synth_id}}.sh" script
+      template:
+        src: "roles/otcetera/templates/launch_otc_ws_app_sh.j2"
+        dest: "{{ cpp_apps_dir }}/local/bin/launch_otc_ws_{{custom_synth_id}}.sh"
+
+    - name: "launch otcws server via launch script"
+      command: "bash {{ cpp_apps_dir }}/local/bin/launch_otc_ws_{{custom_synth_id}}.sh"

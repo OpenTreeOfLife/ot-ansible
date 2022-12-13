@@ -4,4 +4,5 @@
     name: apache2
     state: restarted
   become: true
+  remote_user: deploy
   become_method: sudo

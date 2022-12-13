@@ -1,0 +1,144 @@
+###
+# app configuration
+# https://docs.pylonsproject.org/projects/pyramid/en/latest/narr/environment.html
+###
+
+[app:main]
+use = egg:phylesystem_api
+
+pyramid.reload_templates = false
+pyramid.debug_authorization = false
+pyramid.debug_notfound = false
+pyramid.debug_routematch = false
+pyramid.default_locale_name = en
+pyramid.includes =
+    pyramid_beaker
+    # pyramid_debugtoolbar
+
+cache.regions = short_term, long_term
+cache.type = memory
+# cache more dynamic stuff (e.g. main phylo tree) for just 10 minutes
+cache.short_term.expire = 600
+# store most data for 24 hrs, or until a restart
+cache.long_term.expire = 86400
+#cache.long_term.expire = never
+
+# point to this file once it's installed
+config_file_path = {{ phylesystem_api_config_location }}/config.ini
+# OR consider a more robust version?
+#config_file_path="%(here)s/config.ini"
+
+
+###
+# wsgi server configuration
+###
+
+[server:main]
+use = egg:waitress#main
+listen = localhost:6544
+
+
+###
+# logging configuration
+# https://docs.pylonsproject.org/projects/pyramid/en/latest/narr/logging.html
+###
+
+[loggers]
+keys = root, phylesystem_api, peyotl
+
+[handlers]
+keys = console, file_phyapi, file_pey
+
+[formatters]
+keys = generic
+
+[logger_root]
+level = INFO
+handlers = console
+
+[logger_phylesystem_api]
+level = DEBUG
+handlers = console, file_phyapi
+qualname = phylesystem_api
+
+[logger_peyotl]
+level = ERROR
+handlers = console, file_pey
+qualname = peyotl
+
+[handler_console]
+class = StreamHandler
+args = (sys.stderr,)
+level = NOTSET
+formatter = generic
+
+[handler_file_phyapi]
+class=FileHandler
+formatter=generic
+level=DEBUG
+args=('{{ logfile_dir }}/phylesystem_api.log',)
+
+[handler_file_pey]
+class=FileHandler
+formatter=generic
+level=DEBUG
+args=('{{ logfile_dir }}/peyotl_phy_api.log',)
+
+[formatter_generic]
+format =  %(asctime)s %(levelname)-5.5s [%(name)s:%(lineno)s] %(message)s
+
+
+###
+
+[apis]
+api_version = 3
+
+# if true, blocks all writing behavior
+read_only = {{ read_only_mode }}
+
+# the full path to where a local phylesystem.git can be found
+repo_path   = {{ phylesystem_repo_path }}
+repo_parent   = {{ phylesystem_repo_parent }}
+# prefix for new study ids. should be of the form [a-z][a-z]_
+# new_study_prefix = zz_
+
+# local paths for minor repos
+collections_repo_path   = {{ collections_repo_path }}
+collections_repo_parent = {{ collections_repo_parent }}
+amendments_repo_path    = {{ amendments_repo_path }}
+amendments_repo_parent  = {{ amendments_repo_parent }}
+
+# the remote to push changes to
+# This will usually be "origin" on a local dev machine where phylesystem.git
+# was cloned via SSH (git@github.com:...)
+# On deployed servers, which use anonymous git:// protocol, we add a new
+# remote "originssh" which can be pushed to
+repo_remote = {{ phylesystem_repo_remote }}
+
+# remotes for minor repos
+collections_repo_remote = {{ collections_repo_remote }}
+amendments_repo_remote  = {{ amendments_repo_remote }}
+
+# these allow us to specify the SSH keys that git pushes
+# will use. Leave the config keys in this config file,
+# without any values assigned, to not use this feature
+git_ssh     = {{ git_ssh }}
+pkey        = {{ git_private_key }}
+
+oti_base_url = {{ oti_base_url }}
+otindex_base_url = {{ otindex_base_url  }}
+collections_api_base_url = {{ collections_api_base_url }}
+amendments_api_base_url = {{ amendments_api_base_url }}
+favorites_api_base_url = {{ favorites_api_base_url }}
+
+opentree_docstore_url = {{ opentree_docstore_url }}
+# Push scripts will substitute the OTI_BASE_URL server-config variables, shared
+# with other apps.
+
+# URLs for minor repos
+collections_repo_url = {{ collections_repo_url }}
+amendments_repo_url = {{ amendments_repo_url }}
+
+# prefix for the GitHubRemote used in the push mirror
+#   default is git@github.com:OpenTreeOfLife
+# git_hub_remote = git@github.com:OpenTreeOfLife

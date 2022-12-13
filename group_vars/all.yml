@@ -6,6 +6,7 @@
 
 # we assume the ansibleuser exists and has sudo access
 ansibleuser: deploy
+opentree_user: deploy
 adminuser: admin
 synthesis_local: False
 
@@ -14,16 +15,17 @@ phylesystem_repo: phylesystem-1
 collections_repo: collections-1
 
 # default python version
-python_version: python3.8
+python_version: python3.7
 
 # python virtualenvs
 venv_otcws: /home/{{ansibleuser}}/venv_otcws
 venv_synth: /home/{{ansibleuser}}/venv_synth
-venv_web2py: /home/{{ansibleuser}}/venv_web2py
+venv_web2py: /home/{{opentree_user}}/venv_web2py
 
 # directories
 # these all get created in /home/{{ansibleuser}}
 repo_dir: /home/{{ansibleuser}}/repos
+ot_repo_dir: /home/{{opentree_user}}/repos
 cpp_apps_dir: /home/{{ansibleuser}}/cpp_apps
 ws_dir: /home/{{ansibleuser}}/ws_dir
 otc_ws_data: "{{ ws_dir }}/otc_ws_data"
@@ -48,6 +50,8 @@ ott_url: "{{ files_url }}/ott/ott{{ ott_version }}/ott{{ ott_version }}.tgz"
 
 ws_wrapper_branch: master
 
+# where should Apache send requests that have not previously matched elsewhere?
+apache_default_web_destination: None
 
 deploy_custom_synth: false
 #opentree_branch: nexttree
