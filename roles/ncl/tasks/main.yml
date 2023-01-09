@@ -33,3 +33,8 @@
   make:
     chdir: "{{ install_location }}/build-ncl-static"
     target: install
+
+- name: Create NCL scratch dir
+  file:
+      path: "{{ install_location }}/ncl-scratch"
+      state: directory
