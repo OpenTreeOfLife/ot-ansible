@@ -1,0 +1,35 @@
+---
+
+- name: Clone ncl repo
+  git:
+    repo: "https://github.com/mtholder/ncl.git"
+    dest: "{{ install_location }}/ncl"
+
+- name: run NCL's bootstrap script
+  command: bash bootstrap.sh
+  args:
+    chdir: "{{ install_location }}/ncl"
+    creates: "{{ install_location }}/ncl/configure"
+
+- name: Create NCL build dir
+  file:
+      path: "{{ install_location }}/build-ncl-static"
+      state: directory
+
+- name: configure NCL build
+  command: sh "../ncl/configure" "--enable-static" "--disable-shared" "--prefix={{ install_location }}/nclinstall"
+  args:
+    chdir: "{{ install_location }}/build-ncl-static"
+    creates: "{{ install_location }}/build-ncl-static/Makefile"
+
+- name: make NCL
+  make:
+    chdir: "{{ install_location }}/build-ncl-static"
+    target: all
+    params:
+      NUM_THREADS: 4
+
+- name: install NCL
+  make:
+    chdir: "{{ install_location }}/build-ncl-static"
+    target: install

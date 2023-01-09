@@ -1,0 +1,38 @@
+---
+- hosts:
+    - devtree
+  gather_facts: False
+
+  pre_tasks:
+    - name: Check Ansible version
+      assert:
+        that: '(ansible_version.major, ansible_version.minor, ansible_version.revision) >= (2, 5, 1)'
+        msg: 'Please install the recommended version 2.5.1+. You have Ansible {{ ansible_version.string }}.'
+      run_once: yes
+
+    - name: Update and upgrade apt packages
+      become: true
+      apt:
+        upgrade: yes
+        update_cache: yes
+        cache_valid_time: 86400 #One day
+
+    - name: Install basic libraries and tools using apt
+      become: yes
+      apt:
+        name:
+          - git-core
+          - gcc
+          - g++
+          - make
+          - autotools-dev
+          - automake
+        state: present
+
+ 
+  tasks:
+    - name: Install ncl
+      include_role:
+        name: ncl
+      vars:
+        install_location: "{{ repo_dir }}"
