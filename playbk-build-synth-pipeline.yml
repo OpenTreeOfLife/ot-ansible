@@ -24,7 +24,7 @@
     install_location: "{{ synth_dir }}"
     otcws: False
     otcetera_branch: taxonomy-diff-maker
-    peyotl_branch: allow-subtree-of-taxonomy
+    peyotl_branch: synth-on-demand
     peyotl_install_location: "{{ synth_dir }}"
     otc_prefix: "{{ synth_dir }}/local"
     venv_peyotl: "{{ venv_synth }}"

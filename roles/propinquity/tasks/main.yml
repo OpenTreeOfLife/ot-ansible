@@ -6,6 +6,12 @@
     dest: "{{ install_location }}/propinquity"
     version: "{{ propinquity_branch }}"
 
+- name: Create "{{venv_propinquity}}"
+  pip:
+    name: "wheel"
+    virtualenv: "{{ venv_propinquity }}"
+    virtualenv_python: "{{ python_version }}"
+
 - name: Install propinquity prerequisites into "{{venv_propinquity}}"
   pip:
     requirements: "{{ install_location }}/propinquity/requirements.txt"

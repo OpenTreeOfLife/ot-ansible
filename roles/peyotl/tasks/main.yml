@@ -27,6 +27,44 @@
     cmd: virtualenv -p python3 "{{ venv_peyotl }}"
     creates: "{{ venv_peyotl }}"
 
+- name: Clone peyutil repo for propinquity
+  git:
+    repo: "https://github.com/OpenTreeOfLife/peyutil"
+    dest: "{{ install_location }}/peyutil4propinquity"
+    version: "main"
+
+- name: Install peyutil prerequisites into "{{venv_peyotl}}"
+  pip:
+    requirements: "{{ install_location }}/peyutil4propinquity/requirements.txt"
+    virtualenv: "{{ venv_peyotl }}"
+    virtualenv_python: "{{ python_version }}"
+
+- name: Install peyutil into {{venv_peyotl}} as a link
+  pip:
+    name: "{{ install_location }}/peyutil4propinquity"
+    extra_args: '-e'
+    virtualenv: "{{ venv_peyotl }}"
+    virtualenv_python: "{{ python_version }}"
+
+- name: Clone nexson repo for propinquity
+  git:
+    repo: "https://github.com/OpenTreeOfLife/nexson"
+    dest: "{{ install_location }}/nexson4propinquity"
+    version: "main"
+
+- name: Install nexson prerequisites into "{{venv_peyotl}}"
+  pip:
+    requirements: "{{ install_location }}/nexson4propinquity/requirements.txt"
+    virtualenv: "{{ venv_peyotl }}"
+    virtualenv_python: "{{ python_version }}"
+
+- name: Install nexson into {{venv_peyotl}} as a link
+  pip:
+    name: "{{ install_location }}/nexson4propinquity"
+    extra_args: '-e'
+    virtualenv: "{{ venv_peyotl }}"
+    virtualenv_python: "{{ python_version }}"
+
 - name: Install peyotl prerequisites into "{{venv_peyotl}}"
   pip:
     requirements: "{{ install_location }}/peyotl/requirements.txt"
