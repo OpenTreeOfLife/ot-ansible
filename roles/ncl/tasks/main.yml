@@ -36,5 +36,5 @@
 
 - name: Create NCL scratch dir
   file:
-      path: "{{ install_location }}/ncl-scratch"
+      path: "{{ install_location }}/opentree/curator/private/scratch"
       state: directory
