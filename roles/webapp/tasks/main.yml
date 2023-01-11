@@ -75,17 +75,29 @@
     dest: "{{ install_location }}/web2py/applications/opentree"
     state: link
 
+- name: Check for client secret
+  stat:
+    path: "{{ install_location }}/opentree/webapp/private/GITHUB_CLIENT_SECRET"
+  register: github_client_secret
+
 - name: copy client secret for github treeview app to web2py applications dir
   copy:
     src: "{{ tree_explorer_client_secret }}"
     dest: "{{ install_location }}/opentree/webapp/private/GITHUB_CLIENT_SECRET"
     mode: 400
+  when: not github_client_secret.stat.exists
+
+- name: Check for app key
+  stat:
+    path: "{{ install_location }}/opentree/webapp/private/GITHUB_APP_PRIVATE_KEY_PEM"
+  register: github_app_priv_key_pem
 
 - name: copy private key for github app to web2py applications dir
   copy:
     src: "{{ tree_explorer_pem_path }}"
     dest: "{{ install_location }}/opentree/webapp/private/GITHUB_APP_PRIVATE_KEY_PEM"
     mode: 400
+  when: not github_app_priv_key_pem.stat.exists
 
 - name: create link to curator app in web2py applications dir
   file:
@@ -95,20 +107,29 @@
   when: install_curator
 
 
+- name: Check for curator secret
+  stat:
+    path: "{{ install_location }}/opentree/curator/private/GITHUB_CLIENT_SECRET"
+  register: github_curator_secret
+
 - name: copy client secret for github curator app to web2py applications dir
   copy:
     src: "{{ curator_client_secret }}"
     dest: "{{ install_location }}/opentree/curator/private/GITHUB_CLIENT_SECRET"
     mode: 400
-  when: install_curator
+  when: (install_curator) and (not github_curator_secret.stat.exists)
 
+- name: Check for curator app key
+  stat:
+    path: "{{ install_location }}/opentree/curator/private/GITHUB_APP_PRIVATE_KEY_PEM"
+  register: github_curator_app_priv_key_pem
 
 - name: copy private key for github app to web2py applications dir
   copy:
     src: "{{ curator_pem_path }}"
     dest: "{{ install_location }}/opentree/curator/private/GITHUB_APP_PRIVATE_KEY_PEM"
     mode: 400
-  when: install_curator
+  when: (install_curator) and (not github_curator_app_priv_key_pem.stat.exists)
 
 # TODO: create non curatorless config for dev / prod
 - name: configure opentree webapp
