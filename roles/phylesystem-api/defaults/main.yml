@@ -5,7 +5,7 @@
 # `production.yml`, ...)
 
 # deployed branch for each subsystem/repo
-phylesystem_api_branch: pyramid-migration
+phylesystem_api_branch: update-trees-in-synth-fetch
 peyotl_phylesystemapi_branch: pyramid-adjacent-changes
 
 install_dir: "/home/{{ansibleuser}}/repos"
