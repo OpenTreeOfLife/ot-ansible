@@ -1,0 +1,40 @@
+---
+# We assume this is only called from the otcetera role,
+# so the (shared) requirements are installed there, not here
+
+- name: Create g3log dir
+  file:
+    path: "{{ build_location }}/g3log"
+    state: directory
+
+- name: Clone g3log repo
+  git:
+    repo: "{{ g3log_git_remote }}"
+    dest: "{{ build_location }}/g3log/source"
+    version: "{{ g3log_git_tag }}"
+    recursive: yes  # yes is the default, but being explicit
+
+- name: Create g3log build dir
+  file:
+    state: directory
+    path: "{{ build_location }}/g3log/build"
+    owner: "{{ ansibleuser }}"
+    group: "{{ ansibleuser }}"
+
+- name: create restbuild Makefile
+  command: "cmake {{ build_location }}/g3log/source -G Ninja -DUSE_DYNAMIC_LOGGING_LEVELS=ON -DCMAKE_INSTALL_PREFIX=/usr -DCPACK_PACKAGE_FILE_NAME=g3log"
+  args:
+    chdir: "{{ build_location }}/g3log/build"
+    creates: "{{ build_location }}/g3log/build/build.ninja"
+
+- name: build g3log *.deb package
+  command: nice -n10 ninja package
+  args:
+    chdir: "{{ build_location }}/g3log/build"
+    creates: "{{ build_location }}/g3log/build/g3log.deb"
+
+- name: install package
+  become: true
+  apt:
+    deb: "{{ build_location }}/g3log/build/g3log.deb"
+

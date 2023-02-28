@@ -19,5 +19,3 @@ ws_dir: /home/{{ansibleuser}}/ws_dir
 ot_repo_dir: /home/{{opentree_user}}/repos
 chronosynth_branch: dev
 
-otcetera_branch: tnrs-on-subset
-otcetera_git_remote: https://github.com/OpenTreeOfLife/otcetera
