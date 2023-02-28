@@ -5,4 +5,4 @@ export OTROOT="{{ otc_prefix }}"
 echo "CPPFLAGS=${CPPFLAGS}"
 echo "CXXFLAGS=${CXXFLAGS}"
 echo "LDFLAGS=${LDFLAGS}"
-meson build {{ install_location }}/otcetera/source --prefix="${OTROOT}" -Dwebservices="{{ otcws }}" -Drestbed_dir="${OTROOT}" -Dbuildtype=release
+meson setup build {{ install_location }}/otcetera/source --prefix="${OTROOT}" -Dwebservices="{{ otcws }}" -Drestbed_dir="${OTROOT}" -Dbuildtype=release

@@ -38,6 +38,12 @@
     install_location: "{{ repo_dir }}"
   when: otcws
 
+- name: Install g3log for otc
+  include_role:
+    name: g3log
+  vars:
+    build_location: "{{ repo_dir }}"
+
 - name: Create otcetera dir
   file:
     path: "{{ install_location }}/otcetera"
