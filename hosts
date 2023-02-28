@@ -27,3 +27,4 @@ all:
         devtree:
           host: devtree
           ansible_host: devtree.opentreeoflife.org
+          opentree_branch: development
