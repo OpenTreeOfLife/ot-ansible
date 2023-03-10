@@ -40,6 +40,9 @@ peyotl_webapp_branch: master
 
 # Synthesis tree and open tree taxonomy download locations
 # Set versions in production.yml, development.yml, or nexttree.yml
+ott_version: 3.3
+synth_version: 13.4
+
 files_url: https://files.opentreeoflife.org
 synth_tree_url: "{{ files_url }}/synthesis/opentree{{ synth_version }}/opentree{{synth_version}}.tgz"
 ott_url: "{{ files_url }}/ott/ott{{ ott_version }}/ott{{ ott_version }}.tgz"
