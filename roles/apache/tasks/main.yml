@@ -55,6 +55,9 @@
   template:
     src: templates/opentree_shared_conf.j2
     dest: "/etc/apache2/opentree-shared.conf"
+  vars:
+    phylesystem_api_stub: devphylesystemapi
+    otindex_stub: devotindex
   become: true
   remote_user: deploy
   become_method: sudo
