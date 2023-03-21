@@ -28,3 +28,9 @@ all:
           host: devtree
           ansible_host: devtree.opentreeoflife.org
           opentree_branch: development
+    devdevapi:
+      hosts:
+        devdevapi:
+          host: devdevapi
+          ansible_host: ot66.opentreeoflife.org
+          otcetera_branch: development

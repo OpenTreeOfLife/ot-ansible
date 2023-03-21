@@ -24,6 +24,8 @@
     extra_args: '-e'   # link rather than copy
     virtualenv: "{{ venv_otcws }}"
 
+- name: Create log file dir
+  file: path={{ logfile_dir }} state=directory
 
 - name: compose possible config template lists
   set_fact:

@@ -44,6 +44,9 @@
   vars:
     build_location: "{{ repo_dir }}"
 
+- name: Create log file dir
+  file: path={{ logfile_dir }} state=directory
+
 - name: Create otcetera dir
   file:
     path: "{{ install_location }}/otcetera"

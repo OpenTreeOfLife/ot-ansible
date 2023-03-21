@@ -2,6 +2,7 @@
 - hosts:
     - dates
     - nexttree
+    - devdevapi
   gather_facts: False
 
   pre_tasks:
