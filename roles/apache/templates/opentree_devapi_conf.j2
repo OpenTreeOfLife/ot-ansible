@@ -1,0 +1,140 @@
+# This file is for apache 2.4+. It was derived from the file
+# /etc/apache2/sites-available/default in apache2 as installed in ubuntu 12.04.
+#
+# Now that we're supporting both HTTP and HTTPS, this file contains all the
+# shared configuration for VirtualHosts in 'opentree.conf' and 'opentree-ssl.conf'. See
+# http://serverfault.com/questions/83669/apache2-with-ssl-do-i-have-to-copy-virtualhost-blocks
+#
+# This file should be periodically reviewed as apache versions advance and
+# 'best practice' for virtual host configurations changes.
+
+    ServerAdmin webmaster@localhost
+
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+    # TEMPORARY REDIRECT to maintenance page
+    #RedirectMatch 302 ^(.*)$ https://opentreeoflife.github.io/maintenance/
+    #RedirectMatch 302 ^(.*/curator)$ https://opentreeoflife.github.io/
+    #RedirectMatch 302 ^(.*/curator/.*)$ https://opentreeoflife.github.io/
+    #RedirectMatch 302 ^(.*/about/.*)$ https://opentreeoflife.github.io/
+    #RedirectMatch 302 ^(.*/opentree)$ https://opentreeoflife.github.io/
+    #RedirectMatch 302 ^(.*/opentree/.*)$ https://opentreeoflife.github.io/
+    #RedirectMatch 302 ^(.*)$ https://opentreeoflife.github.io/maintenance/
+    #RedirectMatch 302 ^(.*)$ https://opentreeoflife.github.io/maintenance/
+
+    # See https://github.com/OpenTreeOfLife/opentree/wiki/Open-Tree-of-Life-APIs
+
+    Alias "/taxonomy/browse" "/home/opentree/repo/opentree/taxonomy/cgi-bin/browse.py"
+
+    <Directory "/home/opentree/repo/opentree/taxonomy/cgi-bin">
+      Require all granted
+      Options +ExecCGI
+      AddHandler cgi-script .py
+    </Directory>
+
+    # Explicit routing for /cached/* URLs (in phylesystem-api)
+
+    RewriteEngine on
+    #WAS RewriteRule ^/cached/(.*) "https://devphylesystemapi.opentreeoflife.org/phylesystem/default/cached/$1" [P]
+    RewriteRule ^/cached/(.*) "https://{{ phylesystem_api_stub }}.opentreeoflife.org/cached/$1" [P]
+
+    # Avoid pyramids/web2py conflicts by deploying otindex on a different machine, and rewriting urls (wthout redirect)
+    SSLProxyEngine On
+    RewriteEngine on
+    RewriteRule "^/v3/studies(.*)" "https://{{ otindex_stub }}.opentreeoflife.org/otindex/v3/studies$1" [P]
+
+    # Avoid pyramids/web2py conflicts by deploying phylesystem_api on a different machine, and rewriting urls (wthout redirect)
+    SSLProxyEngine On
+    RewriteEngine on
+    #WAS RewriteRule "^/v3/study(.*)"                "https://devphylesystemapi.opentreeoflife.org/phylesystem/v1/study$1" [P]
+    #WAS RewriteRule "^/v3/phylesystem_config"       "https://devphylesystemapi.opentreeoflife.org/phylesystem/v1/phylesystem_config" [P]
+    #WAS RewriteRule "^/v3/render_markdown"          "https://devphylesystemapi.opentreeoflife.org/phylesystem/v1/render_markdown" [P]
+    #WAS RewriteRule "^/v3/trees_in_synth"           "https://devphylesystemapi.opentreeoflife.org/phylesystem/v1/trees_in_synth" [P]
+    #WAS RewriteRule "^/v3/include_tree_in_synth"    "https://devphylesystemapi.opentreeoflife.org/phylesystem/v1/include_tree_in_synth" [P]
+    #WAS RewriteRule "^/v3/exclude_tree_from_synth"  "https://devphylesystemapi.opentreeoflife.org/phylesystem/v1/exclude_tree_from_synth" [P]
+    RewriteRule "^/v3/study(.*)"                "https://{{ phylesystem_api_stub }}.opentreeoflife.org/v1/study$1" [P]
+    RewriteRule "^/v3/phylesystem_config"       "https://{{ phylesystem_api_stub }}.opentreeoflife.org/v1/phylesystem_config" [P]
+    RewriteRule "^/v3/render_markdown"          "https://{{ phylesystem_api_stub }}.opentreeoflife.org/v1/render_markdown" [P]
+    RewriteRule "^/v3/trees_in_synth"           "https://{{ phylesystem_api_stub }}.opentreeoflife.org/v1/trees_in_synth" [P]
+    RewriteRule "^/v3/include_tree_in_synth"    "https://{{ phylesystem_api_stub }}.opentreeoflife.org/v1/include_tree_in_synth" [P]
+    RewriteRule "^/v3/exclude_tree_from_synth"  "https://{{ phylesystem_api_stub }}.opentreeoflife.org/v1/exclude_tree_from_synth" [P]
+
+
+    # ------------------------------------------------------------
+    # Public v3 API (originally cloned from v2)
+
+
+    # collections-api is provided via web2py
+    RewriteEngine on
+    # N.B. that we should match "bare" URLs like '/v3/collection' to create a resource!
+    RewriteRule ^/v3/collections(.*) https://{{ phylesystem_api_stub }}.opentreeoflife.org/v1/collections$1 [P]
+    RewriteRule ^/v3/collection(.*)  https://{{ phylesystem_api_stub }}.opentreeoflife.org/v1/collection$1 [P]
+
+    # amendments-api is provided via web2py
+    RewriteEngine on
+    # N.B. that we should match "bare" URLs like '/v3/amendment' to create a resource!
+    RewriteRule ^/v3/amendments(.*) https://{{ phylesystem_api_stub }}.opentreeoflife.org/v1/amendments$1 [P]
+    RewriteRule ^/v3/amendment(.*)  https://{{ phylesystem_api_stub }}.opentreeoflife.org/v1/amendment$1 [P]
+
+    # some utility methods (undocumented) are mainly used by OpenTree webapps;
+    # these are provided by web2py, and typically unchanged since v1
+    RewriteRule ^/v3/phylesystem_config         https://{{ phylesystem_api_stub }}.opentreeoflife.org/v1/phylesystem_config [PT]
+    RewriteRule ^/v3/render_markdown            https://{{ phylesystem_api_stub }}.opentreeoflife.org/v1/render_markdown [PT]
+    RewriteRule ^/v3/trees_in_synth             https://{{ phylesystem_api_stub }}.opentreeoflife.org/v1/trees_in_synth [PT]
+    RewriteRule ^/v3/include_tree_in_synth      https://{{ phylesystem_api_stub }}.opentreeoflife.org/v1/include_tree_in_synth [PT]
+    RewriteRule ^/v3/exclude_tree_from_synth    https://{{ phylesystem_api_stub }}.opentreeoflife.org/v1/exclude_tree_from_synth [PT]
+
+
+    <Location /v3/tree_of_life>
+      Require all granted
+      ProxyPass  http://localhost:1983/v3/tree_of_life
+      ProxyPassReverse  http://localhost:1983/v3/tree_of_life
+    </Location>
+
+    <Location /v3/tnrs>
+      Require all granted
+      ProxyPass  http://localhost:1983/v3/tnrs
+      ProxyPassReverse  http://localhost:1983/v3/tnrs
+    </Location>
+
+    <Location /v3/taxonomy>
+      Require all granted
+      ProxyPass  http://localhost:1983/v3/taxonomy
+      ProxyPassReverse  http://localhost:1983/v3/taxonomy
+    </Location>
+
+    # ws_wrapper for conflict services
+    <Location /v3/conflict>
+      Require all granted
+      ProxyPass  http://localhost:1983/v3/conflict
+      ProxyPassReverse  http://localhost:1983/v3/conflict
+    </Location>
+
+    # ws_wrapper for dates services
+    <Location /v4/dates>
+      Require all granted
+      ProxyPass  http://localhost:1983/v4/dates
+      ProxyPassReverse  http://localhost:1983/v4/dates
+    </Location>
+
+    # web2py admin access
+
+    # Restrict web2py admin pages to admin users on localhost (SSH tunnel)
+    # TODO: Should this apply to the HTTPS VirtualHost as well?
+    <Location /admin>
+      Require ip 127.0.0.1
+    </Location>
+    <LocationMatch ^/([^/]+)/appadmin>
+      Require ip 127.0.0.1
+    </LocationMatch>
+
+{% if apache_default_web_destination == 'phylesystem-api' %}
+    # 6544 = default port for phylesytem-api (Pyramid)
+    <Location />
+      Require all granted
+      ProxyPass  http://localhost:6544/
+      ProxyPassReverse  http://localhost:6544/
+    </Location>
+{% elif apache_default_web_destination == 'TBD' %}
+    # Add another option here for default web listener/proxy
+{% endif %}
