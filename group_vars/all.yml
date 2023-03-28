@@ -3,7 +3,10 @@
 # Variables here apply to both production and development
 # Variables set here will override settings in roles/defaults
 # Variables set here will ALSO override settings in hosts!
-# Variables in other group_vars/* files will override this file.
+# Variables in other group_vars/{host_group} files will override this file.
+# Variables in host_vars/* will also override this file.
+# For a clear ordering of unclear categories, see:
+#   https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable
 ###
 
 # we assume the ansibleuser exists and has sudo access
