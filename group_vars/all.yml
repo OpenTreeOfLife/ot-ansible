@@ -37,7 +37,6 @@ logfile_dir: /home/{{ansibleuser}}/logs
 
 
 peyotl_git_remote: https://github.com/OpenTreeOfLife/peyotl
-peyotl_webapp_branch: master
 
 # Synthesis tree and open tree taxonomy download locations
 # Set versions in production.yml, development.yml, or nexttree.yml
