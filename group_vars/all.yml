@@ -11,6 +11,7 @@ opentree_user: deploy
 adminuser: admin
 synthesis_local: False
 
+# Overridden in group_vars/* (e.g. group_vars/dev_api.yml)
 phylesystem_repo: phylesystem-1
 collections_repo: collections-1
 
