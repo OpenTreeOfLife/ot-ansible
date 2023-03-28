@@ -34,4 +34,6 @@ all:
           host: devapi
           ansible_host: ot66.opentreeoflife.org
           otcetera_branch: development
+          ws_wrapper_branch: development
+
 
