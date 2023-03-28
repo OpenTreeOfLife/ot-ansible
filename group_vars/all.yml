@@ -3,6 +3,7 @@
 # Variables here apply to both production and development
 # Variables set here will override settings in roles/defaults
 # Variables set here will ALSO override settings in hosts!
+# Variables in other group_vars/* files will override this file.
 ###
 
 # we assume the ansibleuser exists and has sudo access
