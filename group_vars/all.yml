@@ -49,7 +49,6 @@ ott_url: "{{ files_url }}/ott/ott{{ ott_version }}/ott{{ ott_version }}.tgz"
 apache_default_web_destination: None
 
 deploy_custom_synth: false
-#opentree_branch: nexttree
 
 # By default, curation on tree
 curator_endpoint: https://tree.opentreeoflife.org/curator
