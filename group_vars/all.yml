@@ -3,6 +3,10 @@
 # Variables here apply to both production and development
 # Variables set here will override settings in roles/defaults
 # Variables set here will ALSO override settings in hosts!
+# Variables in other group_vars/{host_group} files will override this file.
+# Variables in host_vars/* will also override this file.
+# For a clear ordering of unclear categories, see:
+#   https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable
 ###
 
 # we assume the ansibleuser exists and has sudo access
@@ -11,7 +15,7 @@ opentree_user: deploy
 adminuser: admin
 synthesis_local: False
 
-#opentree_maven_dir: /home/{{ansibleuser}}/.m2/repository/org/opentree
+# Overridden in group_vars/* (e.g. group_vars/dev_api.yml)
 phylesystem_repo: phylesystem-1
 collections_repo: collections-1
 
@@ -37,7 +41,6 @@ logfile_dir: /home/{{ansibleuser}}/logs
 
 
 peyotl_git_remote: https://github.com/OpenTreeOfLife/peyotl
-peyotl_webapp_branch: master
 
 # Synthesis tree and open tree taxonomy download locations
 # Set versions in production.yml, development.yml, or nexttree.yml
@@ -45,15 +48,10 @@ files_url: https://files.opentreeoflife.org
 synth_tree_url: "{{ files_url }}/synthesis/opentree{{ synth_version }}/opentree{{synth_version}}.tgz"
 ott_url: "{{ files_url }}/ott/ott{{ ott_version }}/ott{{ ott_version }}.tgz"
 
-otcetera_git_remote: https://github.com/OpenTreeOfLife/otcetera
-# otcetera_synth_branch: bump_fossil_higher
-# otcetera_ws_branch: no-fuzzy-match-db
-
 # where should Apache send requests that have not previously matched elsewhere?
 apache_default_web_destination: None
 
 deploy_custom_synth: false
-#opentree_branch: nexttree
 
 # By default, curation on tree
 curator_endpoint: https://tree.opentreeoflife.org/curator
