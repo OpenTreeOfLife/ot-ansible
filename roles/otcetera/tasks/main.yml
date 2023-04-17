@@ -18,6 +18,7 @@
       - g++
       - ninja-build
       - libboost-all-dev
+      - ccache
     state: present
 
 - name: Install packages needed for webservices
