@@ -9,7 +9,7 @@
   git:
     repo: "{{ peyotl_git_remote }}"
     dest: "{{ install_location }}/peyotl_for_ws_wrapper"
-    version: "{{ peyotl_webapp_branch }}"
+    version: "{{ peyotl_otc_ws_branch }}"
 
 - name: install peyotl into {{venv_otcws}} as a link
   pip:
