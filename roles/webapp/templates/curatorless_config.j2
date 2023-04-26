@@ -13,20 +13,30 @@ github_app_installation_id = {{ treeview_github_app_installation_id }}
 # loaded from a separate file and added to config data on-the-fly.
 
 
-# List public-facing base URL for treemachine and taxomachine services
+# List public-facing base URL for supporting data services
 # (NOTE that these are used by both server- and client-side code)
 [domains]
 treemachine = {{ tree_of_life_endpoint }}
+    # TODO: rename this to ???
 taxomachine = {{ taxonomy_endpoint }}
+    # TODO: rename this to ???
 oti = {{ otindex_endpoint }}
+    # TODO: rename this to otindex?
 opentree_api = {{ tree_of_life_endpoint }}
+    # TODO: rename this to phylesystem_api, phylesystem_api_domain (below)
 collections_api_base_url = {{ curator_endpoint }}
+    # TODO: use phylesystem_api here as well
 favorites_api_base_url = {{ curator_endpoint }}
+    # TODO: use phylesystem_api here as well
+conflict_api = {{ conflict_endpoint }}
 # Cached versions of some APIs will speed up repeated calls (see below).
 # These use a simple web2py cache implemented in phylesystem-api
 CACHED_treemachine = {{ tree_of_life_endpoint }}
+    # TODO: reflect any name change to 'treemachine' above
 CACHED_taxomachine = {{ tree_of_life_endpoint }}
+    # TODO: reflect any name change to 'taxomachine' above
 CACHED_oti = {{ otindex_endpoint }}/cached
+    # TODO: reflect any name change to 'oti' above
 
 # Building on the URLs above, complete the public-facing URL for all methods
 # (again, these should work from both server- and client-side code)
@@ -47,4 +57,7 @@ singlePropertySearchForTrees_url = {{ curator_endpoint }}/v3/studies/find_trees
 getTaxonInfo_url = {{ taxonomy_endpoint }}/v3/taxonomy/taxon_info
 # Include one phylesystem-api method to download NexSON from Bibliographic References page
 API_load_study_GET_url = {{ study_api_endpoint }}/v3/study/{STUDY_ID}
+
+# The synth-tree viewer GUI includes links to a curation app. For "curatorless"
+# installations, this should point to a working public curation app.
 curator_url = {{ curator_endpoint }}
