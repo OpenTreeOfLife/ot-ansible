@@ -14,7 +14,7 @@ taxonomy_endpoint_cache:  https://{{ subdomain }}.opentreeoflife.org
 conflict_endpoint:  https://{{ subdomain }}.opentreeoflife.org
 otindex_endpoint:  https://{{ subdomain }}.opentreeoflife.org
 
-curator_endpoint: https://devtree.opentreeoflife.org/curator
+curation_webapp_url: https://devtree.opentreeoflife.org/curator
 
 
 # and to production for everything else
