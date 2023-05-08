@@ -12,7 +12,6 @@ install_dir: "/home/{{ansibleuser}}/repos"
 # NB - variables in ALL_CAPS_FORM are used on only within this file!
 SHARED_DOCSTORE_PARENT: "{{ install_dir }}/docstore/"
 
-canonical_host: devapi.opentreeoflife.org
 logfile_dir: "/home/{{ ansibleuser }}/logs"
 phylesystem_api_logging_filepath: "{{ logfile_dir }}/phylesystem_api_main.log"
 phylesystem_api_config_location: "/home/{{ansibleuser}}/configs/phylesystem_api"
@@ -47,28 +46,6 @@ phylesystem_repo_remote: originssh
 # remotes for minor repos
 collections_repo_remote: originssh 
 amendments_repo_remote: originssh
-
-# these allow us to specify the SSH keys that git pushes
-# will use. Leave the config keys in this config file,
-# without any values assigned, to not use this feature
-## Need to generate key on server, 
-## and set in GitHub as deploy key for appropriate app.
-git_ssh: "{{ install_dir }}/phylesystem-api/bin/git.sh"
-git_private_key: "/home/{{ ansibleuser }}/.ssh/id_ed25519_shared"
-
-# other API endpoints
-DEFAULT_API_BASE_URL: "https://devapi.opentreeoflife.org"
-oti_base_url: "{{ DEFAULT_API_BASE_URL }}"
-collections_api_base_url: "https://{{ canonical_host }}/"
-amendments_api_base_url: "https://{{ canonical_host }}/"
-favorites_api_base_url: "https://{{ canonical_host }}/"
-otindex_base_url: "https://devotindex.opentreeoflife.org"
-
-# Github repo org+name for each docstore repo
-#
-STUDIES_GITHUB_NAME: OpenTreeOfLife/phylesystem-0
-COLLECTIONS_GITHUB_NAME: OpenTreeOfLife/collections-0
-AMENDMENTS_GITHUB_NAME: OpenTreeOfLife/amendments-0
 
 # URLs for each docstore repo
 opentree_docstore_url: https://github.com/{{ STUDIES_GITHUB_NAME }}
