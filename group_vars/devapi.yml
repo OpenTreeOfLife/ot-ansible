@@ -15,3 +15,8 @@ taxonomy_endpoint_cache:  https://{{ subdomain }}.opentreeoflife.org
 conflict_endpoint:  https://{{ subdomain }}.opentreeoflife.org
 otindex_endpoint:  https://{{ subdomain }}.opentreeoflife.org
 study_api_endpoint: https://{{ subdomain }}.opentreeoflife.org
+
+
+
+phylesystem_api_stub: devphylesystemapi
+otindex_stub: devotindex

@@ -3,6 +3,8 @@
 ## TODO: Create deploy key?? Set it in config.
 ## At least check that it is there?
 ## pkey        = {{ git_private_key }}
+## There need to be keys for collections, ammendemnets and phylesystem
+## Currently public key lives in opentree-api bot user (I think??)
 
 
 ## Install and configure peyotl

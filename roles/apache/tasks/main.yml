@@ -52,19 +52,30 @@
     - restart apache2
 
 
-## RIGHT NOW THIS WILL ONLY WORK FOR API!
-- name: write /etc/apache2/opentree-shared.conf
+## To properly point cached sites to phylesystem-api need different apaches configs
+## This uses the variables "phylesystem_api_stub" and "otindex_stub" from api/devapi.yml
+- name: write /etc/apache2/opentree-shared.conf for non-phylesystemapi machines
   template:
     src: templates/opentree_devapi_conf.j2
     dest: "/etc/apache2/opentree-shared.conf"
-  vars:
-    phylesystem_api_stub: devphylesystemapi
-    otindex_stub: devotindex
   become: true
   remote_user: deploy
   become_method: sudo
   notify:
     - restart apache2
+  when: inventory_hostname not in groups['phylesystemapi','devphylesystemapi']
+
+## Apache configs should be reualble on other machines, but phylesystemapi gets a different one
+- name: write /etc/apache2/opentree-shared.conf for phylesystemapi
+  template:
+    src: templates/opentree_phylesystemapi_conf.j2
+    dest: "/etc/apache2/opentree-shared.conf"
+  become: true
+  remote_user: deploy
+  become_method: sudo
+  notify:
+    - restart apache2
+  when: inventory_hostname in groups['phylesystemapi','devphylesystemapi']
 
 - name: enable the opentree site
   file:

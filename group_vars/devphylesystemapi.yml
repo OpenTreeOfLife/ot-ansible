@@ -1,6 +1,33 @@
 ---
-# variables for nexttree server
+# variables for devphylesystemapi server
 # Variables set here will override settings in role/*/defaults/main.yml
 
 synth_version: 13.4
 ott_version: 3.3
+
+
+# these allow us to specify the SSH keys that git pushes
+# will use. Leave the config keys in this config file,
+# without any values assigned, to not use this feature
+## Need to generate key on server, 
+## and set in GitHub as deploy key for appropriate app.
+git_ssh: "{{ install_dir }}/phylesystem-api/bin/git.sh"
+git_private_key: "/home/{{ ansibleuser }}/.ssh/id_ed25519_shared"
+
+
+
+canonical_host: devapi.opentreeoflife.org
+
+# other API endpoints
+oti_base_url: "{{ DEFAULT_API_BASE_URL }}"
+collections_api_base_url: "https://{{ canonical_host }}/"
+amendments_api_base_url: "https://{{ canonical_host }}/"
+favorites_api_base_url: "https://{{ canonical_host }}/"
+otindex_base_url: "https://{{ canonical_host }}/"
+
+# Github repo org+name for each docstore repo
+#
+STUDIES_GITHUB_NAME: OpenTreeOfLife/phylesystem-0
+COLLECTIONS_GITHUB_NAME: OpenTreeOfLife/collections-0
+AMENDMENTS_GITHUB_NAME: OpenTreeOfLife/amendments-0
+
