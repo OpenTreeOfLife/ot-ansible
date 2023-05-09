@@ -22,12 +22,6 @@ apis_common_base_URL: https://ot58.opentreeoflife.org
 # Some development systems also look to production data
 apis_production_base_URL: https://api.opentreeoflife.org
 
-# and to production for everything else
-# TODO: apply production base URL above in config files!
-study_index_endpoint: https://otindex.opentreeoflife.org
-study_index_endpoint_cache: https://otindex.opentreeoflife.org
-
-
 github_app_id: 65862
 github_client_id: Iv1.8b8116ce58d092c4
 github_redirect_uri: "{{ curation_webapp_url }}/user/login"
