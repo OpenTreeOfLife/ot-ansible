@@ -19,7 +19,6 @@ git_private_key: "/home/{{ ansibleuser }}/.ssh/id_ed25519_shared"
 canonical_host: devapi.opentreeoflife.org
 
 # other API endpoints
-oti_base_url: "{{ DEFAULT_API_BASE_URL }}"
 collections_api_base_url: "https://{{ canonical_host }}/"
 amendments_api_base_url: "https://{{ canonical_host }}/"
 favorites_api_base_url: "https://{{ canonical_host }}/"

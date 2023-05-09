@@ -3,8 +3,22 @@
 ## TODO: Create deploy key?? Set it in config.
 ## At least check that it is there?
 ## pkey        = {{ git_private_key }}
-## There need to be keys for collections, ammendemnets and phylesystem
-## Currently public key lives in opentree-api bot user (I think??)
+## Currently lives in EJM's keys
+
+
+- name: uninstall setuptools
+  pip:
+    name: setuptools
+    state: absent
+    virtualenv: "{{ venv_phylesystem_api }}"
+
+
+
+- name: Install downgraded setuptools for peyotl install
+  pip:
+    name: setuptools<58.0.0
+    virtualenv: "{{ venv_phylesystem_api }}"
+
 
 
 ## Install and configure peyotl
@@ -29,10 +43,10 @@
     name: waitress
     virtualenv: "{{ venv_phylesystem_api }}"
 
-
+## Requirements.txt seems to have picked up a byunch of cruft that is making installs fail...
 - name: Install phylesystem-api python requirements
   pip:
-    requirements: "{{ install_dir }}/phylesystem-api/requirements.txt"
+    requirements: "{{ install_dir }}/phylesystem-api/requirements.in"
     virtualenv: "{{ venv_phylesystem_api }}"
 
 - name: Install phylesystem-api

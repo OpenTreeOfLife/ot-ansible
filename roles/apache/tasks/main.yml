@@ -13,7 +13,7 @@
   remote_user: deploy
   apt:
     name:
-      - libapache2-mod-wsgi
+      - libapache2-mod-wsgi-py3
     state: present
 
 - name: enable apache2 modules
@@ -63,7 +63,18 @@
   become_method: sudo
   notify:
     - restart apache2
-  when: inventory_hostname not in groups['phylesystemapi','devphylesystemapi']
+  when:  apache_default_web_destination != 'phylesystem-api'
+
+
+#- name: check for certs
+#  stat: path="/etc/letsencrypt/live/opentreeoflife.org/fullchain.pem"
+#  remote_user: deploy
+#  become_method: sudo
+#  register: certs
+
+#- name: fail if certs are missing
+#  fail: msg="This host needs certs"
+#  when: not certs.stat.exists
 
 ## Apache configs should be reualble on other machines, but phylesystemapi gets a different one
 - name: write /etc/apache2/opentree-shared.conf for phylesystemapi
@@ -75,7 +86,7 @@
   become_method: sudo
   notify:
     - restart apache2
-  when: inventory_hostname in groups['phylesystemapi','devphylesystemapi']
+  when: apache_default_web_destination == 'phylesystem-api'
 
 - name: enable the opentree site
   file:

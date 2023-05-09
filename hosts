@@ -14,7 +14,7 @@ all:
           # for more settings, see roles/phylesystem-api/defaults/*.yml
     phylesystemapi:
       hosts:
-        ot67
+        ot67:
           host: ot67
           ansible_host: ot67.opentreeoflife.org
     nexttree:
