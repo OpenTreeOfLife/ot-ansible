@@ -32,8 +32,8 @@ github_app_installation_id = {{ curator_github_app_installation_id }}
 [api_base_urls]
 default_apis = {{ apis_common_base_URL }}
 production_apis = {{ apis_production_base_URL }}
-CACHED_default_apis = "{{ apis_common_base_URL }}/cached"
-CACHED_production_apis = "{{ apis_production_base_URL }}/cached"
+CACHED_default_apis = {{ apis_common_base_URL }}/cached
+CACHED_production_apis = {{ apis_production_base_URL }}/cached
 
 # Building on the URLs above, complete the public-facing URL for all methods
 # (again, these should work from both server- and client-side code)
