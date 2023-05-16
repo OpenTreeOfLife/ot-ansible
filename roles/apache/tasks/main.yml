@@ -65,6 +65,9 @@
   notify:
     - restart apache2
 
+- name: Display roles used
+  debug: msg="{{ role_names }}"
+
 - name: Display apache-config template used
   debug: msg="{{ 'templates/opentree_devapi_conf.j2' if 'phylesystemapi' in role_names else 'templates/opentree_shared_conf.j2' }}"
 
