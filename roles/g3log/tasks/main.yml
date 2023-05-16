@@ -21,7 +21,7 @@
     owner: "{{ ansibleuser }}"
     group: "{{ ansibleuser }}"
 
-- name: create restbuild Makefile
+- name: create g3log Makefile
   command: "cmake {{ build_location }}/g3log/source -G Ninja -DUSE_DYNAMIC_LOGGING_LEVELS=ON -DCMAKE_INSTALL_PREFIX=/usr -DCPACK_PACKAGE_FILE_NAME=g3log"
   args:
     chdir: "{{ build_location }}/g3log/build"
