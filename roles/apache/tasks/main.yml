@@ -52,10 +52,9 @@
     - restart apache2
 
 
-## RIGHT NOW THIS WILL ONLY WORK FOR API!
 - name: write /etc/apache2/opentree-shared.conf
   template:
-    src: templates/opentree_shared_conf.j2
+    src: "{{ 'templates/opentree_devapi_conf.j2' if 'phylesystemapi' in role_names else 'templates/opentree_shared_conf.j2' }}" 
     dest: "/etc/apache2/opentree-shared.conf"
   vars:
     phylesystem_api_stub: devphylesystemapi
@@ -65,6 +64,9 @@
   become_method: sudo
   notify:
     - restart apache2
+
+- name: Display apache-config template used
+  debug: msg="{{ 'templates/opentree_devapi_conf.j2' if 'phylesystemapi' in role_names else 'templates/opentree_shared_conf.j2' }}"
 
 - name: enable the opentree site
   file:
