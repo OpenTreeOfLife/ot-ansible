@@ -14,7 +14,7 @@ taxonomy_endpoint_cache:  https://{{ subdomain }}.opentreeoflife.org
 conflict_endpoint:  https://{{ subdomain }}.opentreeoflife.org
 
 peyotl_otc_ws_branch: master
-ws_wrapper_branch: synth-ui-sans-chrono
+ws_wrapper_branch: auto-redeploy
 ws_dir: /home/{{ansibleuser}}/ws_dir
 ot_repo_dir: /home/{{opentree_user}}/repos
 chronosynth_branch: dev
