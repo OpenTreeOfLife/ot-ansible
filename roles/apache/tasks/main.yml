@@ -65,11 +65,26 @@
   notify:
     - restart apache2
 
-- name: Display roles used
+- name: DEBUG role_names
   debug: msg="{{ role_names }}"
 
+- name: DEBUG ansible_role_names
+  debug: msg="{{ ansible_role_names }}"
+
+- name: DEBUG ansible_role_name
+  debug: msg="{{ ansible_role_name }}"
+
+- name: DEBUG ansible_play_role_names
+  debug: msg="{{ ansible_play_role_names }}"
+
+- name: DEBUG ansible_dependent_role_names
+  debug: msg="{{ ansible_dependent_role_names }}"
+
+- name: DEBUG ansible_parent_role_names
+  debug: msg="{{ ansible_parent_role_names }}"
+
 - name: Display apache-config template used
-  debug: msg="{{ 'templates/opentree_devapi_conf.j2' if 'phylesystemapi' in role_names else 'templates/opentree_shared_conf.j2' }}"
+  debug: msg="{{ 'templates/opentree_devapi_conf.j2' if 'phylesystem-api' in role_names else 'templates/opentree_shared_conf.j2' }}"
 
 - name: enable the opentree site
   file:
