@@ -54,7 +54,7 @@
 
 - name: write /etc/apache2/opentree-shared.conf
   template:
-    src: "{{ 'templates/opentree_devapi_conf.j2' if 'phylesystemapi' in role_names else 'templates/opentree_shared_conf.j2' }}" 
+    src: "{{ 'templates/opentree_devapi_conf.j2' if (apache_default_web_destination == 'phylesystem-api') else 'templates/opentree_shared_conf.j2' }}" 
     dest: "/etc/apache2/opentree-shared.conf"
   vars:
     phylesystem_api_stub: devphylesystemapi
@@ -65,26 +65,8 @@
   notify:
     - restart apache2
 
-- name: DEBUG role_names
-  debug: msg="{{ role_names }}"
-
-- name: DEBUG ansible_role_names
-  debug: msg="{{ ansible_role_names }}"
-
-- name: DEBUG ansible_role_name
-  debug: msg="{{ ansible_role_name }}"
-
-- name: DEBUG ansible_play_role_names
-  debug: msg="{{ ansible_play_role_names }}"
-
-- name: DEBUG ansible_dependent_role_names
-  debug: msg="{{ ansible_dependent_role_names }}"
-
-- name: DEBUG ansible_parent_role_names
-  debug: msg="{{ ansible_parent_role_names }}"
-
 - name: Display apache-config template used
-  debug: msg="{{ 'templates/opentree_devapi_conf.j2' if 'phylesystem-api' in role_names else 'templates/opentree_shared_conf.j2' }}"
+  debug: msg="{{ 'templates/opentree_devapi_conf.j2' if (apache_default_web_destination == 'phylesystem-api') else 'templates/opentree_shared_conf.j2' }}"
 
 - name: enable the opentree site
   file:
