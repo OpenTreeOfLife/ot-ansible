@@ -92,6 +92,9 @@ format =  %(asctime)s %(levelname)-5.5s [%(name)s:%(lineno)s] %(message)s
 
 [apis]
 api_version = 3
+default_apis_base_url = {{ apis_common_base_URL }}
+production_apis_base_url = {{ apis_production_base_URL }}
+
 
 # if true, blocks all writing behavior
 read_only = {{ read_only_mode }}
