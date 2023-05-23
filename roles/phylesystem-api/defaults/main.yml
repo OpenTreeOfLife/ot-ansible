@@ -24,17 +24,18 @@ script_location: "{{ ws_dir }}"
 # NB that to avoid disaster, we default to safe values and a dev environment!
 read_only_mode: true
 
+
 # the full path to where a local phylesystem.git can be found
 phylesystem_repo_parent: "{{ SHARED_DOCSTORE_PARENT }}"
-phylesystem_repo_path: "{{ SHARED_DOCSTORE_PARENT }}phylesystem-0"
+phylesystem_repo_path: "{{ SHARED_DOCSTORE_PARENT }}STUDIES_GITHUB_NAME"
 # prefix for new study ids. should be of the form [a-z][a-z]_
 # new_study_prefix = zz_
 
 # local paths for minor repos
 collections_repo_parent: "{{ SHARED_DOCSTORE_PARENT }}"
-collections_repo_path: "{{ SHARED_DOCSTORE_PARENT }}collections-0"
+collections_repo_path: "{{ SHARED_DOCSTORE_PARENT }}COLLECTIONS_GITHUB_NAME"
 amendments_repo_parent: "{{ SHARED_DOCSTORE_PARENT }}"
-amendments_repo_path: "{{ SHARED_DOCSTORE_PARENT }}amendments-0"
+amendments_repo_path: "{{ SHARED_DOCSTORE_PARENT }}AMENDMENTS_GITHUB_NAME"
 
 # the remote to push changes to
 # This will usually be "origin" on a local dev machine where phylesystem.git
@@ -48,14 +49,14 @@ collections_repo_remote: originssh
 amendments_repo_remote: originssh
 
 # URLs for each docstore repo
-opentree_docstore_url: https://github.com/{{ STUDIES_GITHUB_NAME }}
-collections_repo_url: https://github.com/{{ COLLECTIONS_GITHUB_NAME }}
-amendments_repo_url: https://github.com/{{ AMENDMENTS_GITHUB_NAME }}
+opentree_docstore_url: https://github.com/OpenTreeOfLife/{{ STUDIES_GITHUB_NAME }}
+collections_repo_url: https://github.com/OpenTreeOfLife/{{ COLLECTIONS_GITHUB_NAME }}
+amendments_repo_url: https://github.com/OpenTreeOfLife/{{ AMENDMENTS_GITHUB_NAME }}
 
 # git-config 'remote.url' for each docstore repo
-opentree_docstore_remote_url: git@github.com:{{ STUDIES_GITHUB_NAME }}.git
-collections_repo_remote_url: git@github.com:{{ COLLECTIONS_GITHUB_NAME }}.git
-amendments_repo_remote_url: git@github.com:{{ AMENDMENTS_GITHUB_NAME }}.git
+opentree_docstore_remote_url: git@github.com:OpenTreeOfLife/{{ STUDIES_GITHUB_NAME }}.git
+collections_repo_remote_url: git@github.com:OpenTreeOfLife/{{ COLLECTIONS_GITHUB_NAME }}.git
+amendments_repo_remote_url: git@github.com:OpenTreeOfLife/{{ AMENDMENTS_GITHUB_NAME }}.git
 
 # we'll loop over docstore repos in tasks/main
 repo_paths:

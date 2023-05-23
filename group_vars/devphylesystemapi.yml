@@ -26,7 +26,6 @@ otindex_base_url: "https://{{ canonical_host }}/"
 
 # Github repo org+name for each docstore repo
 #
-STUDIES_GITHUB_NAME: OpenTreeOfLife/phylesystem-0
-COLLECTIONS_GITHUB_NAME: OpenTreeOfLife/collections-0
-AMENDMENTS_GITHUB_NAME: OpenTreeOfLife/amendments-0
-
+STUDIES_GITHUB_NAME: phylesystem-0
+COLLECTIONS_GITHUB_NAME: collections-0
+AMENDMENTS_GITHUB_NAME: amendments-0
