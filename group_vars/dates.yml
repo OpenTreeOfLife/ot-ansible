@@ -6,11 +6,22 @@ synth_version: 13.4
 ott_version: 3.3
 phylesystem_repo: phylesystem-1
 
-taxonomy_endpoint:  https://api.opentreeoflife.org
-conflict_endpoint:  https://api.opentreeoflife.org
-taxonomy_endpoint_cache:  https://api.opentreeoflife.org
-tree_of_life_endpoint:  https://api.opentreeoflife.org
-tree_of_life_endpoint_cache:  https://api.opentreeoflife.org
+
+# Define base URLs for our various services
+# TODO: remove all of these, in favor of common API base URLs?
+#   OR define the "backstage" host+port for each, for use in apache configs?
+##taxonomy_endpoint:  https://api.opentreeoflife.org
+##conflict_endpoint:  https://api.opentreeoflife.org
+##taxonomy_endpoint_cache:  https://api.opentreeoflife.org
+##tree_of_life_endpoint:  https://api.opentreeoflife.org
+##tree_of_life_endpoint_cache:  https://api.opentreeoflife.org
+
+
+# NB - all public APIs move through a common base URL
+apis_common_base_URL: https://api.opentreeoflife.org
+# Some development systems also look to production data
+apis_production_base_URL: https://api.opentreeoflife.org
+
 
 peyotl_otc_ws_branch: master
 ws_wrapper_branch: chronosynth

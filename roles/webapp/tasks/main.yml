@@ -134,12 +134,12 @@
 # TODO: create non curatorless config for dev / prod
 - name: configure opentree webapp
   template:
-    src: templates/curatorless_config.j2
+    src: templates/treeview_app_config.j2
     dest: "{{ install_location }}/opentree/webapp/private/config"
 
 - name: configure curator webapp
   template:
-    src: templates/curatorful_config.j2
+    src: templates/curator_app_config.j2
     dest: "{{ install_location }}/opentree/curator/private/config"
   notify:
     - restart apache2
