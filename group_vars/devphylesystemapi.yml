@@ -5,6 +5,7 @@
 synth_version: 13.4
 ott_version: 3.3
 
+phylesystem_api_branch: tag-fix
 
 # these allow us to specify the SSH keys that git pushes
 # will use. Leave the config keys in this config file,

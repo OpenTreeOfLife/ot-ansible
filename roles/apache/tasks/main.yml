@@ -16,19 +16,6 @@
       - libapache2-mod-wsgi-py3
     state: present
 
-- name: enable apache2 modules
-  apache2_module:
-    state: present
-    name: "{{ item }}"
-  with_items:
-    - wsgi
-    - proxy
-    - proxy_http
-    - rewrite
-    - ssl
-    - cgid
-  become: true
-  remote_user: deploy
   become_method: sudo
 
 - name: write /etc/apache2/sites-available/opentree.conf
@@ -51,6 +38,15 @@
   notify:
     - restart apache2
 
+#- name: check for certs
+#  stat: path="/etc/letsencrypt/live/opentreeoflife.org/fullchain.pem"
+#  remote_user: deploy
+#  become_method: sudo
+#  register: certs
+
+#- name: fail if certs are missing
+#  fail: msg="This host needs certs"
+#  when: not certs.stat.exists
 
 ## To properly point cached sites to phylesystem-api need different apaches configs
 ## This uses the variables "phylesystem_api_stub" and "otindex_stub" from api/devapi.yml
@@ -66,16 +62,6 @@
   when:  apache_default_web_destination != 'phylesystem-api'
 
 
-#- name: check for certs
-#  stat: path="/etc/letsencrypt/live/opentreeoflife.org/fullchain.pem"
-#  remote_user: deploy
-#  become_method: sudo
-#  register: certs
-
-#- name: fail if certs are missing
-#  fail: msg="This host needs certs"
-#  when: not certs.stat.exists
-
 ## Apache configs should be reualble on other machines, but phylesystemapi gets a different one
 - name: write /etc/apache2/opentree-shared.conf for phylesystemapi
   template:
@@ -88,6 +74,21 @@
     - restart apache2
   when: apache_default_web_destination == 'phylesystem-api'
 
+
+- name: enable apache2 modules
+  apache2_module:
+    state: present
+    name: "{{ item }}"
+  with_items:
+    - wsgi
+    - proxy
+    - proxy_http
+    - rewrite
+    - ssl
+    - cgid
+  become: true
+  remote_user: deploy
+  
 - name: enable the opentree site
   file:
     src: /etc/apache2/sites-available/opentree.conf
