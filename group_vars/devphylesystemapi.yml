@@ -17,13 +17,20 @@ git_private_key: "/home/{{ ansibleuser }}/.ssh/id_ed25519_shared"
 
 
 
-canonical_host: devapi.opentreeoflife.org
+
+# NB - all public APIs move through a common base URL
+#   (typically `devapi` for development, `api` for production)
+apis_common_base_URL: https://devapi.opentreeoflife.org
+# Some development systems also look to production data
+apis_production_base_URL: https://api.opentreeoflife.org
+
+
 
 # other API endpoints
-collections_api_base_url: "https://{{ canonical_host }}/"
-amendments_api_base_url: "https://{{ canonical_host }}/"
-favorites_api_base_url: "https://{{ canonical_host }}/"
-otindex_base_url: "https://{{ canonical_host }}/"
+collections_api_base_url: "https://{{ apis_common_base_URL }}/"
+amendments_api_base_url: "https://{{ apis_common_base_URL }}/"
+favorites_api_base_url: "https://{{ apis_common_base_URL }}/"
+otindex_base_url: "https://{{ apis_common_base_URL }}/"
 
 # Github repo org+name for each docstore repo
 #
