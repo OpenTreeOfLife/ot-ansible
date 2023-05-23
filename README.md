@@ -19,16 +19,7 @@ Ansible connects and runs using the `ansibleuser` set in
 log into the server with this user using ssh keys, and that the user has
 sudo privileges.
 
-MTH has an `ot-private` repo on bitbucket that interacts with a fresh AWS instance to create an
-"deploy" account with sudo privileges and the open tree keys.
-Other the user account creation, the only initial steps applied to the 
-OS boil down to:
-
-    apt update
-    apt upgrade -y
-    apt install python-dev -y
-
-Then you have to add the hostname to the hosts file in this repo.
+AWS image with deploy uesr, keys, and patsh for certs are set up.
 
 ## Usage
 Not all of the playbooks have been tested recently.
