@@ -4,7 +4,7 @@
 deploy_custom_synth: true
 deploy_custom_synth_script_fp: /home/deploy/repos/ws_wrapper/scratch/deploy_custom_synth.bash
 opentree_user: opentree
-synth_version: 14.2
+synth_version: 14.4
 ott_version: 3.5
 
 # Define base URLs for our various services
