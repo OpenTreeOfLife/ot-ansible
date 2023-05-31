@@ -5,21 +5,22 @@
 synth_version: 13.4
 ott_version: 3.3
 
-# devtree points to itself for tree and taxonomy
-subdomain: devapi # in production, this would be api
-tree_of_life_endpoint: https://{{ subdomain }}.opentreeoflife.org
-tree_of_life_endpoint_cache: https://{{ subdomain }}.opentreeoflife.org
-taxonomy_endpoint:  https://{{ subdomain }}.opentreeoflife.org
-taxonomy_endpoint_cache:  https://{{ subdomain }}.opentreeoflife.org
-conflict_endpoint:  https://{{ subdomain }}.opentreeoflife.org
-otindex_endpoint:  https://{{ subdomain }}.opentreeoflife.org
+# Define base URLs for our various services
+# TODO: remove all of these, in favor of common base URLs?
+#   OR define the "backstage" host+port for each, for use in apache configs?
+##taxonomy_endpoint:  https://devapi.opentreeoflife.org
+##conflict_endpoint:  https://devapi.opentreeoflife.org
+##taxonomy_endpoint_cache:  https://devapi.opentreeoflife.org
+##tree_of_life_endpoint:  https://devapi.opentreeoflife.org
+##tree_of_life_endpoint_cache:  https://devapi.opentreeoflife.org
 
-curator_endpoint: https://devtree.opentreeoflife.org/curator
+# NB - all public APIs move through a common base URL
+apis_common_base_URL: https://devapi.opentreeoflife.org
+# Some development systems also look to production data
+apis_production_base_URL: https://api.opentreeoflife.org
 
-
-# and to production for everything else
-study_index_endpoint: https://otindex.opentreeoflife.org
-study_index_endpoint_cache: https://otindex.opentreeoflife.org
+# Some "curatorless" systems point to production webapp
+curation_webapp_url: https://devtree.opentreeoflife.org/curator
 
 treeview_github_app_id:  59461
 treeview_github_client_id: Iv1.226d54b87d23855d

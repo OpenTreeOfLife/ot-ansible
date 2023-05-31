@@ -12,6 +12,11 @@ all:
           host: ot62
           ansible_host: ot62.opentreeoflife.org
           # for more settings, see roles/phylesystem-api/defaults/*.yml
+    phylesystemapi:
+      hosts:
+        ot67:
+          host: ot67
+          ansible_host: ot67.opentreeoflife.org
     nexttree:
       hosts:
         ot37:
@@ -28,3 +33,12 @@ all:
           host: devtree
           ansible_host: devtree.opentreeoflife.org
           opentree_branch: development
+    devapi:
+      hosts:
+        devapi:
+          host: devapi
+          ansible_host: ot66.opentreeoflife.org
+          otcetera_branch: development
+          ws_wrapper_branch: development
+
+

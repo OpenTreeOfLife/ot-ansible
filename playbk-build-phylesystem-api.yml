@@ -2,7 +2,7 @@
 
 # assumes deploy user with sudo access exists
 ---
-- hosts: ot62
+- hosts: ot62, ot67
   gather_facts: False
 
   pre_tasks:
@@ -23,6 +23,7 @@
           - python3-virtualenv
           - unzip
           - daemonize
+          - libapache2-mod-wsgi-py3
         state: present
 
   vars:
@@ -41,10 +42,11 @@
         name: phylesystem-api
       vars:
         install_location: "{{ repo_dir }}"
-
+    ## This is a pretty blunt tool... it loads the synth tree and the taxonomy too
     - name: load data for phylesystem-api
       include_role:
         name: ws_data
+
 
     - name: Install and configure apache
       include_role:

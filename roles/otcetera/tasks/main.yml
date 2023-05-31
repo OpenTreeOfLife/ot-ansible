@@ -18,6 +18,7 @@
       - g++
       - ninja-build
       - libboost-all-dev
+      - ccache
     state: present
 
 - name: Install packages needed for webservices
@@ -43,6 +44,9 @@
     name: g3log
   vars:
     build_location: "{{ repo_dir }}"
+
+- name: Create log file dir
+  file: path={{ logfile_dir }} state=directory
 
 - name: Create otcetera dir
   file:

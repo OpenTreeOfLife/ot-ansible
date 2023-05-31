@@ -1,0 +1,28 @@
+---
+# variables for development servers
+# Variables set here will override settings in roles/defaults
+
+synth_version: 13.4
+ott_version: 3.3
+phylesystem_repo: phylesystem-0
+
+## This is used in the apache configs to redirect cached urls, and direct phylesystemapi calls
+phylesystem_api_stub: devphylesystemapi
+## This is used in the apache configs to direct find studies calls
+otindex_stub: devotindex
+
+# Define base URLs for our various services
+# TODO: remove all of these, in favor of common API base URLs?
+#   OR define the "backstage" host+port for each, for use in apache configs?
+##taxonomy_endpoint:  https://devapi.opentreeoflife.org
+##conflict_endpoint:  https://devapi.opentreeoflife.org
+##taxonomy_endpoint_cache:  https://devapi.opentreeoflife.org
+##tree_of_life_endpoint:  https://devapi.opentreeoflife.org
+##tree_of_life_endpoint_cache:  https://devapi.opentreeoflife.org
+
+
+# NB - all public APIs move through a common base URL
+#   (typically `devapi` for development, `api` for production)
+apis_common_base_URL: https://devapi.opentreeoflife.org
+# Some development systems also look to production data
+apis_production_base_URL: https://api.opentreeoflife.org

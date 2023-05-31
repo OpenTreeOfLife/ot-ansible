@@ -5,23 +5,29 @@
 synth_version: 13.4
 ott_version: 3.3
 
-# nexttree points to itself for tree and taxonomy
-subdomain: ot58 # in production, this would be nexttree
-tree_of_life_endpoint: https://{{ subdomain }}.opentreeoflife.org
-tree_of_life_endpoint_cache: https://{{ subdomain }}.opentreeoflife.org
-taxonomy_endpoint:  https://{{ subdomain }}.opentreeoflife.org
-taxonomy_endpoint_cache:  https://{{ subdomain }}.opentreeoflife.org
-conflict_endpoint:  https://{{ subdomain }}.opentreeoflife.org
 
-# and to production for everything else
-study_index_endpoint: https://otindex.opentreeoflife.org
-study_index_endpoint_cache: https://otindex.opentreeoflife.org
+# Define base URLs for our various services
+# TODO: remove all of these, in favor of common base URLs?
+#   OR define the "backstage" host+port for each, for use in apache configs?
+##subdomain: ot58 # in production, this would be nexttree
+##tree_of_life_endpoint: https://{{ subdomain }}.opentreeoflife.org
+##tree_of_life_endpoint_cache: https://{{ subdomain }}.opentreeoflife.org
+##taxonomy_endpoint:  https://{{ subdomain }}.opentreeoflife.org
+##taxonomy_endpoint_cache:  https://{{ subdomain }}.opentreeoflife.org
+##conflict_endpoint:  https://{{ subdomain }}.opentreeoflife.org
+
+# NB - all public APIs move through a common base URL
+apis_common_base_URL: https://ot58.opentreeoflife.org
+  # nexttree points to itself for tree and taxonomy
+# Some development systems also look to production data
+apis_production_base_URL: https://api.opentreeoflife.org
+
 github_app_id: 65862
 github_client_id: Iv1.8b8116ce58d092c4
-github_redirect_uri: "{{ curator_endpoint }}/user/login"
+github_redirect_uri: "{{ curation_webapp_url }}/user/login"
 github_app_installation_id: 8832719 
 
-otcetera_synth_branch: solve-can-emit-dd
+otcetera_synth_branch: development
 
 # whether to install the curator app (False on nexttree)
 install_curator: False
