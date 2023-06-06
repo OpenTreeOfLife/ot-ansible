@@ -6,6 +6,10 @@ synth_version: 13.4
 ott_version: 3.3
 phylesystem_repo: phylesystem-0
 
+## This is used in the apache configs to redirect cached urls, and direct phylesystemapi calls
+phylesystem_api_stub: devphylesystemapi
+## This is used in the apache configs to direct find studies calls
+otindex_stub: devotindex
 
 # Define base URLs for our various services
 # TODO: remove all of these, in favor of common API base URLs?
@@ -22,4 +26,3 @@ phylesystem_repo: phylesystem-0
 apis_common_base_URL: https://devapi.opentreeoflife.org
 # Some development systems also look to production data
 apis_production_base_URL: https://api.opentreeoflife.org
-

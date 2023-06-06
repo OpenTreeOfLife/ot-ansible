@@ -1,0 +1,19 @@
+# This file is for apache 2.4+. It was derived from the file
+# /etc/apache2/sites-available/default in apache2 as installed in ubuntu 12.04.
+# See notes in /etc/apache2/sites-available/opentree-ssl.conf as well
+
+    ServerAdmin webmaster@localhost
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+    # TEMPORARY REDIRECT to maintenance page
+    #RedirectMatch 302 ^(.*)$ http://opentreeoflife.github.io/maintenance.html
+
+    Alias "/taxonomy/browse" "/home/opentree/repo/opentree/taxonomy/cgi-bin/browse.py"
+
+ 
+    # 6544 = default port for phylesytem-api (Pyramid)
+    <Location />
+      Require all granted
+      ProxyPass  http://localhost:6544/
+      ProxyPassReverse  http://localhost:6544/
+    </Location>

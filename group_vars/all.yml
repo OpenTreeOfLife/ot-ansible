@@ -59,3 +59,9 @@ deploy_custom_synth: false
 # By default, study curation on tree (production) domain
 curation_webapp_url: https://tree.opentreeoflife.org/curator
 apis_production_base_URL: https://api.opentreeoflife.org
+
+## This is used in the apache configs to redirect cached urls, and direct phylesystemapi calls
+## NB - We point to production services by default; override if using dev APIs!
+phylesystem_api_stub: phylesystemapi
+## This is used in the apache configs to direct find studies calls
+otindex_stub: otindex
