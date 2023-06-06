@@ -13,7 +13,7 @@
   remote_user: deploy
   apt:
     name:
-      - libapache2-mod-wsgi-py3
+      - libapache2-mod-wsgi-py
     state: present
 
   become_method: sudo
