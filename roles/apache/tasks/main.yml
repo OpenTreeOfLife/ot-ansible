@@ -49,7 +49,7 @@
 #  when: not certs.stat.exists
 
 ## To properly point cached sites to phylesystem-api need different apaches configs
-## This uses the variables "phylesystem_api_stub" and "otindex_stub" from api/devapi.yml
+## This uses the variables "phylesystem_api_stub" and "otindex_stub" from group_vars/{host-group}.yml
 - name: write /etc/apache2/opentree-shared.conf for non-phylesystemapi machines
   template:
     src: templates/opentree_devapi_conf.j2

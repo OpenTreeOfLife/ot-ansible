@@ -5,6 +5,11 @@
 synth_version: 13.4
 ott_version: 3.3
 
+## This is used in the apache configs to redirect cached urls, and direct phylesystemapi calls
+phylesystem_api_stub: devphylesystemapi
+## This is used in the apache configs to direct find studies calls
+otindex_stub: devotindex
+
 # Define base URLs for our various services
 # TODO: remove all of these, in favor of common base URLs?
 #   OR define the "backstage" host+port for each, for use in apache configs?

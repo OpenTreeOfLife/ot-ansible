@@ -6,6 +6,10 @@ synth_version: 13.4
 ott_version: 3.3
 phylesystem_repo: phylesystem-1
 
+## This is used in the apache configs to redirect cached urls, and direct phylesystemapi calls
+phylesystem_api_stub: phylesystemapi
+## This is used in the apache configs to direct find studies calls
+otindex_stub: otindex
 
 # Define base URLs for our various services
 # TODO: remove all of these, in favor of common API base URLs?
