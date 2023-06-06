@@ -28,5 +28,5 @@ chronosynth_branch: dev
 
 
 otcetera_git_remote: https://github.com/OpenTreeOfLife/otcetera
-# otcetera_synth_branch: bump_fossil_higher
+# otcetera_synth_branch: development
 otcetera_branch: development
