@@ -2,9 +2,10 @@
 # variables for development servers
 # Variables set here will override settings in roles/defaults
 deploy_custom_synth: true
+deploy_custom_synth_script_fp: /home/deploy/repos/ws_wrapper/scratch/deploy_custom_synth.bash
 opentree_user: opentree
-synth_version: 13.4
-ott_version: 3.3
+synth_version: 14.4
+ott_version: 3.5
 
 # Define base URLs for our various services
 # TODO: remove all of these, in favor of common API base URLs?
@@ -22,8 +23,7 @@ apis_common_base_URL: https://ot38.opentreeoflife.org
 apis_production_base_URL: https://api.opentreeoflife.org
 
 peyotl_otc_ws_branch: master
-ws_wrapper_branch: chronosynth
+ws_wrapper_branch: auto-redeploy
 ws_dir: /home/{{ansibleuser}}/ws_dir
 ot_repo_dir: /home/{{opentree_user}}/repos
 chronosynth_branch: dev
-
