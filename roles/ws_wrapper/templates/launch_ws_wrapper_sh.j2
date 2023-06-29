@@ -25,6 +25,10 @@ fi
 
 export PATH="/usr/sbin:${PATH}"
 
+if test -f "{{ install_location }}/ws_wrapper/env_for_wrapper.sh" ; then
+    source "{{ install_location }}/ws_wrapper/env_for_wrapper.sh" || exit
+fi
+
 daemonize -p "$PID_FILE" \
           -c "{{ install_location }}/ws_wrapper" \
           "{{ venv_otcws }}/bin/pserve" wswrapper.ini || exit
