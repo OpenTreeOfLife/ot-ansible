@@ -1,0 +1,29 @@
+---
+# variables for development servers
+# Variables set here will override settings in roles/defaults
+deploy_custom_synth: true
+deploy_custom_synth_script_fp: /home/deploy/repos/ws_wrapper/scratch/deploy_custom_synth.bash
+opentree_user: opentree
+synth_version: 14.4
+ott_version: 3.5
+
+# Define base URLs for our various services
+# TODO: remove all of these, in favor of common API base URLs?
+#   OR define the "backstage" host+port for each, for use in apache configs?
+##subdomain: ot38 # in production, this would be nexttree
+##tree_of_life_endpoint: https://{{ subdomain }}.opentreeoflife.org
+##tree_of_life_endpoint_cache: https://{{ subdomain }}.opentreeoflife.org
+##taxonomy_endpoint:  https://{{ subdomain }}.opentreeoflife.org
+##taxonomy_endpoint_cache:  https://{{ subdomain }}.opentreeoflife.org
+##conflict_endpoint:  https://{{ subdomain }}.opentreeoflife.org
+
+# NB - all public APIs move through a common base URL
+apis_common_base_URL: https://ot68.opentreeoflife.org
+# Some development systems also look to production data
+apis_production_base_URL: https://api.opentreeoflife.org
+
+peyotl_otc_ws_branch: master
+ws_wrapper_branch: auto-redeploy
+ws_dir: /home/{{ansibleuser}}/ws_dir
+ot_repo_dir: /home/{{opentree_user}}/repos
+chronosynth_branch: dev
