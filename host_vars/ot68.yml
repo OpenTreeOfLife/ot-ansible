@@ -23,7 +23,7 @@ apis_common_base_URL: https://ot68.opentreeoflife.org
 apis_production_base_URL: https://api.opentreeoflife.org
 
 peyotl_otc_ws_branch: master
-ws_wrapper_branch: auto-redeploy68
+ws_wrapper_branch: auto-redeploy
 ws_dir: /home/{{ansibleuser}}/ws_dir
 ot_repo_dir: /home/{{opentree_user}}/repos
 chronosynth_branch: dev
