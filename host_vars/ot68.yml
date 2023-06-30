@@ -23,7 +23,7 @@ apis_common_base_URL: https://ot68.opentreeoflife.org
 apis_production_base_URL: https://api.opentreeoflife.org
 
 peyotl_otc_ws_branch: master
-ws_wrapper_branch: auto-redeploy
+ws_wrapper_branch: rebuild-page
 ws_dir: /home/{{ansibleuser}}/ws_dir
 ot_repo_dir: /home/{{opentree_user}}/repos
 chronosynth_branch: dev
@@ -33,3 +33,6 @@ treeview_github_client_id:
 treeview_github_redirect_uri: 
 treeview_github_app_installation_id: 
 
+default_custom_collection: acaciamulga/fabaceae
+default_custom_root_id: 560323
+default_custom_taxon_name: Legumes

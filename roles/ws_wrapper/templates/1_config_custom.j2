@@ -7,5 +7,7 @@ propinquity.propinquity_env={{ synth_dir }}/custom_config/propinq_ws_env.sh
 propinquity.sleep_seconds=1
 propinquity.deploy_custom_script={{ deploy_custom_synth_script_fp }}
 
-
+custom_collection = {{ default_custom_collection|default("") }}
+custom_root_id = {{ default_custom_root_id|default("") }}
+custom_taxon_name = {{ default_custom_taxon_name|default("") }}
 
