@@ -103,6 +103,13 @@
       ProxyPassReverse  http://localhost:1983/v3/taxonomy
     </Location>
 
+    # static files for ws_wrapper
+    <Location /pyrstatic>
+      Require all granted
+      ProxyPass  http://localhost:1983/pyrstatic
+      ProxyPassReverse  http://localhost:1983/pyrstatic
+    </Location>
+
     # ws_wrapper for conflict services
     <Location /v3/conflict>
       Require all granted

@@ -59,6 +59,7 @@
       ProxyPassReverse  http://localhost:1983/v3/taxonomy
     </Location>
 
+    # static files for ws_wrapper
     <Location /pyrstatic>
       Require all granted
       ProxyPass  http://localhost:1983/pyrstatic
