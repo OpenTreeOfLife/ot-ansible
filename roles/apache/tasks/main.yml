@@ -8,13 +8,15 @@
       - apache2
     state: present
 
-- name: Install mod-wsgi using apt
-  become: yes
-  remote_user: deploy
-  apt:
-    name:
-      - libapache2-mod-wsgi
-    state: present
+
+## TODO This needs an if stamenet for different roles/python versions. 
+#- name: Install mod-wsgi using apt
+#  become: yes
+#  remote_user: deploy
+#  apt:
+#    name:
+#      - libapache2-mod-wsgi
+#    state: present
 
   become_method: sudo
 
