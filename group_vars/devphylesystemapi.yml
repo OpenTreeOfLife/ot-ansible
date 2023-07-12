@@ -5,7 +5,7 @@
 synth_version: 13.4
 ott_version: 3.3
 
-phylesystem_api_branch: tip-labels
+phylesystem_api_branch: development
 
 ## This is used in the apache configs to redirect cached urls, and direct phylesystemapi calls
 phylesystem_api_stub: devphylesystemapi
