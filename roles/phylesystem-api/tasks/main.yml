@@ -172,6 +172,7 @@
       - push
     user: "opentreeapi"
     token: "{{ lookup('file', local_api_token_path) }}"
+    when: false  # DISABLING THIS for now
 
 - name: create webhook to refresh otindex after pushing amendment changes
   community.general.github_webhook:
@@ -182,6 +183,7 @@
       - push
     user: "opentreeapi"
     token: "{{ lookup('file', local_api_token_path) }}"
+    when: false  # DISABLING THIS for now
 
 - name: "launch launch_phylesystem_api via launch script"
   command: "bash {{ script_location }}/local/bin/launch_phylesystem_api.sh || exit"
