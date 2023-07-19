@@ -34,4 +34,6 @@
  
   roles:
     - webapp
-    - apache
+    - role: apache
+      vars:
+        modwsgi_python_version: libapache2-mod-wsgi      # python2 for web2py
