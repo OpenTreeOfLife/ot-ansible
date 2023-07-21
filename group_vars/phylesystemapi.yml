@@ -1,16 +1,16 @@
 ---
-# variables for devphylesystemapi server
+# variables for phylesystemapi server
 # Variables set here will override settings in role/*/defaults/main.yml
-
 synth_version: 13.4
 ott_version: 3.3
 
 phylesystem_api_branch: development
 
 ## This is used in the apache configs to redirect cached urls, and direct phylesystemapi calls
-phylesystem_api_stub: devphylesystemapi
+phylesystem_api_stub: phylesystemapi
 ## This is used in the apache configs to direct find studies calls
-otindex_stub: devotindex
+otindex_stub: otindex
+
 
 # these allow us to specify the SSH keys that git pushes
 # will use. Leave the config keys in this config file,
@@ -20,12 +20,9 @@ otindex_stub: devotindex
 git_ssh: "{{ install_dir }}/phylesystem-api/bin/git.sh"
 git_private_key: "/home/{{ ansibleuser }}/.ssh/id_ed25519_shared"
 
-
-
-
 # NB - all public APIs move through a common base URL
 #   (typically `devapi` for development, `api` for production)
-apis_common_base_URL: https://devapi.opentreeoflife.org
+apis_common_base_URL: https://api.opentreeoflife.org
 # Some development systems also look to production data
 apis_production_base_URL: https://api.opentreeoflife.org
 
@@ -39,6 +36,6 @@ otindex_base_url: "{{ apis_common_base_URL }}/"
 
 # Github repo org+name for each docstore repo
 #
-STUDIES_GITHUB_NAME: phylesystem-0
-COLLECTIONS_GITHUB_NAME: collections-0
-AMENDMENTS_GITHUB_NAME: amendments-0
+STUDIES_GITHUB_NAME: phylesystem-1
+COLLECTIONS_GITHUB_NAME: collections-1
+AMENDMENTS_GITHUB_NAME: amendments-1
