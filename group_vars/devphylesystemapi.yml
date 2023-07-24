@@ -34,7 +34,7 @@ apis_production_base_URL: https://api.opentreeoflife.org
 # other API endpoints
 collections_api_base_url: "{{ apis_common_base_URL }}/"
 amendments_api_base_url: "{{ apis_common_base_URL }}/"
-favorites_api_base_url: "{{ apis_common_base_URL }}/"
+favorites_api_base_url: "{ apis_common_base_URL }}/"
 otindex_base_url: "{{ apis_common_base_URL }}/"
 
 # Github repo org+name for each docstore repo

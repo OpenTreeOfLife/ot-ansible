@@ -143,35 +143,6 @@
     src: templates/launch_phylesystem_api_sh.j2
     dest: "{{ script_location }}/local/bin/launch_phylesystem_api.sh"
 
-- name: copy opentree api token from local machine
-  vars: 
-    api_token_path: /home/{{ opentree_user }}/.ssh/OPENTREEAPI_OAUTH_TOKEN
-  ansible.builtin.copy:
-    src: ~/.ssh/opentree/OPENTREEAPI_OAUTH_TOKEN
-    dest: "{{ api_token_path }}"
-    mode: '0600'
-
-- name: create webhook to refresh otindex after pushing study changes
-  community.general.github_webhook:
-    repository: "OpenTreeOfLife/{{ STUDIES_GITHUB_NAME }}"
-    ##url: "{{ TODO https://www.example.com/hooks/ }}"
-    url: "{{ apis_common_base_URL }}/phylesystem/search/nudgeStudyIndexOnUpdates"
-    content_type: json 
-    events:
-      - push
-    user: "opentreeapi"
-    token: "{{ lookup('file', api_token_path) }}"
-
-- name: create webhook to refresh otindex after pushing amendment changes
-  community.general.github_webhook:
-    repository: "OpenTreeOfLife/{{ AMENDMENTS_GITHUB_NAME }}"
-    url: "{{ apis_common_base_URL }}/phylesystem/search/nudgeTaxonIndexOnUpdates"
-    content_type: json 
-    events:
-      - push
-    user: "opentreeapi"
-    token: "{{ lookup('file', api_token_path) }}"
-
 - name: "launch launch_phylesystem_api via launch script"
   command: "bash {{ script_location }}/local/bin/launch_phylesystem_api.sh || exit"
 
