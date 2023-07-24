@@ -143,6 +143,46 @@
     src: templates/launch_phylesystem_api_sh.j2
     dest: "{{ script_location }}/local/bin/launch_phylesystem_api.sh"
 
+##- name: copy opentree api token from local machine
+##  ansible.builtin.copy:
+##    src: "{{ local_api_token_path }}"
+##    dest: "{{ remote_api_token_path }}"
+##    mode: '0600'
+##
+##- name: remove any existing OpenSSL (for safer updates)
+##  pip:
+##    name: ["cryptography", "OpenSSL"]
+##    state: absent   # to clear old/buggy OpenSSL
+##
+##- name: install modern OpenSSL (required for PyGithub)
+##  pip:
+##    name: ["cryptography", "OpenSSL"]
+##    state: latest   # to get modern OpenSSL and avoid errors
+
+- name: install PyGithub and dependencies (to enable webhook creation)
+  pip:
+    name: PyGithub
+
+- name: create webhook to refresh otindex after pushing study changes
+  community.general.github_webhook:
+    repository: "OpenTreeOfLife/{{ STUDIES_GITHUB_NAME }}"
+    url: "{{ apis_common_base_URL }}/v3/studies/phylesystem_webhook"
+    content_type: json
+    events:
+      - push
+    user: "opentreeapi"
+    token: "{{ lookup('file', local_api_token_path) }}"
+
+- name: create webhook to refresh otindex after pushing amendment changes
+  community.general.github_webhook:
+    repository: "OpenTreeOfLife/{{ AMENDMENTS_GITHUB_NAME }}"
+    url: "{{ apis_common_base_URL }}/phylesystem/search/nudgeTaxonIndexOnUpdates"  #TODO: update this URL!
+    content_type: json
+    events:
+      - push
+    user: "opentreeapi"
+    token: "{{ lookup('file', local_api_token_path) }}"
+
 - name: "launch launch_phylesystem_api via launch script"
   command: "bash {{ script_location }}/local/bin/launch_phylesystem_api.sh || exit"
 
