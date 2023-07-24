@@ -144,6 +144,8 @@
     dest: "{{ script_location }}/local/bin/launch_phylesystem_api.sh"
 
 - name: copy opentree api token from local machine
+  vars: 
+    api_token_path: /home/{{ opentree_user }}/.ssh/OPENTREEAPI_OAUTH_TOKEN
   ansible.builtin.copy:
     src: ~/.ssh/opentree/OPENTREEAPI_OAUTH_TOKEN
     dest: "{{ api_token_path }}"
