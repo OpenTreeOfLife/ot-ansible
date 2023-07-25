@@ -37,6 +37,7 @@
     RewriteEngine on
     #WAS RewriteRule ^/cached/(.*) "https://devphylesystemapi.opentreeoflife.org/phylesystem/default/cached/$1" [P]
     RewriteRule ^/cached/(.*) "https://{{ phylesystem_api_stub }}.opentreeoflife.org/cached/$1" [P]
+    RewriteRule ^/clear_cache_keys/(.*) "https://{{ phylesystem_api_stub }}.opentreeoflife.org/clear_cache_keys/$1" [P]
 
     # Avoid pyramids/web2py conflicts by deploying otindex on a different machine, and rewriting urls (wthout redirect)
     SSLProxyEngine On
