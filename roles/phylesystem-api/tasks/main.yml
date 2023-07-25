@@ -172,8 +172,9 @@
       - push
     user: "opentreeapi"
     token: "{{ lookup('file', local_api_token_path) }}"
+    state: present
 
-- name: create webhook to refresh otindex after pushing amendment changes
+- name: REMOVE (or create)  webhook to refresh otindex after pushing amendment changes
   community.general.github_webhook:
     repository: "OpenTreeOfLife/{{ AMENDMENTS_GITHUB_NAME }}"
     url: "{{ apis_common_base_URL }}/phylesystem/search/nudgeTaxonIndexOnUpdates"  #TODO: update this URL!
@@ -182,6 +183,7 @@
       - push
     user: "opentreeapi"
     token: "{{ lookup('file', local_api_token_path) }}"
+    state: absent  # TODO: Enable this for testing once we have a working URL above
 
 - name: "launch launch_phylesystem_api via launch script"
   command: "bash {{ script_location }}/local/bin/launch_phylesystem_api.sh || exit"
