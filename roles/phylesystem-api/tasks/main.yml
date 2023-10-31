@@ -143,22 +143,6 @@
     src: templates/launch_phylesystem_api_sh.j2
     dest: "{{ script_location }}/local/bin/launch_phylesystem_api.sh"
 
-##- name: copy opentree api token from local machine
-##  ansible.builtin.copy:
-##    src: "{{ local_api_token_path }}"
-##    dest: "{{ remote_api_token_path }}"
-##    mode: '0600'
-##
-##- name: remove any existing OpenSSL (for safer updates)
-##  pip:
-##    name: ["cryptography", "OpenSSL"]
-##    state: absent   # to clear old/buggy OpenSSL
-##
-##- name: install modern OpenSSL (required for PyGithub)
-##  pip:
-##    name: ["cryptography", "OpenSSL"]
-##    state: latest   # to get modern OpenSSL and avoid errors
-
 - name: install PyGithub and dependencies (to enable webhook creation)
   pip:
     name: PyGithub
