@@ -24,9 +24,9 @@
 
     # See https://github.com/OpenTreeOfLife/opentree/wiki/Open-Tree-of-Life-APIs
 
-    Alias "/taxonomy/browse" "/home/opentree/repo/opentree/taxonomy/cgi-bin/browse.py"
+    Alias "/taxonomy/browse" "{{ repo_dir }}/opentree/taxonomy/cgi-bin/browse.py"
 
-    <Directory "/home/opentree/repo/opentree/taxonomy/cgi-bin">
+    <Directory "{{ repo_dir }}/opentree/taxonomy/cgi-bin">
       Require all granted
       Options +ExecCGI
       AddHandler cgi-script .py
@@ -37,6 +37,7 @@
     RewriteEngine on
     #WAS RewriteRule ^/cached/(.*) "https://devphylesystemapi.opentreeoflife.org/phylesystem/default/cached/$1" [P]
     RewriteRule ^/cached/(.*) "https://{{ phylesystem_api_stub }}.opentreeoflife.org/cached/$1" [P]
+    RewriteRule ^/clear_cache_keys/(.*) "https://{{ phylesystem_api_stub }}.opentreeoflife.org/clear_cache_keys/$1" [P]
 
     # Avoid pyramids/web2py conflicts by deploying otindex on a different machine, and rewriting urls (wthout redirect)
     SSLProxyEngine On

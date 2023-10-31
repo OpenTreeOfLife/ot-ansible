@@ -3,6 +3,22 @@
 ## TODO: Create deploy key?? Set it in config.
 ## At least check that it is there?
 ## pkey        = {{ git_private_key }}
+## Currently lives in EJM's keys
+
+
+- name: uninstall setuptools
+  pip:
+    name: setuptools
+    state: absent
+    virtualenv: "{{ venv_phylesystem_api }}"
+
+
+
+- name: Install downgraded setuptools for peyotl install
+  pip:
+    name: setuptools<58.0.0
+    virtualenv: "{{ venv_phylesystem_api }}"
+
 
 
 ## Install and configure peyotl
@@ -27,10 +43,10 @@
     name: waitress
     virtualenv: "{{ venv_phylesystem_api }}"
 
-
+## Requirements.txt seems to have picked up a byunch of cruft that is making installs fail...
 - name: Install phylesystem-api python requirements
   pip:
-    requirements: "{{ install_dir }}/phylesystem-api/requirements.txt"
+    requirements: "{{ install_dir }}/phylesystem-api/requirements.in"
     virtualenv: "{{ venv_phylesystem_api }}"
 
 - name: Install phylesystem-api
@@ -126,6 +142,48 @@
   template:
     src: templates/launch_phylesystem_api_sh.j2
     dest: "{{ script_location }}/local/bin/launch_phylesystem_api.sh"
+
+##- name: copy opentree api token from local machine
+##  ansible.builtin.copy:
+##    src: "{{ local_api_token_path }}"
+##    dest: "{{ remote_api_token_path }}"
+##    mode: '0600'
+##
+##- name: remove any existing OpenSSL (for safer updates)
+##  pip:
+##    name: ["cryptography", "OpenSSL"]
+##    state: absent   # to clear old/buggy OpenSSL
+##
+##- name: install modern OpenSSL (required for PyGithub)
+##  pip:
+##    name: ["cryptography", "OpenSSL"]
+##    state: latest   # to get modern OpenSSL and avoid errors
+
+- name: install PyGithub and dependencies (to enable webhook creation)
+  pip:
+    name: PyGithub
+
+- name: create webhook to refresh otindex after pushing study changes
+  community.general.github_webhook:
+    repository: "OpenTreeOfLife/{{ STUDIES_GITHUB_NAME }}"
+    url: "{{ apis_common_base_URL }}/v3/studies/phylesystem_webhook"
+    content_type: json
+    events:
+      - push
+    user: "opentreeapi"
+    token: "{{ lookup('file', local_api_token_path) }}"
+    state: present
+
+- name: REMOVE (or create)  webhook to refresh otindex after pushing amendment changes
+  community.general.github_webhook:
+    repository: "OpenTreeOfLife/{{ AMENDMENTS_GITHUB_NAME }}"
+    url: "{{ apis_common_base_URL }}/phylesystem/search/nudgeTaxonIndexOnUpdates"  #TODO: update this URL!
+    content_type: json
+    events:
+      - push
+    user: "opentreeapi"
+    token: "{{ lookup('file', local_api_token_path) }}"
+    state: absent  # TODO: Enable this for testing once we have a working URL above
 
 - name: "launch launch_phylesystem_api via launch script"
   command: "bash {{ script_location }}/local/bin/launch_phylesystem_api.sh || exit"

@@ -1,0 +1,48 @@
+[security]
+secure_sessions_with_HTTPS = true
+
+[apis]
+# These values can be obtained by registering your instance as an
+# application with GitHub, at https://github.com/settings/applications/new
+github_app_id = {{ treeview_github_app_id }}
+github_client_id = {{ treeview_github_client_id }}
+github_redirect_uri = {{ treeview_github_redirect_uri }}
+github_app_installation_id = {{ treeview_github_app_installation_id }}
+
+# DON'T INCLUDE 'github_client_secret' value here. For better security, this is
+# loaded from a separate file and added to config data on-the-fly.
+
+
+# List public-facing base URL for supporting data services
+# (NOTE that these are used by both server- and client-side code)
+[api_base_urls]
+default_apis = {{ apis_common_base_URL }}
+production_apis = {{ apis_production_base_URL }}
+# Cached versions of some APIs will speed up repeated calls (see below).
+# These use a simple web2py cache implemented in phylesystem-api
+CACHED_default_apis = {{ apis_common_base_URL }}/cached
+CACHED_production_apis = {{ apis_production_base_URL }}/cached
+
+# Building on the URLs above, complete the public-facing URL for all methods
+# (again, these should work from both server- and client-side code)
+#
+# NOTE: In our example setup, all service methods are proxied through Apache as
+# URLs within the main opentree site. So we assume that partial paths '/db/data/'
+# are handled in the ProxyPass statement.
+[api_endpoints]
+getDraftTreeID_url = {default_apis}/v3/tree_of_life/about
+getSyntheticTree_url = {CACHED_default_apis}/v3/tree_of_life/subtree
+getDraftSubtree_url = {default_apis}/v3/tree_of_life/subtree
+doTNRSForAutocomplete_url = {default_apis}/v3/tnrs/autocomplete_name
+getContextsJSON_url = {CACHED_default_apis}/v3/tnrs/contexts
+getSynthesisSourceList_url = {CACHED_default_apis}/v3/tree_of_life/about
+findAllStudies_url = {CACHED_default_apis}/v3/studies/find_studies
+singlePropertySearchForStudies_url = {default_apis}/v3/studies/find_studies
+singlePropertySearchForTrees_url = {default_apis}/v3/studies/find_trees
+getTaxonInfo_url = {default_apis}/v3/taxonomy/taxon_info
+# Include one phylesystem-api method to download NexSON from Bibliographic References page
+API_load_study_GET_url = {default_apis}/v3/study/{STUDY_ID}
+
+# The synth-tree viewer GUI includes links to a curation app. For "curatorless"
+# installations, this should point to a working public curation app.
+curation_webapp_url = {{ curation_webapp_url }}

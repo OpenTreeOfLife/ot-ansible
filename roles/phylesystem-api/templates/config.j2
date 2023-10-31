@@ -92,6 +92,9 @@ format =  %(asctime)s %(levelname)-5.5s [%(name)s:%(lineno)s] %(message)s
 
 [apis]
 api_version = 3
+default_apis_base_url = {{ apis_common_base_URL }}
+production_apis_base_url = {{ apis_production_base_URL }}
+
 
 # if true, blocks all writing behavior
 read_only = {{ read_only_mode }}
@@ -125,7 +128,9 @@ amendments_repo_remote  = {{ amendments_repo_remote }}
 git_ssh     = {{ git_ssh }}
 pkey        = {{ git_private_key }}
 
-oti_base_url = {{ oti_base_url }}
+
+# We don't use oti anymore, but phylesystem api still looks for this ur;l
+oti_base_url = {{ otindex_base_url  }}
 otindex_base_url = {{ otindex_base_url  }}
 collections_api_base_url = {{ collections_api_base_url }}
 amendments_api_base_url = {{ amendments_api_base_url }}

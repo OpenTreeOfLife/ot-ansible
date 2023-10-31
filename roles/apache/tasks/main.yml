@@ -8,27 +8,16 @@
       - apache2
     state: present
 
-- name: Install mod-wsgi using apt
-  become: yes
-  remote_user: deploy
-  apt:
-    name:
-      - libapache2-mod-wsgi
-    state: present
 
-- name: enable apache2 modules
-  apache2_module:
-    state: present
-    name: "{{ item }}"
-  with_items:
-    - wsgi
-    - proxy
-    - proxy_http
-    - rewrite
-    - ssl
-    - cgid
-  become: true
-  remote_user: deploy
+## TODO This needs an if stamenet for different roles/python versions. 
+#- name: Install mod-wsgi using apt
+#  become: yes
+#  remote_user: deploy
+#  apt:
+#    name:
+#      - libapache2-mod-wsgi
+#    state: present
+
   become_method: sudo
 
 - name: write /etc/apache2/sites-available/opentree.conf
@@ -51,20 +40,58 @@
   notify:
     - restart apache2
 
+#- name: check for certs
+#  stat: path="/etc/letsencrypt/live/opentreeoflife.org/fullchain.pem"
+#  remote_user: deploy
+#  become_method: sudo
+#  register: certs
 
-## RIGHT NOW THIS WILL ONLY WORK FOR API!
-- name: write /etc/apache2/opentree-shared.conf
+#- name: fail if certs are missing
+#  fail: msg="This host needs certs"
+#  when: not certs.stat.exists
+
+## To properly point cached sites to phylesystem-api need different apaches configs
+## This uses the variables "phylesystem_api_stub" and "otindex_stub" from group_vars/{host-group}.yml
+- name: write /etc/apache2/opentree-shared.conf for non-phylesystemapi machines
   template:
     src: templates/opentree_devapi_conf.j2
     dest: "/etc/apache2/opentree-shared.conf"
-  vars:
-    phylesystem_api_stub: devphylesystemapi
-    otindex_stub: devotindex
   become: true
   remote_user: deploy
   become_method: sudo
   notify:
     - restart apache2
+  when:  apache_default_web_destination != 'phylesystem-api'
+
+## Apache configs should be reualble on other machines, but phylesystemapi gets a different one
+- name: write /etc/apache2/opentree-shared.conf for phylesystemapi
+  template:
+    src: templates/opentree_phylesystemapi_conf.j2
+    dest: "/etc/apache2/opentree-shared.conf"
+  become: true
+  remote_user: deploy
+  become_method: sudo
+  notify:
+    - restart apache2
+  when: apache_default_web_destination == 'phylesystem-api'
+
+
+- name: enable apache2 modules
+  apache2_module:
+    state: present
+    name: "{{ item }}"
+  with_items:
+    - wsgi
+    - proxy
+    - proxy_http
+    - rewrite
+    - ssl
+    - cgid
+  become: true
+  remote_user: deploy
+  
+- name: Display apache-config template used
+  debug: msg="{{ 'templates/opentree_devapi_conf.j2' if (apache_default_web_destination == 'phylesystem-api') else 'templates/opentree_shared_conf.j2' }}"
 
 - name: enable the opentree site
   file:
