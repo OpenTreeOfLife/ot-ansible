@@ -14,9 +14,10 @@ SHARED_DOCSTORE_PARENT: "{{ install_dir }}/docstore/"
 
 logfile_dir: "/home/{{ ansibleuser }}/logs"
 phylesystem_api_logging_filepath: "{{ logfile_dir }}/phylesystem_api_main.log"
-remote_api_token_path: /home/{{ opentree_user }}/.ssh/OPENTREEAPI_OAUTH_TOKEN
-# try again, from the user's local filesystem?
-local_api_token_path: ~/.ssh/opentree/OPENTREEAPI_OAUTH_TOKEN
+
+# GitHub oath token to create webhooks
+local_api_token_path: secrets/webhook_token
+
 phylesystem_api_config_location: "/home/{{ansibleuser}}/configs/phylesystem_api"
 phylesystem_parent: "{{ SHARED_DOCSTORE_PARENT }}"
   # TODO remove this in favor of phylesystem_repo_parent below?
