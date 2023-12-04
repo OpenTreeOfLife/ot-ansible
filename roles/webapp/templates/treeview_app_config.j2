@@ -18,6 +18,8 @@ github_app_installation_id = {{ treeview_github_app_installation_id }}
 [api_base_urls]
 default_apis = {{ apis_common_base_URL }}
 production_apis = {{ apis_production_base_URL }}
+# We'll also need the production hostname to link to its curation tool from dev
+curation_production_webapp_url = {{ curation_production_webapp_url }}
 # Cached versions of some APIs will speed up repeated calls (see below).
 # These use a simple web2py cache implemented in phylesystem-api
 CACHED_default_apis = {{ apis_common_base_URL }}/cached
