@@ -9,14 +9,13 @@
     state: present
 
 
-## TODO This needs an if stamenet for different roles/python versions. 
-#- name: Install mod-wsgi using apt
-#  become: yes
-#  remote_user: deploy
-#  apt:
-#    name:
-#      - libapache2-mod-wsgi
-#    state: present
+- name: Install mod-wsgi using apt (incl. {{ modwsgi_python_version }})
+  become: yes
+  remote_user: deploy
+  apt:
+    name:
+      - "{{ modwsgi_python_version }}"
+    state: present
 
   become_method: sudo
 
