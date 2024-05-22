@@ -1,8 +1,8 @@
 ---
 - hosts:
     - nexttree
+    - ot69
   gather_facts: False
-  remote_user: "{{ opentree_user }}"
 
   pre_tasks:
     - name: Check Ansible version
@@ -12,7 +12,7 @@
       run_once: yes
 
   vars:
-    new_user: "{{ opentree_user }}"
+    new_user: "{{ remote_user }}"
 
 
   roles:

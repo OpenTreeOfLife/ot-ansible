@@ -3,9 +3,12 @@
 # Variables set here will override settings in roles/defaults
 deploy_custom_synth: true
 deploy_custom_synth_script_fp: /home/deploy/repos/ws_wrapper/scratch/deploy_custom_synth.bash
-opentree_user: opentree
+opentree_user: deploy
 synth_version: 14.8
 ott_version: 3.6
+
+venv_web2py: /home/{{opentree_user}}/venv_web2py
+
 
 # Define base URLs for our various services
 # TODO: remove all of these, in favor of common API base URLs?
