@@ -2,8 +2,8 @@
 # variables for development servers
 # Variables set here will override settings in roles/defaults
 
-synth_version: "14.10"
-ott_version: 3.7
+synth_version: "15.1"
+ott_version: 3.7.2
 phylesystem_repo: phylesystem-0
 
 ## This is used in the apache configs to redirect cached urls, and direct phylesystemapi calls
