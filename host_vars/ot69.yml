@@ -6,6 +6,7 @@ deploy_custom_synth_script_fp: /home/deploy/repos/ws_wrapper/scratch/deploy_cust
 opentree_user: deploy
 synth_version: 14.8
 ott_version: 3.6
+modwsgi_python_version: libapache2-mod-wsgi
 
 venv_web2py: /home/{{opentree_user}}/venv_web2py
 
