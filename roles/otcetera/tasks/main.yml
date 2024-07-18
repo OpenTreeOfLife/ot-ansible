@@ -19,13 +19,13 @@
       - ninja-build
       - libboost-all-dev
       - ccache
+      - cmake
     state: present
 
 - name: Install packages needed for webservices
   become: yes
   apt:
     name:
-      - cmake
       - libssl-dev
       - libcurl4-openssl-dev
       - daemonize

@@ -18,13 +18,14 @@
           - git-core
           - python3-pip
           - python3-venv
+          - python3-virtualenv
           - unzip
         state: present
   vars:
     install_location: "{{ synth_dir }}"
     otcws: False
     otcetera_branch: taxonomy-diff-maker
-    peyotl_branch: synth-on-demand
+    peyotl_branch: python3.12
     peyotl_install_location: "{{ synth_dir }}"
     otc_prefix: "{{ synth_dir }}/local"
     venv_peyotl: "{{ venv_synth }}"

@@ -6,7 +6,7 @@ synth_version: 15.1
 ott_version: 3.7.2
 
 # NB - all public APIs move through a common base URL
-apis_common_base_URL: https://ot37.opentreeoflife.org
+apis_common_base_URL: https://ot39.opentreeoflife.org
 # Some development systems also look to production data
 apis_production_base_URL: https://api.opentreeoflife.org
 
