@@ -10,7 +10,7 @@ apis_common_base_URL: https://ot39.opentreeoflife.org
 # Some development systems also look to production data
 apis_production_base_URL: https://api.opentreeoflife.org
 
-peyotl_otc_ws_branch: master
+peyotl_otc_ws_branch: master-python-3.12
 ws_wrapper_branch: auto-redeploy
 ws_dir: /home/{{ansibleuser}}/ws_dir
 ot_repo_dir: /home/{{opentree_user}}/repos
