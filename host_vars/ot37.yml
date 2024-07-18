@@ -2,8 +2,8 @@
 # variables for development servers
 # Variables set here will override settings in roles/defaults
 
-synth_version: 13.4
-ott_version: 3.3
+synth_version: 15.1
+ott_version: 
 
 
 # Define base URLs for our various services
