@@ -26,6 +26,7 @@ python_version: python3.7
 venv_otcws: /home/{{ansibleuser}}/venv_otcws
 venv_synth: /home/{{ansibleuser}}/venv_synth
 venv_web2py: /home/{{opentree_user}}/venv_web2py
+venv_pyramid: /home/{{opentree_user}}/venv_web2py
 
 # directories
 # these all get created in /home/{{ansibleuser}}
