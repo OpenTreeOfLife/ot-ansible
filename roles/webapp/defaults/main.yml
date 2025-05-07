@@ -17,13 +17,19 @@ opentree_branch: master
 pyramid_python_version: 3.9
 venv_pyramid: venv_pyramid
 
-# synth-tree viewer source
-tree_viewer_git_remote: https://github.com/OpenTreeOfLife/opentree
+# synth-tree viewer source (Pyramid version)
+tree_viewer_git_remote: https://github.com/OpenTreeOfLife/webapp-tree-viewer
 tree_viewer_branch: master
-# TODO: match this for pyramid curation app?
+tree_viewer_config_location: "/home/{{ansibleuser}}/configs/synthetic_tree_viewer"
+# TODO: copy this for pyramid curation app?
 
 # REMINDER: local peyotl is still required!
 peyotl_webapp_branch: master
 
 install_location: "{{ ot_repo_dir }}"
-install_curator: True
+# ignore curator for now... maybe always the safer choice?
+install_curator: False
+
+script_location: "{{ ws_dir }}"
+logfile_dir: "/home/{{ ansibleuser }}/logs"
+tree_viewer_logging_filepath: "{{ logfile_dir }}/synth_tree_viewer.log"
