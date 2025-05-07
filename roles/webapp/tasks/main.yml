@@ -1,29 +1,93 @@
 ---
-- name: "Create python 2.7 virtualenv if it does not already exist"
-  command:
-    cmd: virtualenv -p python2.7 "{{ venv_web2py }}"
-    creates: "{{ venv_web2py }}"
+# Adapted from roles/phylesystem-api (also in Pyramid)
 
-- name: Clone opentree repo
-  git:
-    repo: "{{ opentree_git_remote }}"
-    dest: "{{ install_location }}/opentree"
-    version: "{{ opentree_branch }}"
-    force: yes
-
-
-- name: install opentree prerequisites into {{venv_web2py}}
+- name: uninstall setuptools
   pip:
-    virtualenv: "{{ venv_web2py }}"
-    virtualenv_python: "{{ web2py_python_version }}"
-    requirements: "{{ install_location }}/opentree/requirements.txt"
+    name: setuptools
+    state: absent
+    virtualenv: "{{ venv_pyramid }}"
 
-- name: create link to opentree webapp in web2py applications dir
+- name: Install downgraded setuptools for peyotl install
+  pip:
+    name: setuptools<58.0.0
+    virtualenv: "{{ venv_pyramid }}"
+
+## Install and configure peyotl
+- name: Install peyotl ({{ peyotl_webapp_branch }})
+  include_role:
+    name: peyotl
+  vars:
+    install_location: "{{ repo_dir }}"
+    configure_peyotl: True
+    python_version: python3
+    venv_peyotl: "{{ venv_pyramid }}"
+    peyotl_branch: "{{ peyotl_webapp_branch }}"
+    # TODO? python_version: ??
+
+- name: Clone tree-viewer repo
+  git:
+    repo: "{{ tree_viewer_git_remote }}"
+    dest: "{{ install_dir }}/webapp-tree-viewer"
+    version: "{{ tree_viewer_branch }}"
+
+- name: Install waitress
+  pip:
+    name: waitress
+    virtualenv: "{{ venv_pyramid }}"
+
+- name: Install tree-viewer python requirements
+  pip:
+    # use the output of 'pip freeze' for safest results
+    requirements: "{{ install_dir }}/webapp-tree-viewer/requirements.txt"
+    virtualenv: "{{ venv_pyramid }}"
+    ## NOTE Sometimes requirements.txt can pick up cruft that makes 
+    ## our install fail. In that case, try the looser inputs in
+    ## file  'requirements.in'
+
+- name: Install tree viewer
+  pip:
+    name: "{{ install_location }}/webapp-tree-viewer/synthetic_tree_viewer"
+    extra_args: '-e'
+    virtualenv: "{{ venv_pyramid }}"
+
+- name: Create dir for tree-viewer config file
   file:
-    src: "{{ install_location }}/opentree/webapp"
-    dest: "{{ install_location }}/web2py/applications/opentree"
-    state: link
+    state: directory
+    path: "{{ tree_viewer_config_location }}"
 
+- name: Create tree-viewer config file from template
+  template:
+    src: templates/config.j2
+    dest: "{{ tree_viewer_config_location }}/config.ini"
+
+- name: ensure log directory exists and is writable
+  file:
+      path: "{{ logfile_dir }}"
+      state: directory
+
+- name: ensure tree-viewer log file exists and is writable
+  copy:
+    content: ""
+    dest: "{{ tree_viewer_logging_filepath }}"
+    force: no
+
+- name: create script directory if not found
+  ansible.builtin.file:
+    path: "{{ script_location }}/local/bin"
+    state: directory
+    mode: u=rwx,g=r,o=r
+
+- name: write launch_tree_viewer.sh script
+  template:
+    src: templates/launch_tree_viewer_sh.j2
+    dest: "{{ script_location }}/local/bin/launch_tree_viewer.sh"
+    # we'll call this launcher as the final task
+
+# More details specific to our web apps AS Github apps
+#
+# TODO Review all of this. Where should it go?
+
+# first, the synthetic tree viewer
 - name: Check for client secret
   stat:
     path: "{{ install_location }}/opentree/webapp/private/GITHUB_CLIENT_SECRET"
@@ -48,14 +112,7 @@
     mode: 400
   when: not github_app_priv_key_pem.stat.exists
 
-- name: create link to curator app in web2py applications dir
-  file:
-    src: "{{ install_location }}/opentree/curator"
-    dest: "{{ install_location }}/web2py/applications/curator"
-    state: link
-  when: install_curator
-
-
+# then (perhaps) the study-curation app
 - name: Check for curator secret
   stat:
     path: "{{ install_location }}/opentree/curator/private/GITHUB_CLIENT_SECRET"
@@ -94,15 +151,13 @@
     - restart apache2
   when: install_curator
 
-- name: configure opentree webapp
-  template:
-    src: templates/routes_py.j2
-    dest: "{{ install_location }}/web2py/routes.py"
-  notify:
-    - restart apache2
-
 #- name: copy opentree api token from local machine
 #  ansible.builtin.copy:
 #    src: ~/.ssh/opentree/OPENTREEAPI_OAUTH_TOKEN
 #    dest: /home/{{ opentree_user }}/.ssh/OPENTREEAPI_OAUTH_TOKEN
 #    mode: '0600'
+
+
+- name: "launch tree viewer via launch script"
+  command: "bash {{ script_location }}/local/bin/launch_tree_viewer.sh || exit"
+
