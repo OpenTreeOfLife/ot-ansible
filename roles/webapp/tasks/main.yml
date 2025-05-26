@@ -55,10 +55,27 @@
     state: directory
     path: "{{ tree_viewer_config_location }}"
 
+# TODO: create NON-curatorless config for dev / prod
 - name: Create tree-viewer config file from template
   template:
-    src: templates/config.j2
+    src: templates/treeview_app_config.j2
     dest: "{{ tree_viewer_config_location }}/config.ini"
+
+- name: Create dir for curation-app config file
+  file:
+    state: directory
+    path: "{{ curation_app_config_location }}"
+  notify:
+    - restart apache2
+  when: install_curator
+
+- name: Create curator-app config file from template
+  template:
+    src: templates/curator_app_config.j2
+    dest: "{{ curation_app_config_location }}/config"
+  notify:
+    - restart apache2
+  when: install_curator
 
 - name: ensure log directory exists and is writable
   file:
@@ -117,6 +134,7 @@
   stat:
     path: "{{ install_location }}/opentree/curator/private/GITHUB_CLIENT_SECRET"
   register: github_curator_secret
+  when: install_curator
 
 - name: copy client secret for github curator app to web2py applications dir
   copy:
@@ -129,6 +147,7 @@
   stat:
     path: "{{ install_location }}/opentree/curator/private/GITHUB_APP_PRIVATE_KEY_PEM"
   register: github_curator_app_priv_key_pem
+  when: install_curator
 
 - name: copy private key for github app to web2py applications dir
   copy:
@@ -136,20 +155,6 @@
     dest: "{{ install_location }}/opentree/curator/private/GITHUB_APP_PRIVATE_KEY_PEM"
     mode: 400
   when: (install_curator) and (not github_curator_app_priv_key_pem.stat.exists)
-
-# TODO: create non curatorless config for dev / prod
-- name: configure opentree webapp
-  template:
-    src: templates/treeview_app_config.j2
-    dest: "{{ install_location }}/opentree/webapp/private/config"
-
-- name: configure curator webapp
-  template:
-    src: templates/curator_app_config.j2
-    dest: "{{ install_location }}/opentree/curator/private/config"
-  notify:
-    - restart apache2
-  when: install_curator
 
 #- name: copy opentree api token from local machine
 #  ansible.builtin.copy:

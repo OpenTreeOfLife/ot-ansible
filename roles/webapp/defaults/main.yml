@@ -29,7 +29,9 @@ peyotl_webapp_branch: master
 install_location: "{{ ot_repo_dir }}"
 # ignore curator for now... maybe always the safer choice?
 install_curator: False
+curation_app_config_location: "/home/{{ansibleuser}}/configs/curation_app"
 
+install_dir: "/home/{{ansibleuser}}/repos"
 script_location: "{{ ws_dir }}"
 logfile_dir: "/home/{{ ansibleuser }}/logs"
 tree_viewer_logging_filepath: "{{ logfile_dir }}/synth_tree_viewer.log"

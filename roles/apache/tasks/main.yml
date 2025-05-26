@@ -63,7 +63,7 @@
     - restart apache2
   when:  apache_default_web_destination != 'phylesystem-api'
 
-## Apache configs should be reualble on other machines, but phylesystemapi gets a different one
+## Apache configs should be reusalble on other machines, but phylesystemapi gets a different one
 - name: write /etc/apache2/opentree-shared.conf for phylesystemapi
   template:
     src: templates/opentree_phylesystemapi_conf.j2
