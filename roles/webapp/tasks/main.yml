@@ -22,7 +22,6 @@
     python_version: python3
     venv_peyotl: "{{ venv_pyramid }}"
     peyotl_branch: "{{ peyotl_webapp_branch }}"
-    # TODO? python_version: ??
 
 - name: Clone tree-viewer repo
   git:
