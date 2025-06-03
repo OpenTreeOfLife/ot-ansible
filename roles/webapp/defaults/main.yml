@@ -24,7 +24,7 @@ tree_viewer_config_location: "/home/{{ansibleuser}}/configs/synthetic_tree_viewe
 # TODO: copy this for pyramid curation app?
 
 # REMINDER: local peyotl is still required!
-peyotl_webapp_branch: master
+peyotl_webapp_branch: master-python-3.12
 
 install_location: "{{ ot_repo_dir }}"
 # ignore curator for now... maybe always the safer choice?
