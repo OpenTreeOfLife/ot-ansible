@@ -1,17 +1,4 @@
 ---
-# Adapted from roles/phylesystem-api (also in Pyramid)
-
-- name: uninstall setuptools
-  pip:
-    name: setuptools
-    state: absent
-    virtualenv: "{{ venv_pyramid }}"
-
-- name: Install downgraded setuptools for peyotl install
-  pip:
-    name: setuptools<58.0.0
-    virtualenv: "{{ venv_pyramid }}"
-
 ## Install and configure peyotl
 - name: Install peyotl ({{ peyotl_webapp_branch }})
   include_role:
