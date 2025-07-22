@@ -152,7 +152,7 @@
   # required to allow apache to find + use its files
   user:
     name: "www-data"
-    groups: "deploy"
+    groups: "{{ ansible_user }}"
     append: yes
   become: yes
 
