@@ -148,6 +148,13 @@
 #    dest: /home/{{ opentree_user }}/.ssh/OPENTREEAPI_OAUTH_TOKEN
 #    mode: '0600'
 
+- name: Add user www-data to deploy group
+  # required to allow apache to find + use its files
+  user:
+    name: "www-data"
+    groups: "deploy"
+    append: yes
+  become: yes
 
 - name: "launch tree viewer via launch script"
   command: "bash {{ script_location }}/local/bin/launch_tree_viewer.sh || exit"
