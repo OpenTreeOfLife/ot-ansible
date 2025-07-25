@@ -80,12 +80,12 @@
     path: "{{ install_location }}/opentree/webapp/private/GITHUB_CLIENT_SECRET"
   register: github_client_secret
 
-- name: copy client secret for github treeview app to web2py applications dir
-  copy:
-    src: "{{ tree_explorer_client_secret }}"
-    dest: "{{ install_location }}/opentree/webapp/private/GITHUB_CLIENT_SECRET"
-    mode: 400
-  when: not github_client_secret.stat.exists
+# - name: copy client secret for github treeview app to web2py applications dir
+#   copy:
+#     src: "{{ tree_explorer_client_secret }}"
+#     dest: "{{ install_location }}/opentree/webapp/private/GITHUB_CLIENT_SECRET"
+#     mode: 400
+#   when: not github_client_secret.stat.exists
 
 - name: Check for app key
   stat:
@@ -112,12 +112,12 @@
     path: "{{ install_location }}/opentree/curator/private/GITHUB_CLIENT_SECRET"
   register: github_curator_secret
 
-- name: copy client secret for github curator app to web2py applications dir
-  copy:
-    src: "{{ curator_client_secret }}"
-    dest: "{{ install_location }}/opentree/curator/private/GITHUB_CLIENT_SECRET"
-    mode: 400
-  when: (install_curator) and (not github_curator_secret.stat.exists)
+# - name: copy client secret for github curator app to web2py applications dir
+#   copy:
+#     src: "{{ curator_client_secret }}"
+#     dest: "{{ install_location }}/opentree/curator/private/GITHUB_CLIENT_SECRET"
+#     mode: 400
+#   when: (install_curator) and (not github_curator_secret.stat.exists)
 
 - name: Check for curator app key
   stat:
