@@ -16,3 +16,4 @@ ws_dir: /home/{{ansibleuser}}/ws_dir
 ot_repo_dir: /home/{{opentree_user}}/repos
 chronosynth_branch: dev
 
+install_curator: True

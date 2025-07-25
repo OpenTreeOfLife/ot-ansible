@@ -2,6 +2,7 @@
 - hosts:
     - nexttree
     - ot69
+    - ot71
   gather_facts: False
 
   pre_tasks:
