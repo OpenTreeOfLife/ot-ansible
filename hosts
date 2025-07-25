@@ -41,6 +41,10 @@ all:
           host: devtree
           ansible_host: devtree.opentreeoflife.org
           opentree_branch: staging
+        ot71:
+          host: ot71
+          ansible_host: ot71.opentreeoflife.org
+          opentree_branch: master
     devapi:
       hosts:
         devapi:
