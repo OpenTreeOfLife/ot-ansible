@@ -1,5 +1,55 @@
-[security]
-secure_sessions_with_HTTPS = true
+###
+# app configuration
+# https://docs.pylonsproject.org/projects/pyramid/en/latest/narr/environment.html
+###
+
+[app:main]
+use = egg:synthetic_tree_viewer
+pyramid.default_locale_name = en
+
+{% if enable_pyramid_dev_tools == true %}
+  pyramid.reload_templates = true
+  pyramid.debug_authorization = true
+  pyramid.debug_notfound = true
+  pyramid.debug_routematch = true
+{% else %}
+  pyramid.reload_templates = false
+  pyramid.debug_authorization = false
+  pyramid.debug_notfound = false
+  pyramid.debug_routematch = false
+{% endif %}
+
+pyramid.includes =
+    # add more here
+    "{{ 'pyramid_debugtoolbar' if enable_pyramid_dev_tools else '' }}"
+
+# Leave a trail pointing to this file, so the webapp can
+# parse and examine the app-specific sections below:
+path_to_app_config = "{{ tree_viewer_config_file }}"
+
+###
+# wsgi server configuration
+###
+
+[server:main]
+# waitress behind Apache (reverse proxy w/ HTTPS)
+use = egg:waitress#main
+listen = *:6545
+# IMPORTANT: tell Pyramid to generate URLs with HTTPS
+url_scheme=https
+#url_scheme=http
+
+
+
+
+
+###
+### Settings below will be read by directly parsing this file
+### from within the webapp code. (Otherwise it's blind to
+### everything in this file except the values defined in [app:main]
+### above. We use that section to leave a breadcrumb trail
+### (filesystem path) back to this config file.
+###
 
 [apis]
 # These values can be obtained by registering your instance as an

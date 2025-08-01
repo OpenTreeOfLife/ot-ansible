@@ -39,18 +39,18 @@
 - name: Create dir for tree-viewer config file
   file:
     state: directory
-    path: "{{ tree_viewer_config_location }}"
+    path: "{{ tree_viewer_config_dir }}"
 
 # TODO: create NON-curatorless config for dev / prod
 - name: Create tree-viewer config file from template
   template:
     src: templates/treeview_app_config.j2
-    dest: "{{ tree_viewer_config_location }}/config.ini"
+    dest: "{{ tree_viewer_config_file }}"
 
 - name: Create dir for curation-app config file
   file:
     state: directory
-    path: "{{ curation_app_config_location }}"
+    path: "{{ curation_app_config_dir }}"
   notify:
     - restart apache2
   when: install_curator
@@ -58,7 +58,7 @@
 - name: Create curator-app config file from template
   template:
     src: templates/curator_app_config.j2
-    dest: "{{ curation_app_config_location }}/config"
+    dest: "{{ curation_app_config_file }}"
   notify:
     - restart apache2
   when: install_curator

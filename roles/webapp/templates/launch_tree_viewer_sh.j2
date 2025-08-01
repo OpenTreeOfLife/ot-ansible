@@ -30,5 +30,5 @@ daemonize -p "$PID_FILE" \
           -e "{{ tree_viewer_logging_filepath }}" \
           -o "{{ tree_viewer_logging_filepath }}" \
           -c "{{ install_dir }}/webapp-tree-viewer/synthetic_tree_viewer" \
-          "{{ venv_pyramid }}/bin/pserve" "{{ tree_viewer_config_location }}/config.ini" || exit
+          "{{ venv_pyramid }}/bin/pserve" "{{ tree_viewer_config_file }}" || exit
 
