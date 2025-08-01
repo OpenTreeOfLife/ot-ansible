@@ -62,7 +62,7 @@
   become_method: sudo
   notify:
     - restart apache2
-  when:  apache_default_web_destination != 'phylesystem-api'
+  when:  apache_default_web_destination is None
 
 ## Apache configs should be reusalble on other machines, but phylesystemapi gets a different one
 - name: write /etc/apache2/opentree-shared.conf for phylesystemapi
@@ -74,7 +74,7 @@
   become_method: sudo
   notify:
     - restart apache2
-  when: apache_default_web_destination == 'phylesystem-api'
+  when: apache_default_web_destination is not None
 
 
 - name: enable apache2 modules
@@ -92,7 +92,7 @@
   remote_user: deploy
   
 - name: Display apache-config template used
-  debug: msg="{{ 'templates/opentree_devapi_conf.j2' if (apache_default_web_destination == 'phylesystem-api') else 'templates/opentree_shared_conf.j2' }}"
+  debug: msg="{{ 'templates/opentree_devapi_conf.j2' if (apache_default_web_destination is not None) else 'templates/opentree_shared_conf.j2' }}"
 
 - name: enable the opentree site
   file:

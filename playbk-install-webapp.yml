@@ -3,6 +3,10 @@
     - devtree
   gather_facts: False
 
+  vars:
+    # where should Apache send requests that have not previously matched elsewhere?
+    apache_default_web_destination: webapp-tree-viewer
+
   pre_tasks:
     - name: Check Ansible version
       assert:
