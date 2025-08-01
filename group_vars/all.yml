@@ -43,6 +43,9 @@ logfile_dir: /home/{{ansibleuser}}/logs
 
 peyotl_git_remote: https://github.com/OpenTreeOfLife/peyotl
 
+# Disable Pyramid dev tools by default (fail safe)
+enable_pyramid_dev_tools: false
+
 # Synthesis tree and open tree taxonomy download locations
 # Set versions in production.yml, development.yml, or nexttree.yml
 ott_version: 3.3

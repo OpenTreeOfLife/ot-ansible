@@ -2,6 +2,9 @@
 # variables for devtree server
 # Variables set here will override settings in role/*/defaults/main.yml
 
+# Enable live templates, debug toolbar, etc. for Pyramid apps
+enable_pyramid_dev_tools: true
+
 synth_version: 13.4
 ott_version: 3.3
 
