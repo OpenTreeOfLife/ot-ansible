@@ -95,10 +95,15 @@
     </Location>
 
 {% elif apache_default_web_destination == 'webapp-tree-viewer' %}
-
     # Using a different port for tree viewer (for clarity in Ansible)
+
     SSLProxyEngine On
       # enable proxying via HTTPS
+
+    ServerName devtree.opentreeoflife.com
+    ProxyPreserveHost On
+      # to ensure Pyramid URLs use our public domain
+
     <Location />
       Require all granted
       ProxyPass  https://localhost:6545/
