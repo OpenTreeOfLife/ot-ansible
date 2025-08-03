@@ -21,11 +21,11 @@ pyramid.default_locale_name = en
 
 pyramid.includes =
     # add more here
-    "{{ 'pyramid_debugtoolbar' if enable_pyramid_dev_tools else '' }}"
+    # "{{ 'pyramid_debugtoolbar' if enable_pyramid_dev_tools else '' }}"
 
 # Leave a trail pointing to this file, so the webapp can
 # parse and examine the app-specific sections below:
-path_to_app_config = "{{ tree_viewer_config_file }}"
+path_to_app_config = {{ tree_viewer_config_file }}
 
 ###
 # wsgi server configuration

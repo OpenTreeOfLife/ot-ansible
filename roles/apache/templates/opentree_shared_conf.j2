@@ -86,17 +86,26 @@
     </LocationMatch>
 
 {% if apache_default_web_destination == 'phylesystem-api' %}
-    # 6544 = default port for phylesytem-api (Pyramid)
+
+    # port 6544 = default for phylesytem-api (Pyramid)
     <Location />
       Require all granted
       ProxyPass  http://localhost:6544/
       ProxyPassReverse  http://localhost:6544/
     </Location>
+
 {% elif apache_default_web_destination == 'webapp-tree-viewer' %}
+
     # Using a different port for tree viewer (for clarity in Ansible)
+    SSLProxyEngine On
+      # enable proxying via HTTPS
     <Location />
       Require all granted
+      ProxyPass  https://localhost:6545/
+      ProxyPassReverse  https://localhost:6545/
+      ## Do we need HTTP versions, too? Apparently so.
       ProxyPass  http://localhost:6545/
       ProxyPassReverse  http://localhost:6545/
     </Location>
+
 {% endif %}
