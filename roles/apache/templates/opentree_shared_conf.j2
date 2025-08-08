@@ -9,7 +9,8 @@
     #RedirectMatch 302 ^(.*)$ http://opentreeoflife.github.io/maintenance.html
 
     # redirect taxo browsing to a separate static page
-    Alias "/taxonomy/browse" "{{ repo_dir }}/webapp-tree-viewer/synthetic_tree_viewer/synthetic_tree_viewer/static/taxobrowse.html"
+    # DISABLING THIS and moving this page to a standard Pyramid template
+    #Alias "/taxonomy/browse" "{{ repo_dir }}/webapp-tree-viewer/synthetic_tree_viewer/synthetic_tree_viewer/static/taxobrowse.html"
 
     # ANSIBLE-based deploy currently just commented out because we are not
     #   deploying any tools from phylesystem-api on these machines...
