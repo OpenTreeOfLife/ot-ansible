@@ -125,7 +125,7 @@
 # suppress annoying apache log warning
 - name: set global apache ServerName
   ansible.builtin.lineinfile:
-    path: /etc/httpd/conf/httpd.conf  # Adjust path for your distribution
+    path: /etc/httpd/httpd.conf  # Adjust path for your distribution
     regexp: '^#?ServerName'
     line: 'ServerName {{ ansible_host }}' # or a specific FQDN
     state: present
