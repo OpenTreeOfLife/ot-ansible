@@ -90,9 +90,6 @@
   become: true
   remote_user: deploy
   
-- name: Display apache-config template used
-  debug: msg="{{ 'templates/opentree_devapi_conf.j2' if (apache_default_web_destination is none) else 'templates/opentree_shared_conf.j2' }}"
-
 - name: enable the opentree site
   file:
     src: /etc/apache2/sites-available/opentree.conf
@@ -119,6 +116,19 @@
   file:
     dest: /etc/apache2/sites-enabled/000-default.conf
     state: absent
+  become: true
+  remote_user: deploy
+  become_method: sudo
+  notify:
+    - restart apache2
+
+# suppress annoying apache log warning
+- name: set global apache ServerName
+  ansible.builtin.lineinfile:
+    path: /etc/httpd/conf/httpd.conf  # Adjust path for your distribution
+    regexp: '^#?ServerName'
+    line: 'ServerName {{ ansible_host }}' # or a specific FQDN
+    state: present
   become: true
   remote_user: deploy
   become_method: sudo
