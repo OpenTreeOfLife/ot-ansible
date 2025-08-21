@@ -24,7 +24,7 @@
           - git-core
           - python3-pip
           - python3-venv
-          - python-setuptools
+          - python3-setuptools
           - virtualenv
           - unzip
           - daemonize

@@ -39,7 +39,7 @@ curator_github_redirect_uri: "https://devtree.opentreeoflife.org/curator/user/lo
 curator_github_app_installation_id: 7917657
 
 # whether to install the curator app (False on nexttree)
-install_curator: True
+install_curator: False
 
 
 # all of the synthesis repos and data in synth_dir and all of the

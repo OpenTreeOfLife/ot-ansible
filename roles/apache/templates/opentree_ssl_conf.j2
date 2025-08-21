@@ -29,7 +29,7 @@
     WSGIProcessGroup web2py
     WSGIScriptAlias / {{ ot_repo_dir }}/web2py/wsgihandler.py
 
-    <Directory {{ ot_repo_dir }}/web2py>
+    <Directory {{ ot_repo_dir }}/webapp-tree-viewer/synthetic_tree_viewer>
       AllowOverride None
       Require all denied
       <Files wsgihandler.py>
@@ -37,8 +37,8 @@
       </Files>
     </Directory>
 
-    AliasMatch ^/([^/]+)/static/(.*)            {{ ot_repo_dir }}/web2py/applications/$1/static/$2
-    <Directory {{ ot_repo_dir }}/web2py/applications/*/static/>
+    AliasMatch ^/([^/]+)/static/(.*)            {{ ot_repo_dir }}/webapp-tree-viewer/$1/static/$2
+    <Directory {{ ot_repo_dir }}/webapp-tree-viewer/*/static/>
       Require all granted
     </Directory>
 

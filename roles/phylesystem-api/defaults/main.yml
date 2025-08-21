@@ -1,5 +1,5 @@
 ---
-# NOTE that we'll default to save (dev) values here to avoid disasters on
+# NOTE that we'll default to safe (dev) values here to avoid disasters on
 # production. For staging, production, or other situations, override at the
 # host level by creating '{host}.yml` (for example `phylesystemapi.yml`,
 # `production.yml`, ...)
