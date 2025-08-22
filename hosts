@@ -19,10 +19,6 @@ all:
           ansible_host: ot67.opentreeoflife.org
     nexttree:
       hosts:
-        ot37:
-          host: ot37
-          ansible_host: ot37.opentreeoflife.org
-          otcetera_branch: development
         ot38:
           host: ot38
           ansible_host: ot38.opentreeoflife.org
@@ -45,6 +41,12 @@ all:
           host: ot71
           ansible_host: ot71.opentreeoflife.org
           opentree_branch: master
+    customsynth:
+      hosts:
+        ot37:
+          host: ot37
+          ansible_host: ot37.opentreeoflife.org
+          otcetera_branch: development
     devapi:
       hosts:
         devapi:

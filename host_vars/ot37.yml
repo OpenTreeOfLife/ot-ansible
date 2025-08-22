@@ -1,7 +1,7 @@
 ---
 deploy_custom_synth: false
 deploy_custom_synth_script_fp:
-opentree_user: opentree
+opentree_user: deploy
 synth_version: 15.1
 ott_version: 3.7.2
 
@@ -10,9 +10,17 @@ apis_common_base_URL: https://ot37.opentreeoflife.org
 # Some development systems also look to production data
 apis_production_base_URL: https://api.opentreeoflife.org
 
-peyotl_otc_ws_branch: master-python-3.12
-ws_wrapper_branch: auto-redeploy
+peyotl_otc_ws_branch: master
+ws_wrapper_branch: master
 ws_dir: /home/{{ansibleuser}}/ws_dir
 ot_repo_dir: /home/{{opentree_user}}/repos
 chronosynth_branch: dev
 
+install_curator: True
+
+
+#GitHub app secrets and keys, set in https://github.com/organizations/OpenTreeOfLife/settings/apps/
+tree_explorer_pem_path: secrets/open-tree-tree-explorer.private-key.pem
+tree_explorer_client_secret: secrets/treeview_client_secret
+curator_pem_path: secrets/open-tree-curation-tool.private-key.pem 
+curator_client_secret: secrets/curator_client_secret

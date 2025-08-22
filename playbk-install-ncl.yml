@@ -2,6 +2,7 @@
 - hosts:
     - devtree
     - ot71
+    - customsynth
   gather_facts: False
 
   pre_tasks:
